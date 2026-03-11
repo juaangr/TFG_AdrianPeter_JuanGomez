@@ -1,15 +1,17 @@
+//Plugin o mejor dicho interruptor para activar las funciones de Realm/MongoDB
 plugins {
     alias(libs.plugins.android.application)
+    id("realm-android")
 }
 
 android {
-    namespace = "com.example.miapp2trimes"
+    namespace = "com.example.SportsGO"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.miapp2trimes"
+        applicationId = "com.example.SportsGO"
         minSdk = 27
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -29,6 +31,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+}
+//Activamos las sincronizacion
+realm{
+    isSyncEnabled = true
 }
 
 dependencies {
