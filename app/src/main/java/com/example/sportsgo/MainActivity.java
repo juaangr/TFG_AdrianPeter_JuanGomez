@@ -15,7 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.SportsGO.R;
+import com.example.sportsgo.R;
 
 public class  MainActivity extends AppCompatActivity {
     private EditText etNombre, etEdad;

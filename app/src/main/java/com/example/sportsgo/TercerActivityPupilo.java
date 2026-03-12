@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.SportsGO.R;
+import com.example.sportsgo.R;
 
 import java.util.ArrayList;
 

@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.SportsGO.R;
+import com.example.sportsgo.R;
 
 public class DialogoAlerta {
     public interface OnResultadoDialogo{
