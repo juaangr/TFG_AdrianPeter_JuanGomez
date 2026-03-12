@@ -1,4 +1,4 @@
-# 🏋️‍♂️ SportSync: Plataforma de Gestión Deportiva
+# 🏋️‍♂️ SportsGO: Plataforma de Gestión Deportiva
 
 > **Proyecto TFG** | Android Studio + Realm/MongoDB Atlas
 
