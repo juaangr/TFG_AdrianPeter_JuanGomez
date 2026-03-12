@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.SportsGO"
+    namespace = "com.example.sportsgo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.SportsGO"
+        applicationId = "com.example.sportsgo"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
