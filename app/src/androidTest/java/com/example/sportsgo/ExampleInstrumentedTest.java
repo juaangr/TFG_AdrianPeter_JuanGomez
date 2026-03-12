@@ -1,4 +1,4 @@
-package com.example.miapp2trimes;
+package com.example.sportsgo;
 
 import android.content.Context;
 

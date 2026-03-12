@@ -1,4 +1,4 @@
-package com.example.miapp2trimes;
+package com.example.sportsgo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+
+import com.example.SportsGO.R;
 
 public class DialogoAlerta {
     public interface OnResultadoDialogo{

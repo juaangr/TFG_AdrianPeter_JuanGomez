@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MiApp2Trimes"
+rootProject.name = "SportsGO"
 include(":app")
  
