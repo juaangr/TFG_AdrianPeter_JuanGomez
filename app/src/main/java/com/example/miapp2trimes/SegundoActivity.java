@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.SportsGO.R;
+
 public class SegundoActivity extends AppCompatActivity {
 
     private TextView tvInfoEdad, tvCalorias;
@@ -22,7 +24,6 @@ public class SegundoActivity extends AppCompatActivity {
     private RadioButton rgH, rgM;
     private RadioButton rbSedentario, rbLigero, rbModerado, rbFuerte;
     private Button btnCalcular, btnEntrenamientos;
-
     private int edad;
     private int caloriasFinales = 0;
 
@@ -70,7 +71,7 @@ public class SegundoActivity extends AppCompatActivity {
             if (caloriasFinales <= 0) {
                 Toast.makeText(this, "Debes calcular las calorías primero", Toast.LENGTH_SHORT).show();
             } else {
-                Intent intent = new Intent(SegundoActivity.this, TercerActivity.class);
+                Intent intent = new Intent(SegundoActivity.this, TercerActivityPupilo.class);
                 intent.putExtra("key_calorias", caloriasFinales);
                 startActivity(intent);
             }

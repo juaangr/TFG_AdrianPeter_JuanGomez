@@ -5,12 +5,12 @@ import android.app.Application;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class SportsGO extends Application {
+public class RealmApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
 
-        //Inicializamos Realm
+        //1. Inicializamos Realm
         Realm.init(this);
 
         //2. Configuracion de Realm para la bases de datos de la app

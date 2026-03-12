@@ -1,24 +1,18 @@
 package com.example.miapp2trimes;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.SportsGO.R;
 
 import java.util.ArrayList;
 
-public class TercerActivity extends AppCompatActivity {
-
+public class TercerActivityPupilo extends AppCompatActivity {
     private Button button;
     private ListView listView;
     @SuppressLint("MissingInflatedId")
@@ -36,10 +30,8 @@ public class TercerActivity extends AppCompatActivity {
         ejercicios.add(new Ejercicios("Triceps", R.drawable.triceps,6,10,"10Kg"));
         ejercicios.add(new Ejercicios("Hombro", R.drawable.hombro,4,14,"5Kg"));
 
-        EjercicioAdapter adapter = new EjercicioAdapter(TercerActivity.this, ejercicios);
+        EjercicioAdapter adapter = new EjercicioAdapter(TercerActivityPupilo.this, ejercicios);
         listView.setAdapter(adapter);
-
-
 
         button.setOnClickListener(v ->
                 Toast.makeText(this, "Sesion finalizada con exito ¡Vuelve pronto!", Toast.LENGTH_SHORT).show());
