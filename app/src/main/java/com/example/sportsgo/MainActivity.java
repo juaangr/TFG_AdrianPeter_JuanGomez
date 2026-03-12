@@ -15,8 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.sportsgo.R;
-
 public class  MainActivity extends AppCompatActivity {
     private EditText etNombre, etEdad;
     private Button btn;
@@ -54,7 +52,7 @@ public class  MainActivity extends AppCompatActivity {
                         editor.putInt("user_edad", edad);
                         editor.apply();
 
-                        Intent intent = new Intent(MainActivity.this, SegundoActivity.class);
+                        Intent intent = new Intent(MainActivity.this, SegundoActivityPupilo.class);
                         intent.putExtra("key_nombre", nombre);
                         intent.putExtra("key_edad", edad);
                         startActivity(intent);

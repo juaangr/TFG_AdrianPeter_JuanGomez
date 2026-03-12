@@ -23,7 +23,7 @@
 
         <!-- 2. AÑADIDO EXPORTED=FALSE POR SEGURIDAD -->
         <activity
-            android:name=".SegundoActivity"
+            android:name=".SegundoActivityPupilo"
             android:exported="false" />
 
         <activity

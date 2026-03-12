@@ -1,205 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FA"
     android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tvBienvenida"
-        android:hint="Aqui apareceran los datos del USUARIO"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:padding="20dp">
+        <ImageView
+            android:id="@+id/ivFondo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerInside"
+            android:alpha="0.15"
+            android:src="@drawable/biceps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        android:text="¡Bienvendio a SportsGO!"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="#000000"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <TextView
-        android:id="@+id/tvInfoEdad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Tu edad es: -- años"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-black"
-        app:layout_constraintTop_toBottomOf="@id/tvBienvenida"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-        android:id="@+id/Instrucciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Introduce tus datos para la Tasa Metabolica Basal"
-        android:fontFamily="sans-serif-black"
-
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/tvInfoEdad"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-        android:id="@+id/etAltura"
-
-        android:hint="Aqui pon tu altura en CM"
-        android:textSize="22sp"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/Instrucciones"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <EditText
-        android:id="@+id/etPeso"
-
-        android:hint="Aqui pon tu peso en KG"
-        android:textSize="22sp"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/etAltura"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <RadioGroup
-        android:id="@+id/rgSexo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintTop_toBottomOf="@id/etPeso"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <RadioButton
-            android:id="@+id/rbHombre"
+        <!-- Encabezado con Estilo -->
+        <TextView
+            android:id="@+id/tvBienvenida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hombre" />
-        <RadioButton
-            android:id="@+id/rbMujer"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="¡Bienvenido a SportsGO!"
+            android:textColor="#1A202C"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvInfoEdad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mujer" />
-    </RadioGroup>
-    <TextView
-        android:id="@+id/txtView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Tu edad es: -- años"
+            android:textColor="#718096"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBienvenida" />
 
-        android:text="Nivel de Activiad que tienes: "
-        android:textSize="20dp"
-        android:fontFamily="sans-serif-black"
+        <!-- Tarjeta de Datos Físicos -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/tvInfoEdad">
 
-        app:layout_constraintTop_toBottomOf="@id/rgSexo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <RadioGroup
-        android:id="@+id/rgActividad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        app:layout_constraintTop_toBottomOf="@id/txtView1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <RadioButton
-        android:id="@+id/rbSedentario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Datos Corporales"
+                    android:textColor="#2D3748"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-        android:text="Sedentario"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Altura (cm)"
+                    app:startIconDrawable="@android:drawable/ic_menu_sort_by_size">
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtView1"
-        />
-    <RadioButton
-        android:id="@+id/rbLigero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAltura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        android:text="Ligero"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Peso (kg)"
+                    app:startIconDrawable="@android:drawable/ic_menu_set_as">
 
-        app:layout_constraintStart_toEndOf="@id/rbSedentario"
-        app:layout_constraintTop_toBottomOf="@id/txtView1"
-        />
-    <RadioButton
-        android:id="@+id/rbModerado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPeso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        android:text="Moderado"
+                <!-- SPINNER DE OBJETIVO -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Objetivo Personal">
 
-        app:layout_constraintStart_toEndOf="@id/rbLigero"
-        app:layout_constraintTop_toBottomOf="@id/txtView1"
-        />
-    <RadioButton
-        android:id="@+id/rbFuerte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                    <AutoCompleteTextView
+                        android:id="@+id/spinnerObjetivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:padding="16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        android:text="Fuerte"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Género" />
 
-        app:layout_constraintStart_toEndOf="@id/rbModerado"
-        app:layout_constraintTop_toBottomOf="@id/txtView1"
-        />
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        app:layout_constraintTop_toBottomOf="@id/rbModerado"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+                <RadioGroup
+                    android:id="@+id/rgSexo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnCalcular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                    <RadioButton
+                        android:id="@+id/rbHombre"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Hombre" />
 
-        android:text="CALCULAR"
-        android:textSize="20sp"
+                    <RadioButton
+                        android:id="@+id/rbMujer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mujer" />
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        android:layout_marginTop="30dp"
+        <!-- Tarjeta de Actividad -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardActividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/cardDatos">
 
-        app:layout_constraintTop_toBottomOf="@id/spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-        android:id="@+id/txtView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        android:text="Calorias necesarias: --"
-        android:textSize="30sp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Nivel de Actividad Diaria"
+                    android:textColor="#2D3748"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-        app:layout_constraintTop_toBottomOf="@id/btnCalcular"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <Button
-        android:id="@+id/btnContinuar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                <RadioGroup
+                    android:id="@+id/rgActividad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        android:text="Ver entrenamientos"
-        android:textSize="30dp"
-        android:textStyle="bold"
+                    <RadioButton
+                        android:id="@+id/rbSedentario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sedentario (Oficina/Reposo)" />
 
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/txtView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <RadioButton
+                        android:id="@+id/rbLigero"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ligero (1-3 días/sem)" />
+
+                    <RadioButton
+                        android:id="@+id/rbModerado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Moderado (3-5 días/sem)" />
+
+                    <RadioButton
+                        android:id="@+id/rbFuerte"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fuerte (6-7 días/sem)" />
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Sección de Resultados -->
+        <Button
+            android:id="@+id/btnCalcular"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:text="CALCULAR TMB"
+            android:textSize="28sp"
+            app:cornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/cardActividad" />
+
+        <TextView
+            android:id="@+id/txtView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Calorías diarias: -- kcal"
+            android:textColor="#2B6CB0"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCalcular" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinuar"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="VER MIS ENTRENAMIENTOS"
+            android:textSize="22dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#37568A"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtView2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
