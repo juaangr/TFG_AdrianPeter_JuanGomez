@@ -6,25 +6,24 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.io.IOException;
 
 public class SegundoActivityPupilo extends AppCompatActivity {
 
-    private TextView tvInfoEdad, tvCalorias;
-    private EditText etPeso, etAltura;
-    private AutoCompleteTextView spinner;
-    private RadioGroup rgSexo;
-    private RadioButton rgH, rgM;
-    private RadioButton rbSedentario, rbLigero, rbModerado, rbFuerte;
+    private TextView tvCalorias;
+    private TextInputEditText etPeso, etAltura, etEdad;
+    private AutoCompleteTextView spinnerObjetivo;
+    private RadioGroup rgSexo, rgActividad;
+    private RadioButton rbH;
     private Button btnCalcular, btnEntrenamientos;
-    private int edad;
     private int caloriasFinales = 0;
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
@@ -33,22 +32,27 @@ public class SegundoActivityPupilo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.segundo_activity);
 
-        // Referencias UI
-        tvInfoEdad = findViewById(R.id.tvInfoEdad);
+        // TextView en el cual se veran reflejadas las calorias
         tvCalorias = findViewById(R.id.txtView2);
+
+        //EditText de peso, altura y edad
         etPeso = findViewById(R.id.etPeso);
         etAltura = findViewById(R.id.etAltura);
+        etEdad = findViewById(R.id.etEdad);
+
+        //RadioGroup del sexo
         rgSexo = findViewById(R.id.rgSexo);
-        spinner = findViewById(R.id.spinnerObjetivo);
 
-        rbSedentario = findViewById(R.id.rbSedentario);
-        rbLigero = findViewById(R.id.rbLigero);
-        rbModerado = findViewById(R.id.rbModerado);
-        rbFuerte = findViewById(R.id.rbFuerte);
+        //Spinner de objetivos
+        spinnerObjetivo = findViewById(R.id.spinnerObjetivo);
 
-        rgH = findViewById(R.id.rbHombre);
-        rgM = findViewById(R.id.rbMujer);
+        //RadioGroup de la actividad diaria del pupilo
+        rgActividad = findViewById(R.id.rgActividad);
 
+        //RadioButton del sexo del pupilo que en este caso solo declaramos la de hombre
+        rbH = findViewById(R.id.rbHombre);
+
+        //Botones de calcular y continuar
         btnCalcular = findViewById(R.id.btnCalcular);
         btnEntrenamientos = findViewById(R.id.btnContinuar);
 
@@ -59,77 +63,67 @@ public class SegundoActivityPupilo extends AppCompatActivity {
                 android.R.layout.simple_spinner_item,
                 objetivos
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        //Aqui declaramos el spinner de objetivos
+        spinnerObjetivo.setAdapter(adapter);
 
-        // Recibir edad
-        edad = getIntent().getIntExtra("key_edad", -1);
-        tvInfoEdad.setText("Tienes: " + edad + " años");
-
+        //Accion del boton de calcular
         btnCalcular.setOnClickListener(v -> calcularCalorias());
 
+        // Boton de continuar en el que cuando la condicion tiene mas de 0 calorias
+        // se pasa a la siguiente actividad al dar al boton de ver entrenamientos
         btnEntrenamientos.setOnClickListener(v -> {
-            if (caloriasFinales <= 0) {
-                Toast.makeText(this, "Debes calcular las calorías primero", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(SegundoActivityPupilo.this, TercerActivityPupilo.class);
-                intent.putExtra("key_calorias", caloriasFinales);
+            if (caloriasFinales > 0) {
+                Intent intent = new Intent(this, TercerActivityPupilo.class);
+                intent.putExtra("calorias", caloriasFinales);
                 startActivity(intent);
+            } else {
+                Toast.makeText(this, "Debes calcular las calorías primero", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //El metodo del calculo total de calorias del pupilo
     private void calcularCalorias() {
         String strPeso = etPeso.getText().toString();
         String strAltura = etAltura.getText().toString();
+        String strEdad = etEdad.getText().toString();
 
-        if (etPeso.getText().toString().isEmpty() || etAltura.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Rellena peso y altura", Toast.LENGTH_SHORT).show();
+        //Condicion para que todos los campos esten obligatoriamente rellenos para continuar
+        if (etPeso.getText().toString().isEmpty() || etAltura.getText().toString().isEmpty() || etEdad.getText().toString().isEmpty() || rgSexo.getCheckedRadioButtonId() == -1 || rgActividad.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Faltan algunos campos por complentar", Toast.LENGTH_SHORT).show();
             return;
         }
-        try{
-            double peso = Double.parseDouble(etPeso.getText().toString());
-            double altura = Double.parseDouble(etAltura.getText().toString());
 
-            if (rgSexo.getCheckedRadioButtonId() == -1) {
-                Toast.makeText(this, "Selecciona el sexo", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            double peso = Double.parseDouble(strPeso);
+            double altura = Double.parseDouble(strAltura);
+            int edad = Integer.parseInt(strEdad);
 
-            // TMB (Harris-Benedict)
+            // Formula TMB Harris-Benedict
             double tmb;
-            if (rgH.isChecked()) {
-                tmb = (10 * peso) + (6.25 * altura) - (5 * edad) + 5;
-            } else {
-                tmb = (10 * peso) + (6.25 * altura) - (5 * edad) - 161;
+            if(rbH.isChecked()){
+                tmb = (10*peso) + (6.25*altura) -(5*edad) +5;
+            }else{
+                tmb = (10*peso) + (6.25*altura) -(5*edad) -161;
             }
 
-            // Nos traemos el objetivo seleccionado por el pupilo
-            String objetivo = spinner.getText().toString();
-            int ajusteObjetivo = 0;
-            if (objetivo.equals("Bajar de peso")) ajusteObjetivo = -500;
-            else if (objetivo.equals("Subir de peso")) ajusteObjetivo = 500;
+            //Factor de actividad diaria del usuario
+            double factor;
+            int idAct = rgActividad.getCheckedRadioButtonId();
+            if(idAct == R.id.rbSedentario) factor = 1.2;
+            else if(idAct == R.id.rbLigero) factor =1.375;
+            else if(idAct == R.id.rbModerado) factor = 1.5;
+            else factor = 1.725;
 
-            // Actividad física
-            double factorActividad;
-            if (rbSedentario.isChecked()) {
-                factorActividad = 1.2;
-            } else if (rbLigero.isChecked()) {
-                factorActividad = 1.375;
-            } else if (rbModerado.isChecked()) {
-                factorActividad = 1.55;
-            } else if (rbFuerte.isChecked()) {
-                factorActividad = 1.725;
-            } else {
-                Toast.makeText(this, "Selecciona nivel de actividad", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            //Objetivo (Subir, mantener o bajar de peso)
+            int ajuste = 0;
+            String objetivo = spinnerObjetivo.getText().toString();
+            if(objetivo.equals("Bajar de peso")) ajuste = -500;
+            else if(objetivo.equals("Subir de peso")) ajuste = 500;
 
-            caloriasFinales = (int) ((tmb * factorActividad) + ajusteObjetivo);
-            tvCalorias.setText("Calorías diarias recomendadas: " + caloriasFinales);
-        }catch (Exception e){
-            Toast.makeText(this, "Error al introducir los datos", Toast.LENGTH_SHORT).show();
-        }
+            //Calorias finales
+            caloriasFinales = (int) ((tmb * factor) + ajuste);
+            tvCalorias.setText("Calorias diarias: " +caloriasFinales + "kcal");
+
         }
 
 }
