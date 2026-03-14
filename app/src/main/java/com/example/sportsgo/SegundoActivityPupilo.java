@@ -60,7 +60,7 @@ public class SegundoActivityPupilo extends AppCompatActivity {
         String[] objetivos = {"Bajar de peso", "Mantener peso", "Subir de peso"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_list_item_1,
                 objetivos
         );
         //Aqui declaramos el spinner de objetivos
@@ -73,13 +73,46 @@ public class SegundoActivityPupilo extends AppCompatActivity {
         // se pasa a la siguiente actividad al dar al boton de ver entrenamientos
         btnEntrenamientos.setOnClickListener(v -> {
             if (caloriasFinales > 0) {
-                Intent intent = new Intent(this, TercerActivityPupilo.class);
-                intent.putExtra("calorias", caloriasFinales);
-                startActivity(intent);
+                //Llamamos al dialogo de privacidad antes de continuar
+                mostrarDialogoPrivacidad();
             } else {
                 Toast.makeText(this, "Debes calcular las calorías primero", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //Metodo parra mostrar la ventana de privacidad del pupilo
+    private void mostrarDialogoPrivacidad(){
+        com.google.android.material.dialog.MaterialAlertDialogBuilder builder =
+                new com.google.android.material.dialog.MaterialAlertDialogBuilder(this);
+
+        builder.setTitle("Privacidad de datos");
+        builder.setMessage("Para un seguimiento óptimo, ¿deseas compartir todos tus datos con el/los trainer/s o solo las calorias?");
+
+        //Icono
+        builder.setIcon(R.drawable.ic_launcher_foreground);
+
+        //Opcion 1: Compartir todos los datos
+        builder.setPositiveButton("Compartir todo", (dialog, which) ->{
+            irATercerActivity(true); //El true nos da permiso total para tranferir todos los datos al trainer/s
+        });
+
+        //Opcion 2 : Solo las calorias
+        builder.setNegativeButton("Solo calorias", (dialog, which) -> {
+            irATercerActivity(false); // El false nos permite solo transferir sus calorias
+        });
+
+        //Evitar que cierren el dialogo pulsando fuera de el, es decir que esta obligado a elegir una opcion
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    //Metodo para que el usuario pase a la siguiente pagina enviando su decision
+    private void irATercerActivity(boolean permisoCompleto){
+        Intent intent = new Intent(this, TercerActivityPupilo.class);
+        intent.putExtra("calorias", caloriasFinales);
+        intent.putExtra("permiso_completo", permisoCompleto);
+        startActivity(intent);
     }
 
     //El metodo del calculo total de calorias del pupilo
@@ -93,7 +126,6 @@ public class SegundoActivityPupilo extends AppCompatActivity {
             Toast.makeText(this, "Faltan algunos campos por complentar", Toast.LENGTH_SHORT).show();
             return;
         }
-
             double peso = Double.parseDouble(strPeso);
             double altura = Double.parseDouble(strAltura);
             int edad = Integer.parseInt(strEdad);
@@ -111,7 +143,7 @@ public class SegundoActivityPupilo extends AppCompatActivity {
             int idAct = rgActividad.getCheckedRadioButtonId();
             if(idAct == R.id.rbSedentario) factor = 1.2;
             else if(idAct == R.id.rbLigero) factor =1.375;
-            else if(idAct == R.id.rbModerado) factor = 1.5;
+            else if(idAct == R.id.rbModerado) factor = 1.55;
             else factor = 1.725;
 
             //Objetivo (Subir, mantener o bajar de peso)
@@ -122,8 +154,6 @@ public class SegundoActivityPupilo extends AppCompatActivity {
 
             //Calorias finales
             caloriasFinales = (int) ((tmb * factor) + ajuste);
-            tvCalorias.setText("Calorias diarias: " +caloriasFinales + "kcal");
-
+            tvCalorias.setText("Calorias diarias: " +caloriasFinales + " kcal");
         }
-
 }

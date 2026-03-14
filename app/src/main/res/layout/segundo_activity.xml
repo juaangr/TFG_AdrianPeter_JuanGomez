@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_height="0dp"
             android:alpha="0.9"
             android:scaleType="centerCrop"
-            android:src="@drawable/segundo_activity"
+            android:src="@drawable/gym_foto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +235,7 @@
             android:backgroundTint="#000000"
             android:fontFamily="sans-serif-black"
             android:text="CALCULAR TMB"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:cornerRadius="16dp"
             app:layout_constraintTop_toBottomOf="@id/cardActividad" />
 
@@ -286,7 +287,7 @@
             android:fontFamily="sans-serif-black"
             android:text="VER MIS ENTRENAMIENTOS"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:cornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/resultCard" />
