@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.apply();
 
                             // 4. SALTO AL SEGUNDO ACTIVITY
-                            Intent intent = new Intent(MainActivity.this, SegundoActivityPupilo.class);
+                            Intent intent = new Intent(MainActivity.this, PupilHomeActivity.class);
                             intent.putExtra("key_nombre", nombre);
                             intent.putExtra("key_edad", edad);
                             startActivity(intent);

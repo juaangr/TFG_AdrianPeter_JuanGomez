@@ -14,9 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.IOException;
-
-public class SegundoActivityPupilo extends AppCompatActivity {
+public class PupilHomeActivity extends AppCompatActivity {
 
     private TextView tvCalorias;
     private TextInputEditText etPeso, etAltura, etEdad;
@@ -109,7 +107,7 @@ public class SegundoActivityPupilo extends AppCompatActivity {
 
     //Metodo para que el usuario pase a la siguiente pagina enviando su decision
     private void irATercerActivity(boolean permisoCompleto){
-        Intent intent = new Intent(this, TercerActivityPupilo.class);
+        Intent intent = new Intent(this, PupilWorkoutActivity.class);
         intent.putExtra("calorias", caloriasFinales);
         intent.putExtra("permiso_completo", permisoCompleto);
         startActivity(intent);

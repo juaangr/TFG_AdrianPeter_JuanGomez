@@ -23,11 +23,11 @@
 
         <!-- 2. AÑADIDO EXPORTED=FALSE POR SEGURIDAD -->
         <activity
-            android:name=".SegundoActivityPupilo"
+            android:name=".PupilHomeActivity"
             android:exported="false" />
 
         <activity
-            android:name=".TercerActivityPupilo"
+            android:name=".PupilWorkoutActivity"
             android:exported="false" />
 
     </application>
