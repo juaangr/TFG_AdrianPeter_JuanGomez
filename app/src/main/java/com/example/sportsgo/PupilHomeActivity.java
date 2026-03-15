@@ -107,7 +107,7 @@ public class PupilHomeActivity extends AppCompatActivity {
 
     //Metodo para que el usuario pase a la siguiente pagina enviando su decision
     private void irATercerActivity(boolean permisoCompleto){
-        Intent intent = new Intent(this, PupilWorkoutActivity.class);
+        Intent intent = new Intent(this, TrainerDashboardActivity.class);
         intent.putExtra("calorias", caloriasFinales);
         intent.putExtra("permiso_completo", permisoCompleto);
         startActivity(intent);

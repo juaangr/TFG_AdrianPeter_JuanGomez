@@ -30,6 +30,12 @@
             android:name=".PupilWorkoutActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".TrainerDashboardActivity"
+            android:exported="false" />
+
+<!--        <activity android:name="TrainerAssignWorkoutActivity"-->
+<!--            android:exported="false" />-->
     </application>
 
 </manifest>
