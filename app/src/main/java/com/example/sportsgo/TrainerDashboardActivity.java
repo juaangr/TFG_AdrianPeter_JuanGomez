@@ -28,11 +28,11 @@ public class TrainerDashboardActivity extends AppCompatActivity {
             r.delete(Usuario.class);
 
             Usuario u1 = new Usuario("Adrian atleta", "Pupilo");
-            r.copyToRealm(u1);
+            r.insertOrUpdate(u1);
             Usuario u2 = new Usuario("Juan Alumno", "Pupilo");
-            r.copyToRealm(u2);
+            r.insertOrUpdate(u2);
             Usuario u3 = new Usuario("Entrenador Pepe", "Trainer");
-            r.copyToRealm(u3);
+            r.insertOrUpdate(u3);
         });
 
         lvPupilos = findViewById(R.id.lvPupilos);
@@ -56,8 +56,9 @@ public class TrainerDashboardActivity extends AppCompatActivity {
         List<String> nombres = new ArrayList<>();
 
         for (Usuario p : pupilos) {
+            System.out.println("Debug: Usuario encontrado: " + p.getNombre());
             //SEGURIDAD: Solo añadimos el nombre si no es nulo
-            if (p.getNombre() != null) {
+            if (p.getNombre() != null && !p.getNombre().isEmpty()) {
                 nombres.add(p.getNombre());
             } else {
                 //Opcional: añadir un texto por defecto si el nombre fallo

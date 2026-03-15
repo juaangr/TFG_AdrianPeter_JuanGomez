@@ -1,7 +1,9 @@
 package com.example.sportsgo;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import io.realm.Realm;
 
 public class PupilHomeActivity extends AppCompatActivity {
 
@@ -107,9 +111,23 @@ public class PupilHomeActivity extends AppCompatActivity {
 
     //Metodo para que el usuario pase a la siguiente pagina enviando su decision
     private void irATercerActivity(boolean permisoCompleto){
+        Realm realm = Realm.getDefaultInstance();
+
+        //Obtenemos el email que se introdujo
+        SharedPreferences sharedPreferences = getSharedPreferences("PrefeSportsGO", Context.MODE_PRIVATE);
+        String userEmail = sharedPreferences.getString("user_email","");
+
+        realm.executeTransaction(r -> {
+            Usuario user = r.where(Usuario.class).equalTo("email", userEmail).findFirst();
+            if(user != null){
+                user.setCalorias(caloriasFinales);
+                user.setPermisoCompleto(permisoCompleto);
+                //Guardamos peso y altura solo si el calculo fue existoso
+                user.setPeso(Double.parseDouble(etPeso.getText().toString()));
+                user.setAltura(Double.parseDouble(etAltura.getText().toString()));
+            }
+        });
         Intent intent = new Intent(this, TrainerDashboardActivity.class);
-        intent.putExtra("calorias", caloriasFinales);
-        intent.putExtra("permiso_completo", permisoCompleto);
         startActivity(intent);
     }
 

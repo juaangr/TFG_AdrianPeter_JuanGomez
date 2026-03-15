@@ -15,10 +15,12 @@ public class RealmApplication extends Application {
 
         //2. Configuracion de Realm para la bases de datos de la app
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .name("sportsgo_bd.realm")
-                .allowQueriesOnUiThread(true)
-                .allowWritesOnUiThread(true)
-                .compactOnLaunch()
+                .name("sportsgo_bd.realm") //Nombre del archivo de la base de datos
+                .schemaVersion(1) //Control de versiones del esquema
+                .deleteRealmIfMigrationNeeded() //Facilita el desarollo al actualizar
+                .allowQueriesOnUiThread(true) //Optimizacion para consultas rapidas
+                .allowWritesOnUiThread(true) //Permite transacciones inmediatas
+                .compactOnLaunch() //Optimiza el espacio del disco al iniciar
                 .build();
 
         Realm.setDefaultConfiguration(config);
