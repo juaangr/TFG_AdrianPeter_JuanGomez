@@ -40,7 +40,7 @@ public class TrainerDashboardActivity extends AppCompatActivity {
         //Logica para llenar las listas
         cargarListaPupilos();
 
-        //Logica para cuando el trainer clique un pupilo pueda asignarle ejericios y rutinas
+        //Logica para cuando el trainer clique un pupilo pueda asignarle ejercicios y rutinas
         lvPupilos.setOnItemClickListener((parent, view, position, id) -> {
           String nombreSeleccionado = (String) parent.getItemAtPosition(position);
             Intent intent = new Intent(TrainerDashboardActivity.this, TrainerAssignWorkoutActivity.class);

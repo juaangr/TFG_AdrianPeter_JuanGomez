@@ -4,42 +4,27 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.example.sportsgo.R;
+import android.widget.ListAdapter;
 
-import java.util.List;
+import io.realm.RealmResults;
 
-public class EjercicioAdapter extends ArrayAdapter<Ejercicios> {
+//ESTE ADAPTADOR TIENE LA FUNCION DE QUE EL TRAINER LE AÑADA UN EJERCICIO EN LA NUBE Y APAREZCA AQUI AUTOMATICAMENTE
+public class EjercicioAdapter extends RealmBaseAdapter<Ejercicios> implements ListAdapter {
+    private Context context;
 
-    public EjercicioAdapter(Context context, List<Ejercicios> ejercicios) {
-        super(context, 0, ejercicios);
+    public EjercicioAdapter(Context context, RealmResults<Ejercicios> data ) {
+        //Implemenatamos la coleccion de datos de la superclase
+        super(data);
+        this.context = context;
     }
-
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position,View convertView, ViewGroup parent){
+        ViewHolder holder;
 
-        Ejercicios ejercicio = getItem(position);
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.item_ejercicios, parent, false);
+        if(convertView == null){
+            convertView = LayoutInflater.from(context)
         }
 
-        ImageView img = convertView.findViewById(R.id.imgEjercicio);
-        TextView nombre = convertView.findViewById(R.id.txtNombreEj);
-        TextView detalles = convertView.findViewById(R.id.txtDetallesEj);
-        TextView peso = convertView.findViewById(R.id.txtPesoEj);
-
-        nombre.setText(ejercicio.getNombre());
-        detalles.setText(
-                ejercicio.getSeries() + " series x " +
-                ejercicio.getRepeticiones() + " reps"
-        );
-        peso.setText("Peso inicial: " + ejercicio.getPeso());
-        img.setImageResource(ejercicio.getImagen());
-
-        return convertView;
     }
 }
+

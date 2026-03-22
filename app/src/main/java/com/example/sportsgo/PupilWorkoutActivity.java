@@ -1,6 +1,5 @@
 package com.example.sportsgo;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
@@ -8,32 +7,50 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
+//ESTA CLASE ES PARA LA VISTA DEL PUPILO DE LOS EJERCICIOS QUE LE ASIGNO SU ENTRENADOR
 public class PupilWorkoutActivity extends AppCompatActivity {
-    private Button button;
-    private ListView listView;
-    @SuppressLint("MissingInflatedId")
+   private Button button;
+   private ListView listView;
+   private Realm realm;
+   private EjercicioAdapter adapter;
+
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.tercer_activity);
-        button = findViewById(R.id.btnFinalizar);
-        listView = findViewById(R.id.lvEjercicios);
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.tercer_activity);
 
-        ArrayList<Ejercicios> ejercicios = new ArrayList<>();
-        ejercicios.add(new Ejercicios("Press Banca", R.drawable.press,4,12,"40Kg"));
-        ejercicios.add(new Ejercicios("Curl de Biceps", R.drawable.biceps,3,8,"30Kg"));
-        ejercicios.add(new Ejercicios("Sentadillas", R.drawable.pierna,5,12,"60Kg"));
-        ejercicios.add(new Ejercicios("Triceps", R.drawable.triceps,6,10,"10Kg"));
-        ejercicios.add(new Ejercicios("Hombro", R.drawable.hombro,4,14,"5Kg"));
+    //Inicializamos realm
+    realm = Realm.getDefaultInstance();
 
-        EjercicioAdapter adapter = new EjercicioAdapter(PupilWorkoutActivity.this, ejercicios);
-        listView.setAdapter(adapter);
+    button = findViewById(R.id.btnFinalizar);
+    listView = findViewById(R.id.lvEjercicios);
 
-        button.setOnClickListener(v ->
-                Toast.makeText(this, "Sesion finalizada con exito ¡Vuelve pronto!", Toast.LENGTH_SHORT).show());
-                //Intent intent = new Intent(this, MainActivity.class);
-                //startActivity(intent);
+    //Obtener el nombre del pupilo logueado (desde SharedPreference)
+    String pupiloActual = getSharedPreferences("PrefeSportsGO", MODE_PRIVATE).getString("user_nombre","Adrian");
+
+    //Consulta Realm: Obtener ejercicios asignados a este pupilo, se ira actualizando
+    // mediante el trainer vaya asignando ejercicios y se vean reflejados en tiempo real
+    RealmResults<Ejercicios> resultados = realm.where(Ejercicios.class).equalTo("nombrePupilo",pupiloActual).findAll();
+
+    //Configurar el adaptador con los datos de la BD
+    adapter = new EjercicioAdapter(this, resultados);
+    listView.setAdapter(adapter);
+
+    //Listener para que el trainer vea el progreso marcando un checkbox que se sincroniza en tiempo real
+    button.setOnClickListener(view -> {
+        Toast.makeText(this,"Entrenamiento finalizado y enviado al Coach", Toast.LENGTH_SHORT).show();
+        finish();
+    });
+   }
+   @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(realm != null){
+            realm.close();
+        }
     }
 }
+
