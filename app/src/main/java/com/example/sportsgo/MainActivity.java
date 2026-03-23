@@ -15,76 +15,27 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-    private EditText etNombre, etEdad;
-    private Button btn;
+import com.example.sportsgo.R;
 
-    @SuppressLint("MissingInflatedId")
+/*
+* activity sin vista para manejar y redirigir a otras vistas
+* */
+public class  MainActivity extends AppCompatActivity {
+
+    // recuperamos preferencias y si es la primera vez que se abre la app (que es lo mismo que no estar logeado)
+    SharedPreferences prefs = getSharedPreferences("PrefeSportsGO", MODE_PRIVATE);
+    boolean estaLogueado = prefs.getBoolean("logueado", false);
+    boolean noLogeado = prefs.getBoolean("noLogueado", true);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
 
-        // Referencias de la interfaz
-        etNombre = findViewById(R.id.etNombre);
-        etEdad = findViewById(R.id.etEdad);
-        btn = findViewById(R.id.btnIniciar);
+        // pagina para elegir logearse como admin, user (pupilo) o trainer
+        if(noLogeado) startActivity(new Intent(this, ElegirLoginActivity.class));
+        // lo que podría ser una especie de tl rollo tw o instagram... esto no se puede descomentar a menos que tengamos la pantalla principal hecha
+        // else if (estaLogueado) startActivity(new Intent(this, ));
 
-        // Recuperar preferencias al iniciar la app (las "cookies")
-        SharedPreferences prefs = getSharedPreferences("PrefeSportsGO", Context.MODE_PRIVATE);
-        String nombreGuardado = prefs.getString("user_nombre", "");
-        etNombre.setText(nombreGuardado);
-
-        btn.setOnClickListener(v -> {
-            String nombre = etNombre.getText().toString().trim();
-            String edadStr = etEdad.getText().toString().trim();
-
-            // 1. Verificación de campos vacíos
-            if (nombre.isEmpty() || edadStr.isEmpty()) {
-                Toast.makeText(this, "Por favor rellene todos los campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            try {
-                // 2. Convertir edad a número
-                int edad = Integer.parseInt(edadStr);
-
-                if (edad >= 18) {
-                    // 3. Mostrar diálogo de alerta (tus "cookies")
-                    DialogoAlerta.mostrar(this, new DialogoAlerta.OnResultadoDialogo() {
-                        @Override
-                        public void alAceptar() {
-                            // Si acepta, guardamos los datos
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("user_nombre", nombre);
-                            editor.putInt("user_edad", edad);
-                            editor.apply();
-
-                            // 4. SALTO AL SEGUNDO ACTIVITY
-                            Intent intent = new Intent(MainActivity.this, PupilHomeActivity.class);
-                            intent.putExtra("key_nombre", nombre);
-                            intent.putExtra("key_edad", edad);
-                            startActivity(intent);
-
-                            Toast.makeText(MainActivity.this, "Bienvenido a SportsGO", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(this, "Debes de ser mayor de edad para acceder", Toast.LENGTH_SHORT).show();
-                }
-
-            } catch (NumberFormatException e) {
-                // Esto evita que la app se cierre si la edad no es un número
-                Toast.makeText(this, "Introduce una edad válida", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Configuración de los márgenes del sistema (evita que el diseño se corte)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        finish();
     }
 }

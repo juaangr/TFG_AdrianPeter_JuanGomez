@@ -10,8 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/sports_go_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SportsGO"> <!-- 1. ASEGÚRATE QUE ESTE TEMA EXISTE EN THEMES.XML -->
+        android:theme="@style/Theme.SportsGO">
 
+        <!-- 1. ASEGÚRATE QUE ESTE TEMA EXISTE EN THEMES.XML -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -30,12 +31,24 @@
             android:name=".PupilWorkoutActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".TrainerDashboardActivity"
-            android:exported="false" />
 
-<!--        <activity android:name="TrainerAssignWorkoutActivity"-->
-<!--            android:exported="false" />-->
+        <!-- (juan); Añado las activities de las pantallas de inicio (User, trainer, admin)
+         manteniendo el main como pantalla principal e inicial -->
+        <activity
+            android:name=".UserLoginActivity">
+        </activity>
+
+        <activity
+            android:name=".ElegirLoginActivity">
+        </activity>
+
+        <activity
+            android:name=".AdminLoginActivity">
+        </activity>
+
+        <activity
+            android:name=".TrainerLoginActivity">
+        </activity>
     </application>
 
 </manifest>

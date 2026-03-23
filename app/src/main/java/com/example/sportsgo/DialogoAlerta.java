@@ -9,7 +9,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.sportsgo.R;
-
+/*
+* (juan); no sé si deberíamos mirar si esta clase debería implementar una interfaz o heredar
+* de algún tipo de clase porque de momento no ejecuté el programa y desconozco si funciona o no
+* */
 public class DialogoAlerta {
     public interface OnResultadoDialogo{
         void alAceptar();
