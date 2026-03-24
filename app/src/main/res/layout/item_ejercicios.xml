@@ -41,5 +41,11 @@
             android:text="Peso inicial: 10kg"
             android:textColor="#FF5722"
             android:textStyle="bold" />
+        <CheckBox
+            android:id="@+id/cbCompletado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hecho"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 </LinearLayout>
