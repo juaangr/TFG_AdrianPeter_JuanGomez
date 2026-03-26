@@ -1,7 +1,7 @@
-//Plugin o mejor dicho interruptor para activar las funciones de Realm/MongoDB
+// Plugin o mejor dicho interruptor para activar las funciones de Realm/MongoDB
 plugins {
     alias(libs.plugins.android.application)
-    id("realm-android")
+    id("realm-android") // Activa la generación de código de Realm
 }
 
 android {
@@ -32,16 +32,24 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
-//Activamos las sincronizacion
-realm{
+
+// Activamos la sincronización con MongoDB Atlas (Device Sync)
+// Fundamental para la comunicación Trainer-Alumno en tiempo real
+realm {
     isSyncEnabled = true
 }
 
 dependencies {
+    // LIBRERÍA DE ADAPTADORES: Necesaria para el EjercicioAdapter y RealmBaseAdapter
+    implementation("io.realm:android-adapters:3.1.0")
+
+    // Dependencias base del proyecto (Material Design 3 y AndroidX)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // Pruebas unitarias e instrumentales
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

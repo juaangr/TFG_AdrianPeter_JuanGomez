@@ -4,20 +4,37 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.CheckBox;
 import io.realm.Realm;
-import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
 
-public class EjercicioAdapter extends RealmBaseAdapter<Ejercicios> {
+public class EjercicioAdapter extends BaseAdapter {
 
     private Context context;
+    private RealmResults<Ejercicios> adapterData;
+
 
     public EjercicioAdapter(Context context, RealmResults<Ejercicios> data) {
-        super(data);
+        this.adapterData = data;
         this.context = context;
+    }
+
+    @Override
+    public int getCount() {
+        return adapterData != null ? adapterData.size() : 0;
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return adapterData != null ? adapterData.get(i) : null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
     }
 
     @Override
@@ -51,8 +68,8 @@ public class EjercicioAdapter extends RealmBaseAdapter<Ejercicios> {
             holder.peso.setText("Peso asignado: " + ejercicio.getPeso());
 
             // Mostramos la imagen (si tienes el ID del recurso guardado)
-            if (ejercicio.getImagen() != 0) {
-                holder.imagen.setImageResource(ejercicio.getImagen());
+            if (ejercicio.getImage() != 0) {
+                holder.imagen.setImageResource(ejercicio.getImage());
             }
 
             // Lógica del Checkbox para que el Trainer lo vea en tiempo real
