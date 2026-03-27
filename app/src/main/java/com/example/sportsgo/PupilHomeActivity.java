@@ -32,7 +32,7 @@ public class PupilHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.segundo_activity);
+        setContentView(R.layout.activity_pupil_home);
 
         // TextView en el cual se veran reflejadas las calorias
         tvCalorias = findViewById(R.id.txtView2);
