@@ -80,6 +80,17 @@ public class EjercicioAdapter extends BaseAdapter {
                     Realm realm = Realm.getDefaultInstance();
                     realm.executeTransaction(r -> ejercicio.setCompletado(isChecked));
                     realm.close();
+
+                    //Actualizamos ahora Firebase (nube) para que el trainer lo vea
+                    com.google.firebase.database.FirebaseDatabase.getInstance()
+                            .getReference("entrenamientos")
+                            .child(ejercicio.getNombrePupilo())
+                            .orderByChild("nombre").equalTo(ejercicio.getNombre())
+                            .get().addOnSuccessListener(snapshot -> {
+                                for (com.google.firebase.database.DataSnapshot ds : snapshot.getChildren()){
+                                    ds.getRef().child("completado").setValue(isChecked);
+                                }
+                            });
                 });
             }
         }
