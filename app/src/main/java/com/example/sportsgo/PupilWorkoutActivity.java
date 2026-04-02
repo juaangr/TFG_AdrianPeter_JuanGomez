@@ -7,6 +7,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -45,6 +51,37 @@ public class PupilWorkoutActivity extends AppCompatActivity {
         finish();
     });
    }
+    private void configurarSincronizacionNube(String nombreUsuario) {
+        // Referencia a la "carpeta" de este pupilo en la nube de Firebase
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("entrenamientos").child(nombreUsuario);
+
+        // Añadimos un listener que detecta cuando el Trainer añade algo nuevo
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                // Cuando el Trainer envía un ejercicio, Firebase nos avisa AQUÍ
+                // Convertimos el dato de la nube a nuestra clase Ejercicios.java
+                Ejercicios ejercicioNube = snapshot.getValue(Ejercicios.class);
+
+                if (ejercicioNube != null) {
+                    // Abrimos una transacción para guardar el ejercicio en el Realm local del PC/Movil
+                    // Usamos copyToRealmOrUpdate para evitar duplicados si el ID coincide
+                    Realm realmLocal = Realm.getDefaultInstance();
+                    realmLocal.executeTransaction(r -> r.copyToRealmOrUpdate(ejercicioNube));
+                    realmLocal.close();
+
+                    // Al actualizar Realm, la lista (ListView) se refrescara sola automaticamente
+                }
+            }
+
+            @Override public void onChildChanged(DataSnapshot s, String p) {}
+            @Override public void onChildRemoved(DataSnapshot s) {}
+            @Override public void onChildMoved(DataSnapshot s, String p) {}
+            @Override public void onCancelled(DatabaseError e) {
+                android.util.Log.e("FIREBASE", "Error de conexión: " + e.getMessage());
+            }
+        });
+    }
    @Override
     protected void onDestroy() {
         super.onDestroy();
