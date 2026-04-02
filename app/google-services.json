@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "827426706464",
+    "project_id": "sportsgo-f846c",
+    "storage_bucket": "sportsgo-f846c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827426706464:android:80c0eb041274a19f96d845",
+        "android_client_info": {
+          "package_name": "com.example.sportsgo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArHvYgXMoeb-4u4spRxEKOTAd5TW5RmAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

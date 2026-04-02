@@ -25,6 +25,8 @@ public class RealmApplication extends Application {
 
         Realm.setDefaultConfiguration(config);
 
+        //Usamos Realm para la persistencia Offline-First, es decir en local
+        //Firebase para la sincronizacion entre terminales, en la nube
 
     }
 }

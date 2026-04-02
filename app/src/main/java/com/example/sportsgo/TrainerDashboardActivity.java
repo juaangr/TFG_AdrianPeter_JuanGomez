@@ -24,25 +24,25 @@ public class TrainerDashboardActivity extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
 
-        realm.executeTransaction(r ->{
-            r.delete(Usuario.class);
+        // LÓGICA DE DATOS: Solo insertamos si la base de datos está VACÍA
+        realm.executeTransaction(r -> {
+            // COMENTAMOS EL DELETE: No queremos borrar los datos que ya existen
+            // r.delete(Usuario.class);
 
-            Usuario u1 = new Usuario("Adrian atleta", "Pupilo");
-            r.insertOrUpdate(u1);
-            Usuario u2 = new Usuario("Juan Alumno", "Pupilo");
-            r.insertOrUpdate(u2);
-            Usuario u3 = new Usuario("Entrenador Pepe", "Trainer");
-            r.insertOrUpdate(u3);
+            if (r.where(Usuario.class).count() == 0) {
+                // Solo creamos estos usuarios de prueba la primera vez que se instala la app
+                r.insertOrUpdate(new Usuario("Adrian atleta", "Pupilo"));
+                r.insertOrUpdate(new Usuario("Juan Alumno", "Pupilo"));
+                r.insertOrUpdate(new Usuario("Entrenador Pepe", "Trainer"));
+                android.util.Log.d("REALM", "Base de datos vacía. Usuarios iniciales creados.");
+            }
         });
 
         lvPupilos = findViewById(R.id.lvPupilos);
-
-        //Logica para llenar las listas
         cargarListaPupilos();
 
-        //Logica para cuando el trainer clique un pupilo pueda asignarle ejercicios y rutinas
         lvPupilos.setOnItemClickListener((parent, view, position, id) -> {
-          String nombreSeleccionado = (String) parent.getItemAtPosition(position);
+            String nombreSeleccionado = (String) parent.getItemAtPosition(position);
             Intent intent = new Intent(TrainerDashboardActivity.this, TrainerAssignWorkoutActivity.class);
             intent.putExtra("nombre_pupilo", nombreSeleccionado);
             startActivity(intent);

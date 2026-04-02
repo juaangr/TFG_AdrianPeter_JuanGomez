@@ -82,7 +82,6 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         try {
             realm.executeTransaction(r -> {
                 Ejercicios nuevoEj = r.createObject(Ejercicios.class, new ObjectId());
-
                 nuevoEj.setNombre(nombre);
                 nuevoEj.setPeso(peso);
                 nuevoEj.setSeries(Integer.parseInt(series));
@@ -97,6 +96,27 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
                 //Por defecto el ejercicio no esta completado (el alumno lo marcara cuando lo este)
                 nuevoEj.setCompletado(false);
             });
+
+            //Envio a la nube (Firebase)
+            com.google.firebase.database.DatabaseReference mDatabase = com.google.firebase.database.FirebaseDatabase.getInstance().getReference("entrenamientos");
+
+            //Preparamos el mapa de datos (clave-valor) para subirlos a la nube
+            java.util.Map<String, Object> ejercicioNube = new java.util.HashMap<>();
+            ejercicioNube.put("nombre",nombre);
+            ejercicioNube.put("peso", peso);
+            ejercicioNube.put("series", Integer.parseInt(series));
+            ejercicioNube.put("repeticiones", Integer.parseInt(reps));
+            ejercicioNube.put("nombrePupilo", nombreAlumno);
+            ejercicioNube.put("completado", false);
+            ejercicioNube.put("descripcion", spinnerMusculo.getSelectedItem().toString());
+
+            if (nombreAlumno != null) {
+                mDatabase.child(nombreAlumno).push().setValue(ejercicioNube)
+                        .addOnSuccessListener(aVoid -> android.util.Log.d("FIREBASE", "Sincronizado con éxito"))
+                        .addOnFailureListener(e -> android.util.Log.e("FIREBASE", "Error al subir", e));
+            }
+
+            //Toast de confirmacion de envio de los ejercicios o en caso de error su mensaje correspondiente
 
             Toast.makeText(this, "Rutina enviada a: " + nombreAlumno, Toast.LENGTH_SHORT).show();
             finish();

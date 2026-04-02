@@ -1,7 +1,8 @@
 // Plugin o mejor dicho interruptor para activar las funciones de Realm/MongoDB
 plugins {
     alias(libs.plugins.android.application)
-    id("realm-android") // Activa la generación de código de Realm
+    id("realm-android")                    // Activa Realm
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -42,12 +43,18 @@ realm {
 dependencies {
     // LIBRERÍA DE ADAPTADORES: Necesaria para el EjercicioAdapter y RealmBaseAdapter
     implementation("io.realm:android-adapters:3.1.0")
+    // LIBRERIA PARA LA NUBE: FIREBASE
+    implementation("com.google.firebase:firebase-database:21.0.0")
 
     // Dependencias base del proyecto (Material Design 3 y AndroidX)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    //Import del Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
     // Pruebas unitarias e instrumentales
     testImplementation(libs.junit)
