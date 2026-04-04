@@ -39,6 +39,10 @@
             android:name=".TrainerAssignWorkoutActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+
 
         <!-- (juan); Añado las activities de las pantallas de inicio (User, trainer, admin)
          manteniendo el main como pantalla principal e inicial -->
