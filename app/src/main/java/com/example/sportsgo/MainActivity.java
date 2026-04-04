@@ -34,10 +34,10 @@ public class  MainActivity extends AppCompatActivity {
         // pagina para elegir logearse como admin, user (pupilo) o trainer
 
         // --> PETER: HE AÑADIDO EL ELSEIF CON EL DASHBOARD EL CUAL ES LA PAGINA PRINCIPAL(BORRA ESTO CUANDO LO VEAS) <--
-        if(noLogeado){
+        if (!estaLogueado) {
             startActivity(new Intent(this, ElegirLoginActivity.class));
-        } else if (estaLogueado) {
-            startActivity(new Intent(this,DashboardActivity.class));
+        } else {
+            startActivity(new Intent(this, DashboardActivity.class));
         }
         // lo que podría ser una especie de tl rollo tw o instagram... esto no se puede descomentar a menos que tengamos la pantalla principal hecha
         // else if (estaLogueado) startActivity(new Intent(this, ));
