@@ -47,7 +47,10 @@ public class DashboardActivity extends AppCompatActivity {
             intent.putExtra("nombre_otro",userRol.equals("Trainer") ? "Selecciona un alumno" : "Tu entrenador");
             startActivity(intent);
         });
-        //
+
+        cardPerfil.setOnClickListener(v -> {
+            startActivity(new Intent(this, ProfileActivity.class));
+        });
     }
 
     private void aplicarAnimaciones() {
