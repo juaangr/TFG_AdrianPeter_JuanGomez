@@ -29,6 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
         initUI();
         aplicarAnimaciones();
 
+        //Accedemos al sistema de rutinas de ejercicios
         cardWorkout.setOnClickListener(v -> {
             if(userRol.equals("Trainer")){
                 //Si es entrenador, ve su lista de alumnos
@@ -39,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        //Accedemos al sistema de chat
         cardChat.setOnClickListener(v -> {
             //Navegacion al sistema de chateo en tiempo real
             Intent intent = new Intent(this, ChatActivity.class);
@@ -48,8 +50,16 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        //Accedemos a la actividad del perfil para poder editarlo
         cardPerfil.setOnClickListener(v -> {
             startActivity(new Intent(this, ProfileActivity.class));
+        });
+
+        //Accedemos a la actividad del conteo de calorias para el usuario
+        cardCalorias.setOnClickListener(v -> {
+            //Navegamos a la actividad del conteo propio de calorias para el usuario
+            Intent intent = new Intent(this, CaloriesActivity.class);
+            startActivity(intent);
         });
     }
 

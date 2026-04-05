@@ -18,7 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import io.realm.Realm;
 
-public class PupilHomeActivity extends AppCompatActivity {
+public class CaloriesActivity extends AppCompatActivity {
 
     private TextView tvCalorias;
     private TextInputEditText etPeso, etAltura, etEdad;

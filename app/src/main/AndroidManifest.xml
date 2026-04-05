@@ -24,7 +24,7 @@
 
         <!-- 2. AÑADIDO EXPORTED=FALSE POR SEGURIDAD -->
         <activity
-            android:name=".PupilHomeActivity"
+            android:name=".CaloriesActivity"
             android:exported="false" />
 
         <activity
