@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SportsGO">
 
-        <!-- 1. ASEGÚRATE QUE ESTE TEMA EXISTE EN THEMES.XML -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -52,7 +51,7 @@
             android:exported="false" />
 
 
-        <!-- (juan); Añado las activities de las pantallas de inicio (User, trainer, admin)
+        <!-- Añado las activities de las pantallas de inicio (User, trainer, admin)
          manteniendo el main como pantalla principal e inicial -->
         <activity
             android:name=".UserLoginActivity">
