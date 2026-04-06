@@ -18,7 +18,7 @@ public class Usuario extends RealmObject {
     private int calorias;
     private boolean permisoCompleto; // Aqui almacenamos el permiso que haya aceptado el Pupilo
 
-    //Constructor vacio para el uso de Realm
+    //Constructor vacio para el uso de Realm/Firebase
     public Usuario() {
     }
 

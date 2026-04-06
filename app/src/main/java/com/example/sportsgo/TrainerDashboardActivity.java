@@ -66,7 +66,7 @@ public class TrainerDashboardActivity extends AppCompatActivity {
             }
         }
 
-        //Si la lista esta vacía, el adaptador no fallara, simplemente no mostrara nada
+        //Si la lista esta vacia, el adaptador no fallara, simplemente no mostrara nada
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, nombres);
         lvPupilos.setAdapter(adapter);
