@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Message extends RealmObject {
     @PrimaryKey
-    private String id = new ObjectId().toString();
+    private String id;
     private String emisor;
     private String receptor;
     private String texto;
