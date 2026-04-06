@@ -2,12 +2,14 @@ package com.example.sportsgo;
 
 import org.bson.types.ObjectId;
 
+import java.util.UUID;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Usuario extends RealmObject {
     @PrimaryKey
-    private ObjectId id = new ObjectId();
+    private String id;
 
     private String nombre;
     private String email;
@@ -20,10 +22,15 @@ public class Usuario extends RealmObject {
 
     //Constructor vacio para el uso de Realm/Firebase
     public Usuario() {
+        //Generamos un Id por defecto por si se crea vacio
+        if(this.id == null){
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
     //Constructor para crear los usuarios
     public Usuario(String nombre, String rol) {
+        this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.rol = rol;
     }
@@ -59,11 +66,11 @@ public class Usuario extends RealmObject {
         this.permisoCompleto = permisoCompleto;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
