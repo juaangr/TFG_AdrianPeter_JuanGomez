@@ -57,7 +57,7 @@ public class UserLoginActivity extends AppCompatActivity {
                         editor.putInt("user_edad", edad);
                         editor.apply();
 
-                        Intent intent = new Intent(UserLoginActivity.this, SegundoActivity.class);
+                        Intent intent = new Intent(UserLoginActivity.this, DashboardActivity.class);
                         intent.putExtra("key_nombre", nombre);
                         intent.putExtra("key_edad", edad);
                         startActivity(intent);

@@ -2,10 +2,14 @@ package com.example.sportsgo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ import io.realm.RealmResults;
 public class TrainerDashboardActivity extends AppCompatActivity {
     private Realm realm;
     private ListView lvPupilos;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,8 @@ public class TrainerDashboardActivity extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         // LÓGICA DE DATOS: Solo insertamos si la base de datos está VACÍA
         realm.executeTransaction(r -> {
             // COMENTAMOS EL DELETE: No queremos borrar los datos que ya existen
@@ -31,10 +38,19 @@ public class TrainerDashboardActivity extends AppCompatActivity {
 
             if (r.where(Usuario.class).count() == 0) {
                 // Solo creamos estos usuarios de prueba la primera vez que se instala la app
-                r.insertOrUpdate(new Usuario("Adrian atleta", "Pupilo"));
-                r.insertOrUpdate(new Usuario("Juan Alumno", "Pupilo"));
-                r.insertOrUpdate(new Usuario("Entrenador Pepe", "Trainer"));
-                android.util.Log.d("REALM", "Base de datos vacía. Usuarios iniciales creados.");
+                Usuario u1 = new Usuario("Adrian Atleta", "Pupilo");
+                Usuario u2 = new Usuario("Juan Alumno", "Pupilo");
+                Usuario u3 = new Usuario("Entrenador Pepe", "Trainer");
+
+                r.insertOrUpdate(u1);
+                r.insertOrUpdate(u2);
+                r.insertOrUpdate(u3);
+                mDatabase.child("usuarios").child(u1.getId()).setValue(u1)
+                        .addOnSuccessListener(aVoid -> Log.d("FIREBASE_TEST", "¡ÉXITO! Usuario subido a la nube."))
+                        .addOnFailureListener(e -> Log.e("FIREBASE_TEST", "ERROR al subir: " + e.getMessage()));
+                // --------------------------------------
+
+                Log.d("REALM", "Base de datos vacía. Usuarios iniciales creados localmente.");
             }
         });
 

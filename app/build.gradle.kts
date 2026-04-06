@@ -41,8 +41,6 @@ realm {
 }
 
 dependencies {
-    // LIBRERÍA DE ADAPTADORES: Necesaria para el EjercicioAdapter y RealmBaseAdapter
-    implementation("io.realm:android-adapters:3.1.0")
     // LIBRERIA PARA LA NUBE: FIREBASE
     implementation("com.google.firebase:firebase-database:21.0.0")
 
