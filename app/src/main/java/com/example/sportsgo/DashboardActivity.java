@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class DashboardActivity extends AppCompatActivity {
-    private MaterialCardView cardWorkout, cardChat, cardCalorias, cardPerfil, cardTabata;
+    private MaterialCardView cardWorkout, cardChat, cardCalorias, cardPerfil, cardTabata, cardIMC;
     private TextView tvBienvenida;
     private String userRol, userNombre;
 
@@ -65,6 +65,10 @@ public class DashboardActivity extends AppCompatActivity {
         cardTabata.setOnClickListener(v -> {
             startActivity(new Intent(this, TabataActivity.class));
         });
+
+        cardIMC.setOnClickListener(v -> {
+            startActivity(new Intent(this, IMCActivity.class));
+        });
     }
 
     private void aplicarAnimaciones() {
@@ -75,6 +79,7 @@ public class DashboardActivity extends AppCompatActivity {
         cardCalorias.startAnimation(anim);
         cardPerfil.startAnimation(anim);
         cardTabata.startAnimation(anim);
+        cardIMC.startAnimation(anim);
     }
 
     private void initUI() {
@@ -86,5 +91,6 @@ public class DashboardActivity extends AppCompatActivity {
         cardCalorias = findViewById(R.id.cardCalorias);
         cardPerfil = findViewById(R.id.cardPerfil);
         cardTabata = findViewById(R.id.cardTabata);
+        cardIMC = findViewById(R.id.cardIMC);
     }
 }
