@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,10 +59,20 @@ public class TrainerDashboardActivity extends AppCompatActivity {
         cargarListaPupilos();
 
         lvPupilos.setOnItemClickListener((parent, view, position, id) -> {
-            String nombreSeleccionado = (String) parent.getItemAtPosition(position);
-            Intent intent = new Intent(TrainerDashboardActivity.this, TrainerAssignWorkoutActivity.class);
-            intent.putExtra("nombre_pupilo", nombreSeleccionado);
-            startActivity(intent);
+            Usuario pupiloSeleccionado = (Usuario) parent.getItemAtPosition(position);
+
+            if(pupiloSeleccionado != null){
+                //Logica de privacidad
+                if(!pupiloSeleccionado.isPermisoCompleto()){
+                    //Si el alumno no permite el acceso al trainer le saldra el mensaje de abajo
+                    Toast.makeText(this, "El alumno ha restringido el acceso a su perfil ", Toast.LENGTH_SHORT).show();
+                }else{
+                    //Si el alumno permite el acceso pues se procede normal
+                    Intent intent = new Intent(this, TrainerAssignWorkoutActivity.class);
+                    intent.putExtra("nombre_pupilo", pupiloSeleccionado.getNombre());
+                    startActivity(intent);
+                }
+            }
         });
     }
     private void cargarListaPupilos() {
