@@ -32,7 +32,7 @@ public class CaloriesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pupil_home);
+        setContentView(R.layout.activity_pupil_calories);
 
         // TextView en el cual se veran reflejadas las calorias
         tvCalorias = findViewById(R.id.txtView2);
