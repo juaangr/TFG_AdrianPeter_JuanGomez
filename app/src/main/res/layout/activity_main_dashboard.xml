@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
-        <!-- Cabecera con Bienvenida -->
         <TextView
             android:id="@+id/tvBienvenida"
             android:layout_width="wrap_content"
@@ -33,7 +32,6 @@
             app:layout_constraintTop_toBottomOf="@id/tvBienvenida"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Contenedor del HUD (Sustituye al GridLayout) -->
         <LinearLayout
             android:id="@+id/containerGrid"
             android:layout_width="match_parent"
@@ -42,7 +40,6 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/tvSubtitulo">
 
-            <!-- Fila 1: Rutinas y Chat -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,7 +104,6 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- Fila 2: Nutrición y Perfil -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,7 +168,60 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Herramientas"
+                android:textColor="#A0AEC0"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTabata"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:strokeColor="#FF8C00"
+                app:strokeWidth="1dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="20dp"
+                    android:background="#2D3748">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_recent_history"
+                        app:tint="#FF8C00" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="20dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tabata Timer"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Entrenamiento por intervalos"
+                            android:textColor="#A0AEC0"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout> </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
