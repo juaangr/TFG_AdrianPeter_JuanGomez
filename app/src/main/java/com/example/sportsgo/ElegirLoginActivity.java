@@ -1,5 +1,6 @@
 package com.example.sportsgo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.sportsgo.registers.AdminRegisterActivity;
+import com.example.sportsgo.registers.TrainerRegisterActivity;
+import com.example.sportsgo.registers.UserRegisterActivity;
 
 public class ElegirLoginActivity extends AppCompatActivity {
 
@@ -32,7 +37,8 @@ public class ElegirLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // abre el login de admin
-
+                Intent intent = new Intent(ElegirLoginActivity.this, AdminRegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -40,6 +46,8 @@ public class ElegirLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // abre el login de User
+                Intent intent = new Intent(ElegirLoginActivity.this, UserRegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -47,6 +55,8 @@ public class ElegirLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // abre el login de Trainer
+                Intent intent = new Intent(ElegirLoginActivity.this, TrainerRegisterActivity.class);
+                startActivity(intent);
             }
         });
 
