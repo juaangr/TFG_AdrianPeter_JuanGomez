@@ -13,6 +13,7 @@ public class Usuario extends RealmObject {
 
     private String nombre;
     private String email;
+    private String password;
     private int edad;
     private String rol; //Aqui se guarda si es trainer o pupilo
     private double peso;
@@ -27,6 +28,7 @@ public class Usuario extends RealmObject {
             this.id = UUID.randomUUID().toString();
         }
     }
+
 
     //Constructor para crear los usuarios
     public Usuario(String nombre, String rol) {

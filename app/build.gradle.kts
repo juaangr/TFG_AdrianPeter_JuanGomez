@@ -41,8 +41,10 @@ realm {
 }
 
 dependencies {
+    // LIBRERÍA DE ADAPTADORES: Necesaria para el EjercicioAdapter y RealmBaseAdapter
+    //implementation("io.realm:android-adapters:3.1.0")
     // LIBRERIA PARA LA NUBE: FIREBASE
-    implementation("com.google.firebase:firebase-database:21.0.0")
+    //implementation("com.google.firebase:firebase-database:21.0.0")
 
     // Dependencias base del proyecto (Material Design 3 y AndroidX)
     implementation(libs.appcompat)
@@ -53,6 +55,11 @@ dependencies {
     //Import del Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth")
+
+    //REVISAR -->
+    //implementation(libs.firebase.database)
 
     // Pruebas unitarias e instrumentales
     testImplementation(libs.junit)

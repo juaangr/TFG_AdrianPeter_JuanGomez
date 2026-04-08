@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SportsGO">
 
+        <!-- 1. ASEGÚRATE QUE ESTE TEMA EXISTE EN THEMES.XML -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -39,7 +40,7 @@
             android:exported="false" />
 
         <activity
-           android:name=".DashboardActivity"
+            android:name=".DashboardActivity"
             android:exported="false" />
 
         <activity
@@ -58,11 +59,8 @@
             android:name=".IMCActivity"
             android:exported="false" />
 
-
-        <!-- Añado las activities de las pantallas de inicio (User, trainer, admin)
-         manteniendo el main como pantalla principal e inicial -->
         <activity
-            android:name=".UserLoginActivity">
+            android:name=".logins.UserLoginActivity">
         </activity>
 
         <activity
@@ -70,12 +68,19 @@
         </activity>
 
         <activity
-            android:name=".AdminLoginActivity">
+            android:name=".logins.AdminLoginActivity">
         </activity>
 
         <activity
-            android:name=".TrainerLoginActivity">
+            android:name=".logins.TrainerLoginActivity">
         </activity>
+
+        <activity android:name=".registers.UserRegisterActivity" />
+
+        <activity android:name=".registers.TrainerRegisterActivity" />
+
+        <activity android:name=".registers.AdminRegisterActivity" />
+
     </application>
 
 </manifest>

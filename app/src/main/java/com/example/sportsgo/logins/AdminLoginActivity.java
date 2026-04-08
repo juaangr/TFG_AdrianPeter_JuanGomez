@@ -1,4 +1,4 @@
-package com.example.sportsgo;
+package com.example.sportsgo.logins;
 
 import android.os.Bundle;
 
@@ -8,8 +8,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class TrainerLoginActivity extends AppCompatActivity {
+import com.example.sportsgo.R;
 
+public class AdminLoginActivity extends AppCompatActivity {
 
 
 
@@ -17,17 +18,15 @@ public class TrainerLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.trainer_login_activity);
+        setContentView(R.layout.admin_login_activity);
 
 
 
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.trainer_login_activity), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.admin_login_activity), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.example.sportsgo;
+package com.example.sportsgo.logins;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.sportsgo.DashboardActivity;
+import com.example.sportsgo.DialogoAlerta;
+import com.example.sportsgo.R;
+import com.example.sportsgo.main.MainActivity;
+
+/*
+* ESTA CLASE SE DIVIDIRÁ EN 2, LA LÓGICA HABRÁ QUE CAMBIARLA Y DEMÁS
+* */
+
 public class UserLoginActivity extends AppCompatActivity {
 
     // inicialización de variables...
-    private EditText etNombre, etEdad;
+    private EditText etNombre, etPassw, etEmail;
     private Button btn;
 
     @Override
@@ -28,7 +37,9 @@ public class UserLoginActivity extends AppCompatActivity {
 
         // ...declaración de las mismas
         etNombre  = findViewById(R.id.etNombre);
-        etEdad = findViewById(R.id.etEdad);
+        etPassw = findViewById(R.id.etPassword);
+        etEmail = findViewById(R.id.etEmail);
+        // el botón de iniciar nos servirá para hacer un "log in" nos guardará el usr en la bbdd por ahora
         btn = findViewById(R.id.btnIniciar);
 
         // Recuperar preferencias al iniciar la app
@@ -39,27 +50,30 @@ public class UserLoginActivity extends AppCompatActivity {
         // Handler del botón
         btn.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString().trim();
-            String edadStr = etEdad.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String passw = etPassw.getText().toString().trim();
 
-            if(nombre.isEmpty() || edadStr.isEmpty()){
+            if(nombre.isEmpty() || email.isEmpty() || passw.isEmpty()){
                 Toast.makeText(this, "Porfavor rellene todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int edad  = Integer.parseInt(edadStr);
+            int passwInt  = Integer.parseInt(passw);
 
-            if(edad >=18){
+            if(passwInt >=18){
                 DialogoAlerta.mostrar(this, new DialogoAlerta.OnResultadoDialogo() {
                     @Override
                     public void alAceptar() {
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("user_nombre", nombre);
-                        editor.putInt("user_edad", edad);
+                        //REVISAR USER_EDAD -->
+                        editor.putInt("user_edad", passwInt);
                         editor.apply();
 
                         Intent intent = new Intent(UserLoginActivity.this, DashboardActivity.class);
                         intent.putExtra("key_nombre", nombre);
-                        intent.putExtra("key_edad", edad);
+                        //REVISAR  KEY_EDAD-->
+                        intent.putExtra("key_edad", passwInt);
                         startActivity(intent);
                         Toast.makeText(UserLoginActivity.this, "Bienvenido a nuestra pagina de deporte sportsGO", Toast.LENGTH_SHORT).show();
 
