@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores base -->
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFFFF</color>    <!-- Marca Kinetic / SportsGO -->
     <color name="kinetic_surface">#0E0E0E</color>
-    <color name="kinetic_primary">#cafd00</color> <color name="kinetic_secondary">#ff734a</color> <color name="kinetic_card">#1A1A1A</color>
-    <color name="kinetic_text_gray">#adaaaa</color>
+    <color name="kinetic_primary">#CAFD00</color>
+    <color name="kinetic_secondary">#FF734A</color>
+    <color name="kinetic_card">#131313</color>
+    <color name="kinetic_text_gray">#ADAAAA</color>
+    <color name="kinetic_accent_blur">#33CAFD00</color>
 </resources>
