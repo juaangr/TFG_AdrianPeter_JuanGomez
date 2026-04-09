@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="kinetic_surface">#0E0E0E</color>
+    <color name="kinetic_primary">#cafd00</color> <color name="kinetic_secondary">#ff734a</color> <color name="kinetic_card">#1A1A1A</color>
+    <color name="kinetic_text_gray">#adaaaa</color>
 </resources>
