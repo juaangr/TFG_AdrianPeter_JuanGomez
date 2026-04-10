@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +31,7 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class ChatActivity extends AppCompatActivity {
+    private ImageView btnOpciones;
     private TextView tvNombre, tvEstado;
     private View viewEstadoColor;
     private EditText etMensaje;
@@ -63,6 +67,24 @@ public class ChatActivity extends AppCompatActivity {
 
         btnEnviar.setOnClickListener(v -> enviarMensaje());
 
+        btnOpciones.setOnClickListener(v -> {
+            // Creamos el menu emergente anclado al boton
+            PopupMenu popup = new PopupMenu(this, v);
+
+            // Añadimos las opciones programaticamente
+            popup.getMenu().add("Silenciar 2 horas");
+            popup.getMenu().add("Silenciar 6 horas");
+            popup.getMenu().add("Silenciar 12 horas");
+
+            // Configuramos que pasa al hacer clic
+            popup.setOnMenuItemClickListener(item -> {
+                Toast.makeText(this, "Chat silenciado: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                // Aquí metes tu lógica de silenciar
+                return true;
+            });
+
+            popup.show();
+        });
     }
 
     private void enviarMensaje() {
@@ -130,6 +152,7 @@ public class ChatActivity extends AppCompatActivity {
         etMensaje = findViewById(R.id.etMensaje);
         btnEnviar = findViewById(R.id.btnEnviarMsg);
         lvMensajes = findViewById(R.id.lvMensajes);
+        btnOpciones = findViewById(R.id.btnOpcionesChat);
 
         tvNombre.setText(nombreOtro);
 
