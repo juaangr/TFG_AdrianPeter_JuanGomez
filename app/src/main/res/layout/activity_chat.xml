@@ -1,51 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F5">
+    android:background="#0E0E0E"> <LinearLayout
+    android:id="@+id/chatHeader"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0E0E0E"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="12dp">
 
-    <!-- Barra Superior (Taskbar del Chat) -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#33FFFFFF"
+        app:strokeWidth="1dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_myplaces"
+            app:tint="#ADAAAA" />
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
-        android:id="@+id/chatHeader"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#1A202C"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvNombreChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del Usuario"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:fontFamily="sans-serif-black"
+            android:text="COACH MARCUS"
+            android:textAllCaps="true"
+            android:textColor="#CAFD00"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
 
-            <View
-                android:id="@+id/viewEstadoColor"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@android:color/darker_gray" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/darker_gray">
+                <View
+                    android:id="@+id/viewEstadoColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"/>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tvEstadoTexto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="Desconectado"
-                android:textColor="#E2E8F0"
-                android:textSize="12sp" />
+                android:fontFamily="sans-serif-bold"
+                android:text="DESCONECTADO"
+                android:textAllCaps="true"
+                android:textColor="#ADAAAA"
+                android:textSize="10sp"
+                android:letterSpacing="0.05" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Lista de Mensajes -->
+    <ImageView
+        android:id="@+id/btnOpcionesChat"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="4dp"
+        android:src="@android:drawable/ic_menu_more"
+        app:tint="#ADAAAA" />
+</LinearLayout>
+
     <ListView
         android:id="@+id/lvMensajes"
         android:layout_width="match_parent"
@@ -53,33 +98,71 @@
         android:layout_above="@+id/layoutEnvio"
         android:layout_below="@id/chatHeader"
         android:divider="@null"
-        android:padding="10dp"
+        android:dividerHeight="16dp"
+        android:padding="16dp"
+        android:clipToPadding="false"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll" />
 
-    <!-- Barra de entrada de texto -->
     <LinearLayout
         android:id="@+id/layoutEnvio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="#0E0E0E"
+        android:gravity="bottom"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
 
-        <EditText
-            android:id="@+id/etMensaje"
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp"
+            android:src="@android:drawable/ic_input_add"
+            app:tint="#ADAAAA" />
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Escribe un mensaje..."
-            android:padding="12dp" />
+            app:cardBackgroundColor="#1A1A1A"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
 
-        <ImageButton
-            android:id="@+id/btnEnviarMsg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_send" />
+            <EditText
+                android:id="@+id/etMensaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Escribe un mensaje..."
+                android:maxLines="4"
+                android:padding="14dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#555555"
+                android:textSize="14sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="12dp"
+            app:cardBackgroundColor="#CAFD00"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <ImageButton
+                android:id="@+id/btnEnviarMsg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/ic_menu_send"
+                app:tint="#000000" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
 </RelativeLayout>
