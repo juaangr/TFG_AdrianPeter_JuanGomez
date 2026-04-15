@@ -18,7 +18,7 @@ import io.realm.RealmResults;
 
 //ESTA CLASE ES PARA LA VISTA DEL PUPILO DE LOS EJERCICIOS QUE LE ASIGNO SU ENTRENADOR
 public class PupilWorkoutActivity extends AppCompatActivity {
-   private Button button;
+   private Button button, btnGemini;
    private ListView listView;
    private Realm realm;
    private EjercicioAdapter adapter;
@@ -32,7 +32,14 @@ public class PupilWorkoutActivity extends AppCompatActivity {
     realm = Realm.getDefaultInstance();
 
     button = findViewById(R.id.btnFinalizar);
+    btnGemini = findViewById(R.id.btnGeminiChat);
     listView = findViewById(R.id.lvEjercicios);
+
+    // Listener para abrir el chat con Gemini
+    btnGemini.setOnClickListener(v -> {
+        android.content.Intent intent = new android.content.Intent(this, GeminiChatActivity.class);
+        startActivity(intent);
+    });
 
     //Obtener el nombre del pupilo logueado (desde SharedPreference)
     String pupiloActual = getSharedPreferences("PrefeSportsGO", MODE_PRIVATE).getString("user_nombre","Adrian");
