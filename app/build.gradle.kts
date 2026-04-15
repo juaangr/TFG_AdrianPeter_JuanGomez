@@ -17,6 +17,16 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Cargar la API KEY desde local.properties
+        val properties = java.util.Properties()
+        val localPropertiesFile = project.rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            properties.load(localPropertiesFile.inputStream())
+        }
+        val geminiKey = properties.getProperty("gemini.api.key") ?: ""
+        
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiKey\"")
     }
 
     buildTypes {
@@ -28,6 +38,11 @@ android {
             )
         }
     }
+    
+    buildFeatures {
+        buildConfig = true
+    }
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -35,7 +50,6 @@ android {
 }
 
 // Activamos la sincronización con MongoDB Atlas (Device Sync)
-// Fundamental para la comunicación Trainer-Alumno en tiempo real
 realm {
     isSyncEnabled = true
 }

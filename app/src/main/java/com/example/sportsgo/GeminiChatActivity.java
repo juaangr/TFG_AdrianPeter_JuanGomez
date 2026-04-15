@@ -47,10 +47,10 @@ public class GeminiChatActivity extends AppCompatActivity {
         lvChat.setAdapter(adapter);
 
         // CONFIGURACIÓN DE GEMINI
-        // IMPORTANTE: Reemplaza "TU_API_KEY" con una clave válida de Google AI Studio
+        // Cargamos la clave desde el BuildConfig generado automáticamente
         GenerativeModel gm = new GenerativeModel(
                 "gemini-1.5-flash",
-                "TU_API_KEY"
+                BuildConfig.GEMINI_API_KEY
         );
         model = GenerativeModelFutures.from(gm);
 
