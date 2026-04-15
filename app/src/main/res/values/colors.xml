@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores Base -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Marca SportsGO / Kinetic (TFG) -->
+    <color name="kinetic_surface">#0E0E0E</color>
+    <color name="kinetic_primary">#CAFD00</color>
+    <color name="kinetic_primary_glow">#4DCAFD00</color> <!-- El resplandor que pediste -->
+    <color name="kinetic_secondary">#FF734A</color>
+    <color name="kinetic_card">#131313</color>
+    <color name="kinetic_text_gray">#ADAAAA</color>
+    <color name="kinetic_accent_blur">#33CAFD00</color>
+</resources>
