@@ -1,50 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#F0F4F7">
+    android:background="@color/kinetic_surface">
+
+    <!-- Header Estilo Moderno -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTituloGym"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="ENTRENAMIENTO"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="@color/kinetic_primary"
+            app:layout_constraintStart_toStartOf="@id/tvTituloGym"
+            app:layout_constraintTop_toBottomOf="@id/tvTituloGym" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
-        android:id="@+id/tvTituloGym"
+        android:id="@+id/tvSubtitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rutina de Entrenamiento"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#333"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ejercicios recomendados para hoy:"
-        android:textSize="16sp"
-        android:layout_marginBottom="10dp"
-        android:textColor="#666"/>
-    <!-- ListView para mostrar los ejercicios -->
-    <ListView
-        android:id="@+id/lvEjercicios"
+        android:layout_marginStart="24dp"
+        android:fontFamily="monospace"
+        android:text="RUTINA ASIGNADA POR TU COACH"
+        android:textColor="@color/kinetic_text_gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerWorkout" />
+
+    <!-- Lista de Ejercicios en Card -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="#DDDDDD"
-        android:dividerHeight="1dp"
-        android:background="@android:color/white"
-        android:elevation="2dp"/>
-    <Button
-        android:id="@+id/btnGeminiChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HABLAR CON IA (DUDAS)"
-        android:backgroundTint="#2196F3"
-        android:layout_marginTop="10dp" />
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/kinetic_card"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutButtons"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo">
 
-    <Button
-        android:id="@+id/btnFinalizar"
+        <ListView
+            android:id="@+id/lvEjercicios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Panel de Botones Flotante -->
+    <LinearLayout
+        android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FINALIZAR SESIÓN"
-        android:backgroundTint="#4CAF50"
-        android:layout_marginTop="10dp"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGeminiChat"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:text="CONSULTAR A SportsGO IA"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/kinetic_surface"
+            app:backgroundTint="@color/kinetic_primary"
+            app:cornerRadius="20dp"
+            app:icon="@android:drawable/ic_menu_send"
+            app:iconGravity="textStart"
+            app:iconTint="@color/kinetic_surface"
+            android:layout_marginBottom="12dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFinalizar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:text="FINALIZAR SESIÓN"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/white"
+            app:backgroundTint="#2D2D2D"
+            app:cornerRadius="20dp"
+            app:strokeColor="@color/kinetic_secondary"
+            app:strokeWidth="2dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
