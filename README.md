@@ -1,6 +1,6 @@
 # 🏋️‍♂️ SportsGO: Plataforma de Gestión Deportiva
 
-> **Proyecto TFG** | Android Studio + Realm/MongoDB Atlas
+> **Proyecto TFG** | Android Studio + FireStore
 
 **SportsGO** es una solución integral para la gestión de entrenamientos personalizados. Conecta a entrenadores con sus pupilos mediante una arquitectura **Offline-First**, garantizando que los datos de rendimiento estén siempre disponibles, con o sin conexión.
 
@@ -9,8 +9,7 @@
 ## 🚀 Tecnologías Clave
 * **Android Studio**: Entorno de desarrollo nativo.
 * **Realm SDK**: Base de datos local de alto rendimiento.
-* **MongoDB Atlas**: Sincronización en la nube y persistencia global.
-* **Atlas Device Sync**: Gestión automática de datos entre dispositivos.
+* **FireStore**: Sincronización en la nube y persistencia global.
 
 ---
 
