@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo base oscuro -->
+    <item>
+        <color android:color="#0A0A0A"/>
+    </item>
+
+    <!-- Línea diagonal 1 (Verde Neón sutil) -->
+    <item android:top="80dp" android:left="-100dp">
+        <rotate android:fromDegrees="45">
+            <shape android:shape="rectangle">
+                <size android:width="600dp" android:height="4dp"/>
+                <solid android:color="#0DCAFD00"/> <!-- 5% Alpha del verde neón -->
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Línea diagonal 2 (Naranja Neón sutil) -->
+    <item android:bottom="120dp" android:right="-50dp">
+        <rotate android:fromDegrees="-25">
+            <shape android:shape="rectangle">
+                <size android:width="600dp" android:height="6dp"/>
+                <solid android:color="#0DFF734A"/> <!-- 5% Alpha del naranja -->
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Círculo difuminado tipo graffiti 1 -->
+    <item android:top="200dp" android:left="30dp">
+        <shape android:shape="oval">
+            <size android:width="250dp" android:height="250dp"/>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="125dp"
+                android:startColor="#0DCAFD00"
+                android:endColor="#00000000"/>
+        </shape>
+    </item>
+
+    <!-- Círculo difuminado tipo graffiti 2 -->
+    <item android:bottom="100dp" android:right="10dp">
+        <shape android:shape="oval">
+            <size android:width="300dp" android:height="300dp"/>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="150dp"
+                android:startColor="#0DFF734A"
+                android:endColor="#00000000"/>
+        </shape>
+    </item>
+</layer-list>

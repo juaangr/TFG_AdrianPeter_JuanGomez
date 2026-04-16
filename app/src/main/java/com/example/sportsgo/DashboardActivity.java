@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.google.android.material.card.MaterialCardView;
 
 public class DashboardActivity extends AppCompatActivity {
     private MaterialCardView cardWorkout, cardChat, cardCalorias, cardPerfil, cardTabata, cardIMC;
+    private ImageView btnIAHeader, btnNavChat, btnNavPerfil, btnLogout;
     private TextView tvBienvenida;
     private String userRol, userNombre;
 
@@ -29,50 +31,35 @@ public class DashboardActivity extends AppCompatActivity {
         initUI();
         aplicarAnimaciones();
 
-        //Accedemos al sistema de rutinas de ejercicios
+        // 1. Navegación de las Cards Principales
         cardWorkout.setOnClickListener(v -> {
             if(userRol.equals("Trainer")){
-                //Si es entrenador, ve su lista de alumnos
                 startActivity(new Intent(this, TrainerDashboardActivity.class));
             }else{
-                //Si es pupilo, ve su rutina asignada
                 startActivity(new Intent(this, PupilWorkoutActivity.class));
             }
         });
 
-        //Accedemos al sistema de chat
-        cardChat.setOnClickListener(v -> {
-            //Navegacion al sistema de chateo en tiempo real
-            Intent intent = new Intent(this, ChatActivity.class);
+        cardChat.setOnClickListener(v -> abrirChatHumano());
+        cardPerfil.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
+        cardCalorias.setOnClickListener(v -> startActivity(new Intent(this, CaloriesActivity.class)));
+        cardTabata.setOnClickListener(v -> startActivity(new Intent(this, TabataActivity.class)));
+        cardIMC.setOnClickListener(v -> startActivity(new Intent(this, IMCActivity.class)));
 
-            //Si eres alumno, podrias pasar por defecto el nombre de tu entrenador
-            intent.putExtra("nombre_otro",userRol.equals("Trainer") ? "Selecciona un alumno" : "Tu entrenador");
-            startActivity(intent);
-        });
+        // 2. Navegación de botones específicos
+        btnIAHeader.setOnClickListener(v -> startActivity(new Intent(this, GeminiChatActivity.class)));
+        btnNavChat.setOnClickListener(v -> abrirChatHumano());
+        btnNavPerfil.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
+        btnLogout.setOnClickListener(v -> finish());
+    }
 
-        //Accedemos a la actividad del perfil para poder editarlo
-        cardPerfil.setOnClickListener(v -> {
-            startActivity(new Intent(this, ProfileActivity.class));
-        });
-
-        //Accedemos a la actividad del conteo de calorias para el usuario
-        cardCalorias.setOnClickListener(v -> {
-            //Navegamos a la actividad del conteo propio de calorias para el usuario
-            Intent intent = new Intent(this, CaloriesActivity.class);
-            startActivity(intent);
-        });
-
-        cardTabata.setOnClickListener(v -> {
-            startActivity(new Intent(this, TabataActivity.class));
-        });
-
-        cardIMC.setOnClickListener(v -> {
-            startActivity(new Intent(this, IMCActivity.class));
-        });
+    private void abrirChatHumano() {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("nombre_otro", userRol.equals("Trainer") ? "Selecciona un alumno" : "Entrenador");
+        startActivity(intent);
     }
 
     private void aplicarAnimaciones() {
-        // Cargamos la animacion fade_in_up que creamos anteriormente
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in_up);
         cardWorkout.startAnimation(anim);
         cardChat.startAnimation(anim);
@@ -92,5 +79,11 @@ public class DashboardActivity extends AppCompatActivity {
         cardPerfil = findViewById(R.id.cardPerfil);
         cardTabata = findViewById(R.id.cardTabata);
         cardIMC = findViewById(R.id.cardIMC);
+
+        // Referencias correctas a los IDs del XML actual
+        btnIAHeader = findViewById(R.id.btnIAHeader);
+        btnNavChat = findViewById(R.id.btnNavChat);
+        btnNavPerfil = findViewById(R.id.btnNavPerfil);
+        btnLogout = findViewById(R.id.btnLogout);
     }
 }
