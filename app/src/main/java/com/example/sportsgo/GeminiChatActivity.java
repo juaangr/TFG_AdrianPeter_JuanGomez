@@ -35,13 +35,21 @@ public class GeminiChatActivity extends AppCompatActivity {
 
     private GenerativeModelFutures model;
     private String miNombre;
+    
+    // HISTORIAL DE CONVERSACIÓN PARA QUE TENGA MEMORIA
+    private List<Content> chatHistory = new ArrayList<>();
+    private final String systemPrompt = "Eres el Asistente de Seguridad de SportsGO. Tu rol es:\n" +
+            "1. Resolver dudas sobre TÉCNICA de ejercicios.\n" +
+            "2. Si el usuario menciona DOLOR o MOLESTIA, aconseja parar y recomienda informar al entrenador.\n" +
+            "3. NO puedes crear rutinas.\n" +
+            "4. Si detectas un problema de salud o dolor, termina tu respuesta con la frase exacta: '[ALERTA_ENTRENADOR]'.\n" +
+            "Sé profesional y breve.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gemini_chat);
 
-        // Recuperamos el nombre del usuario para el chat
         SharedPreferences prefs = getSharedPreferences("PrefeSportsGO", MODE_PRIVATE);
         miNombre = prefs.getString("user_nombre", "Usuario");
 
@@ -54,15 +62,14 @@ public class GeminiChatActivity extends AppCompatActivity {
         lvChat.setAdapter(adapter);
 
         // CONFIGURACIÓN DE GEMINI
-        // Usamos el nombre completo del paquete para evitar problemas de importación con BuildConfig
         GenerativeModel gm = new GenerativeModel(
                 "gemini-1.5-flash",
                 com.example.sportsgo.BuildConfig.GEMINI_API_KEY
         );
         model = GenerativeModelFutures.from(gm);
 
-        // Mensaje de bienvenida de la IA
-        chatMessages.add("IA: ¡Hola! Soy tu asistente de seguridad. Pregúntame dudas sobre técnica o avísame si sientes molestias. No puedo cambiar tu rutina, pero te ayudaré a entrenar seguro.");
+        // Añadimos el mensaje inicial al historial visual y a la IA
+        chatMessages.add("IA: ¡Hola! Soy tu asistente de seguridad. ¿En qué puedo ayudarte hoy?");
         adapter.notifyDataSetChanged();
 
         btnEnviar.setOnClickListener(v -> sendMessage());
@@ -72,35 +79,46 @@ public class GeminiChatActivity extends AppCompatActivity {
         String query = etMensaje.getText().toString().trim();
         if (query.isEmpty()) return;
 
+        // 1. Mostrar en UI
         chatMessages.add("Tú: " + query);
         adapter.notifyDataSetChanged();
         etMensaje.setText("");
         lvChat.setSelection(adapter.getCount() - 1);
 
-        // System Prompt para que la IA sepa su rol de seguridad
-        String systemPrompt = "Eres el Asistente de Seguridad de SportsGO. Tu rol es:\n" +
-                "1. Resolver dudas sobre TÉCNICA de ejercicios (ej. '¿cómo pongo la espalda en sentadilla?').\n" +
-                "2. Si el usuario menciona DOLOR ('me duele', 'pinchazo', 'molestia'), debes aconsejarle PARAR inmediatamente y recomendarle que informe a su entrenador.\n" +
-                "3. NO puedes crear rutinas, solo explicar ejercicios existentes.\n" +
-                "4. Si detectas que el usuario tiene un problema que requiere atención humana o informa de dolor, termina tu respuesta con la frase exacta: '[ALERTA_ENTRENADOR]'.\n" +
-                "Sé profesional, breve y prioriza la salud del usuario.";
+        // 2. Construir el contexto del mensaje (System Prompt + Historial + Nueva Pregunta)
+        Content userContent = new Content.Builder()
+                .addText(query)
+                .build();
+        
+        // Creamos la petición enviando el sistema de instrucciones y el historial
+        // En una implementación más compleja usaríamos model.startChat(), 
+        // pero para este nivel, concatenar el contexto es muy efectivo y fácil de explicar.
+        
+        StringBuilder fullPrompt = new StringBuilder(systemPrompt + "\n\nHistorial:\n");
+        for (Content c : chatHistory) {
+            fullPrompt.append(c.getRole()).append(": ").append(c.getParts().get(0).toString()).append("\n");
+        }
+        fullPrompt.append("Usuario: ").append(query);
 
-        Content content = new Content.Builder()
-                .addText(systemPrompt + "\n\nUsuario: " + query)
+        Content finalRequest = new Content.Builder()
+                .addText(fullPrompt.toString())
                 .build();
 
         Executor executor = Executors.newSingleThreadExecutor();
-        ListenableFuture<GenerateContentResponse> response = model.generateContent(content);
+        ListenableFuture<GenerateContentResponse> response = model.generateContent(finalRequest);
 
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
                 String resultText = result.getText();
                 runOnUiThread(() -> {
+                    // Guardar en el historial de memoria
+                    chatHistory.add(userContent);
+                    chatHistory.add(new Content.Builder().addText(resultText).build());
+
                     if (resultText != null && resultText.contains("[ALERTA_ENTRENADOR]")) {
-                        // Limpiamos el texto de la marca interna antes de mostrarlo
-                        String finalMsg = resultText.replace("[ALERTA_ENTRENADOR]", "").trim();
-                        chatMessages.add("IA: " + finalMsg);
+                        String cleanMsg = resultText.replace("[ALERTA_ENTRENADOR]", "").trim();
+                        chatMessages.add("IA: " + cleanMsg);
                         mostrarDialogoAlertaEntrenador();
                     } else {
                         chatMessages.add("IA: " + resultText);
@@ -113,7 +131,7 @@ public class GeminiChatActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 runOnUiThread(() -> {
-                    Toast.makeText(GeminiChatActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GeminiChatActivity.this, "Error de IA: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 });
             }
         }, executor);
@@ -121,30 +139,26 @@ public class GeminiChatActivity extends AppCompatActivity {
 
     private void mostrarDialogoAlertaEntrenador() {
         new AlertDialog.Builder(this)
-                .setTitle("¿Avisar al entrenador?")
-                .setMessage("Parece que tienes una molestia o duda urgente. ¿Quieres que envíe un mensaje automático a tu preparador?")
+                .setTitle("⚠️ Aviso de Seguridad")
+                .setMessage("¿Deseas enviar una alerta inmediata a tu entrenador sobre este dolor/duda?")
                 .setPositiveButton("Sí, enviar aviso", (dialog, which) -> enviarAlertaRealFirebase())
-                .setNegativeButton("No por ahora", null)
+                .setNegativeButton("No", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 
     private void enviarAlertaRealFirebase() {
-        // Obtenemos el nombre del entrenador (puedes ajustarlo si tienes el nombre real guardado)
         String nombreEntrenador = "Entrenador"; 
-        
-        String chatID;
-        // Misma lógica de ID que en ChatActivity
-        if(miNombre.compareTo(nombreEntrenador) < 0) chatID = miNombre + "_" + nombreEntrenador;
-        else chatID = nombreEntrenador + "_" + miNombre;
+        String chatID = (miNombre.compareTo(nombreEntrenador) < 0) ? 
+                miNombre + "_" + nombreEntrenador : nombreEntrenador + "_" + miNombre;
 
         Message alerta = new Message();
         alerta.setEmisor(miNombre);
         alerta.setReceptor(nombreEntrenador);
-        alerta.setTexto("⚠️ ALERTA: El usuario ha reportado molestias o una duda técnica urgente a la IA durante su entrenamiento.");
+        alerta.setTexto("⚠️ ALERTA: El usuario ha reportado molestias o una duda técnica urgente a través de la IA.");
         alerta.setTimestamp(System.currentTimeMillis());
 
         FirebaseDatabase.getInstance().getReference("chats").child(chatID).push().setValue(alerta)
-                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Aviso enviado al entrenador correctamente", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show());
+                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Aviso enviado al entrenador", Toast.LENGTH_SHORT).show());
     }
 }

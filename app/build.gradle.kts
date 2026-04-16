@@ -77,8 +77,8 @@ dependencies {
     // Google Gemini AI
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
-    //REVISAR -->
-    //implementation(libs.firebase.database)
+    // Base de datos en tiempo real para el chat
+    implementation("com.google.firebase:firebase-database")
 
     // Pruebas unitarias e instrumentales
     testImplementation(libs.junit)
