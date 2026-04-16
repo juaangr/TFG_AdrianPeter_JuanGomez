@@ -139,8 +139,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fontFamily="monospace"
-                android:letterSpacing="0.1"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.3"
                 android:text="TU PRÓXIMO NIVEL ESTÁ AQUÍ"
                 android:textColor="@color/kinetic_text_gray"
                 android:textSize="12sp" />
