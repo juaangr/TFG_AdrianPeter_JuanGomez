@@ -1,7 +1,8 @@
 package com.example.sportsgo;
 
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,6 +18,7 @@ import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +34,16 @@ public class GeminiChatActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
 
     private GenerativeModelFutures model;
+    private String miNombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gemini_chat);
+
+        // Recuperamos el nombre del usuario para el chat
+        SharedPreferences prefs = getSharedPreferences("PrefeSportsGO", MODE_PRIVATE);
+        miNombre = prefs.getString("user_nombre", "Usuario");
 
         lvChat = findViewById(R.id.lvChatGemini);
         etMensaje = findViewById(R.id.etMensajeGemini);
@@ -47,15 +54,15 @@ public class GeminiChatActivity extends AppCompatActivity {
         lvChat.setAdapter(adapter);
 
         // CONFIGURACIÓN DE GEMINI
-        // Cargamos la clave desde el BuildConfig generado automáticamente
+        // Usamos el nombre completo del paquete para evitar problemas de importación con BuildConfig
         GenerativeModel gm = new GenerativeModel(
                 "gemini-1.5-flash",
-                BuildConfig.GEMINI_API_KEY
+                com.example.sportsgo.BuildConfig.GEMINI_API_KEY
         );
         model = GenerativeModelFutures.from(gm);
 
         // Mensaje de bienvenida de la IA
-        chatMessages.add("IA: ¡Hola! Soy tu asistente de SportsGO. Pregúntame cualquier duda sobre tus ejercicios o si sientes alguna molestia. Recuerda que no puedo cambiar tu rutina, eso es cosa de tu entrenador.");
+        chatMessages.add("IA: ¡Hola! Soy tu asistente de seguridad. Pregúntame dudas sobre técnica o avísame si sientes molestias. No puedo cambiar tu rutina, pero te ayudaré a entrenar seguro.");
         adapter.notifyDataSetChanged();
 
         btnEnviar.setOnClickListener(v -> sendMessage());
@@ -70,13 +77,13 @@ public class GeminiChatActivity extends AppCompatActivity {
         etMensaje.setText("");
         lvChat.setSelection(adapter.getCount() - 1);
 
-        // System Prompt para que la IA sepa su rol
-        String systemPrompt = "Eres un asistente virtual de gimnasio para una app llamada SportsGO. " +
-                "Tu objetivo es ayudar al pupilo con dudas inmediatas sobre la ejecución de ejercicios, " +
-                "dolores leves, o consejos motivacionales. " +
-                "IMPORTANTE: No puedes modificar la rutina asignada por el entrenador. " +
-                "Si el usuario pide cambiar ejercicios, indícale que debe consultarlo con su entrenador. " +
-                "Sé conciso y profesional.";
+        // System Prompt para que la IA sepa su rol de seguridad
+        String systemPrompt = "Eres el Asistente de Seguridad de SportsGO. Tu rol es:\n" +
+                "1. Resolver dudas sobre TÉCNICA de ejercicios (ej. '¿cómo pongo la espalda en sentadilla?').\n" +
+                "2. Si el usuario menciona DOLOR ('me duele', 'pinchazo', 'molestia'), debes aconsejarle PARAR inmediatamente y recomendarle que informe a su entrenador.\n" +
+                "3. NO puedes crear rutinas, solo explicar ejercicios existentes.\n" +
+                "4. Si detectas que el usuario tiene un problema que requiere atención humana o informa de dolor, termina tu respuesta con la frase exacta: '[ALERTA_ENTRENADOR]'.\n" +
+                "Sé profesional, breve y prioriza la salud del usuario.";
 
         Content content = new Content.Builder()
                 .addText(systemPrompt + "\n\nUsuario: " + query)
@@ -90,7 +97,14 @@ public class GeminiChatActivity extends AppCompatActivity {
             public void onSuccess(GenerateContentResponse result) {
                 String resultText = result.getText();
                 runOnUiThread(() -> {
-                    chatMessages.add("IA: " + resultText);
+                    if (resultText != null && resultText.contains("[ALERTA_ENTRENADOR]")) {
+                        // Limpiamos el texto de la marca interna antes de mostrarlo
+                        String finalMsg = resultText.replace("[ALERTA_ENTRENADOR]", "").trim();
+                        chatMessages.add("IA: " + finalMsg);
+                        mostrarDialogoAlertaEntrenador();
+                    } else {
+                        chatMessages.add("IA: " + resultText);
+                    }
                     adapter.notifyDataSetChanged();
                     lvChat.setSelection(adapter.getCount() - 1);
                 });
@@ -103,5 +117,34 @@ public class GeminiChatActivity extends AppCompatActivity {
                 });
             }
         }, executor);
+    }
+
+    private void mostrarDialogoAlertaEntrenador() {
+        new AlertDialog.Builder(this)
+                .setTitle("¿Avisar al entrenador?")
+                .setMessage("Parece que tienes una molestia o duda urgente. ¿Quieres que envíe un mensaje automático a tu preparador?")
+                .setPositiveButton("Sí, enviar aviso", (dialog, which) -> enviarAlertaRealFirebase())
+                .setNegativeButton("No por ahora", null)
+                .show();
+    }
+
+    private void enviarAlertaRealFirebase() {
+        // Obtenemos el nombre del entrenador (puedes ajustarlo si tienes el nombre real guardado)
+        String nombreEntrenador = "Entrenador"; 
+        
+        String chatID;
+        // Misma lógica de ID que en ChatActivity
+        if(miNombre.compareTo(nombreEntrenador) < 0) chatID = miNombre + "_" + nombreEntrenador;
+        else chatID = nombreEntrenador + "_" + miNombre;
+
+        Message alerta = new Message();
+        alerta.setEmisor(miNombre);
+        alerta.setReceptor(nombreEntrenador);
+        alerta.setTexto("⚠️ ALERTA: El usuario ha reportado molestias o una duda técnica urgente a la IA durante su entrenamiento.");
+        alerta.setTimestamp(System.currentTimeMillis());
+
+        FirebaseDatabase.getInstance().getReference("chats").child(chatID).push().setValue(alerta)
+                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Aviso enviado al entrenador correctamente", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show());
     }
 }
