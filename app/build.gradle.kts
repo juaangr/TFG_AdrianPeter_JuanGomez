@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.example.sportsgo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.sportsgo"
         minSdk = 27
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
