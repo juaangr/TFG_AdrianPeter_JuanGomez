@@ -13,8 +13,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Inicializamos realm en la pantalla de carga
-        io.realm.Realm.init(this);
         setContentView(R.layout.activity_splash);
 
         // Esperamos 3 segundos para que se vea el logo y el ProgressBar
