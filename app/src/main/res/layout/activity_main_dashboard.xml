@@ -169,12 +169,22 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
+                        <!-- Imagen -->
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:alpha="0.6"
                             android:scaleType="centerCrop"
                             android:src="@drawable/segundo_activity" />
+
+                        <!-- Borde encima como overlay -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/border_image" />
+
+                        <!-- Texto encima -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
