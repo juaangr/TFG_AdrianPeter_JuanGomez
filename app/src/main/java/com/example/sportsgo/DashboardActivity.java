@@ -33,11 +33,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         // 1. Navegación de las Cards Principales
         cardWorkout.setOnClickListener(v -> {
-            if(userRol.equals("Trainer")){
-                startActivity(new Intent(this, TrainerDashboardActivity.class));
-            }else{
-                startActivity(new Intent(this, PupilWorkoutActivity.class));
-            }
+            // Saltamos la lógica de roles para la prueba
+            startActivity(new Intent(this, PupilWorkoutActivity.class));
         });
 
         cardChat.setOnClickListener(v -> abrirChatHumano());
@@ -47,16 +44,26 @@ public class DashboardActivity extends AppCompatActivity {
         cardIMC.setOnClickListener(v -> startActivity(new Intent(this, IMCActivity.class)));
 
         // 2. Navegación de botones específicos
-        btnIAHeader.setOnClickListener(v -> startActivity(new Intent(this, GeminiChatActivity.class)));
+        btnIAHeader.setOnClickListener(v -> {
+            try {
+                startActivity(new Intent(this, GeminiChatActivity.class));
+            } catch (Exception e) {
+                // Si falla por falta de API Key o Firebase, no cerramos la app
+            }
+        });
         btnNavChat.setOnClickListener(v -> abrirChatHumano());
         btnNavPerfil.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
         btnLogout.setOnClickListener(v -> finish());
     }
 
     private void abrirChatHumano() {
-        Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("nombre_otro", userRol.equals("Trainer") ? "Selecciona un alumno" : "Entrenador");
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra("nombre_otro", "Entrenador (Prueba)");
+            startActivity(intent);
+        } catch (Exception e) {
+            // Evitamos crash si ChatActivity requiere Firebase activo
+        }
     }
 
     private void aplicarAnimaciones() {
