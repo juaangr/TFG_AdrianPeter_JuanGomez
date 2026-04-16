@@ -1,3 +1,5 @@
+import java.util.Properties
+
 // Plugin o mejor dicho interruptor para activar las funciones de Realm/MongoDB
 plugins {
     alias(libs.plugins.android.application)
@@ -19,7 +21,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         
         // Cargar la API KEY desde local.properties
-        val properties = java.util.Properties()
+        val properties = Properties()
         val localPropertiesFile = project.rootProject.file("local.properties")
         if (localPropertiesFile.exists()) {
             properties.load(localPropertiesFile.inputStream())
