@@ -3,10 +3,13 @@ package com.example.sportsgo;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,11 +21,28 @@ import io.realm.Realm;
 public class TrainerAssignWorkoutActivity extends AppCompatActivity {
     private TextView tvNombreAlumno;
     private TextInputEditText etNombre, etSeries, etReps, etPeso;
-    private Spinner spinnerMusculo;
-    private Button btnAsignar;
+    private Spinner spinnerMusculo, spinnerCategoria;
+    private CheckBox cbGuardarPlantilla;
+    private Button btnAsignar, btnAbrirBanco;
 
     private Realm realm;
     private String nombreAlumno;
+
+    private final ActivityResultLauncher<android.content.Intent> launcherBanco = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() != RESULT_OK || result.getData() == null) {
+                    return;
+                }
+
+                String templateId = result.getData().getStringExtra(ExerciseBankActivity.EXTRA_TEMPLATE_ID);
+                if (templateId == null || templateId.trim().isEmpty()) {
+                    return;
+                }
+
+                cargarPlantillaEnFormulario(templateId);
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +62,9 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         etReps = findViewById(R.id.etReps);
         etPeso = findViewById(R.id.etPesoEj);
         spinnerMusculo = findViewById(R.id.spinnerGrupoMuscular);
+        spinnerCategoria = findViewById(R.id.spinnerCategoria);
+        cbGuardarPlantilla = findViewById(R.id.cbGuardarPlantilla);
+        btnAbrirBanco = findViewById(R.id.btnAbrirBanco);
         btnAsignar = findViewById(R.id.btnAsignar);
 
 
@@ -51,17 +74,62 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         }
 
         //Configuracion del Spinner (Desplegable) con grupos musculares
-        setupSpinner();
+        setupSpinners();
+
+        btnAbrirBanco.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(this, ExerciseBankActivity.class);
+            launcherBanco.launch(intent);
+        });
 
         //Listener del boton para ejecutar la logica de guardado
         btnAsignar.setOnClickListener(v -> guardarEjercicio());
     }
 
-    private void setupSpinner() {
+    private void setupSpinners() {
         String[] grupos = {"Pecho", "Espalda", "Hombro", "Biceps", "Triceps", "Pierna", "Core"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, grupos);
-
         spinnerMusculo.setAdapter(adapter);
+
+        String[] categorias = {"Fuerza", "Cardio", "Flexibilidad"};
+        ArrayAdapter<String> adapterCategorias = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorias);
+        spinnerCategoria.setAdapter(adapterCategorias);
+    }
+
+    private void cargarPlantillaEnFormulario(String templateId) {
+        try {
+            Ejercicios plantilla = realm.where(Ejercicios.class)
+                    .equalTo("id", new ObjectId(templateId))
+                    .equalTo("plantilla", true)
+                    .findFirst();
+
+            if (plantilla == null) {
+                Toast.makeText(this, "No se encontro la plantilla seleccionada", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            etNombre.setText(plantilla.getNombre());
+            etSeries.setText(String.valueOf(plantilla.getSeries()));
+            etReps.setText(String.valueOf(plantilla.getRepeticiones()));
+            etPeso.setText(plantilla.getPeso());
+            seleccionarSpinnerPorTexto(spinnerMusculo, plantilla.getGrupoMuscular());
+            seleccionarSpinnerPorTexto(spinnerCategoria, plantilla.getCategoria());
+            Toast.makeText(this, "Plantilla cargada. Ajusta peso/series si lo necesitas", Toast.LENGTH_SHORT).show();
+        } catch (IllegalArgumentException ex) {
+            Toast.makeText(this, "La plantilla recibida es invalida", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void seleccionarSpinnerPorTexto(Spinner spinner, String value) {
+        if (value == null) {
+            return;
+        }
+        for (int i = 0; i < spinner.getCount(); i++) {
+            Object item = spinner.getItemAtPosition(i);
+            if (item != null && value.equalsIgnoreCase(item.toString())) {
+                spinner.setSelection(i);
+                return;
+            }
+        }
     }
 
 
@@ -80,21 +148,42 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         //Realizaremos una transaccion de escritura en Realm, el cambio se sincronizara con Atlas
         // y aparecera en movil en tiempo real
         try {
+            String grupoMuscular = spinnerMusculo.getSelectedItem().toString();
+            String categoria = spinnerCategoria.getSelectedItem().toString();
+
             realm.executeTransaction(r -> {
                 Ejercicios nuevoEj = r.createObject(Ejercicios.class, new ObjectId());
                 nuevoEj.setNombre(nombre);
                 nuevoEj.setPeso(peso);
                 nuevoEj.setSeries(Integer.parseInt(series));
                 nuevoEj.setRepeticiones(Integer.parseInt(reps));
+                nuevoEj.setCategoria(categoria);
+                nuevoEj.setGrupoMuscular(grupoMuscular);
+                nuevoEj.setPlantilla(false);
 
-                //Usamos el campo descripcion para guardar el grupo muscular seleccionado
-                nuevoEj.setDescripcion(spinnerMusculo.getSelectedItem().toString());
+                // Mantenemos la descripcion para no romper compatibilidad con datos antiguos.
+                nuevoEj.setDescripcion(grupoMuscular);
 
                 //Vinculamos el ejercicio al nombre del pupilo
                 nuevoEj.setNombrePupilo(nombreAlumno);
 
                 //Por defecto el ejercicio no esta completado (el alumno lo marcara cuando lo este)
                 nuevoEj.setCompletado(false);
+
+                if (cbGuardarPlantilla.isChecked()) {
+                    Ejercicios plantilla = r.createObject(Ejercicios.class, new ObjectId());
+                    plantilla.setNombre(nombre);
+                    plantilla.setPeso(peso);
+                    plantilla.setSeries(Integer.parseInt(series));
+                    plantilla.setRepeticiones(Integer.parseInt(reps));
+                    plantilla.setCategoria(categoria);
+                    plantilla.setGrupoMuscular(grupoMuscular);
+                    plantilla.setDescripcion("Plantilla del entrenador");
+                    plantilla.setNombrePupilo("");
+                    plantilla.setCompletado(false);
+                    plantilla.setPlantilla(true);
+                    plantilla.setImage(R.drawable.press);
+                }
             });
 
             //Envio a la nube (Firebase)
@@ -108,7 +197,10 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
             ejercicioNube.put("repeticiones", Integer.parseInt(reps));
             ejercicioNube.put("nombrePupilo", nombreAlumno);
             ejercicioNube.put("completado", false);
-            ejercicioNube.put("descripcion", spinnerMusculo.getSelectedItem().toString());
+            ejercicioNube.put("descripcion", grupoMuscular);
+            ejercicioNube.put("categoria", categoria);
+            ejercicioNube.put("grupoMuscular", grupoMuscular);
+            ejercicioNube.put("plantilla", false);
 
             if (nombreAlumno != null) {
                 mDatabase.child(nombreAlumno).push().setValue(ejercicioNube)

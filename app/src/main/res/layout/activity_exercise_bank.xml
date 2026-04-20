@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F7FA">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Banco de ejercicios"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="#1A202C" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Crea plantillas, filtra y selecciona en segundos"
+        android:textColor="#4A5568" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp">
+
+        <Spinner
+            android:id="@+id/spinnerFiltroCategoria"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@android:drawable/btn_dropdown" />
+
+        <Spinner
+            android:id="@+id/spinnerFiltroGrupo"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:background="@android:drawable/btn_dropdown" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etBuscarPlantilla"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:hint="Buscar por nombre"
+        android:background="@android:drawable/edit_text"
+        android:paddingHorizontal="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnNuevaPlantilla"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Nueva plantilla"
+            android:textAllCaps="false"
+            android:backgroundTint="#1A202C"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnCerrarBanco"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Cerrar"
+            android:textAllCaps="false"
+            android:backgroundTint="#718096"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvPlantillasEjercicios"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp"
+        android:dividerHeight="10dp"
+        android:divider="@android:color/transparent" />
+
+</LinearLayout>
+

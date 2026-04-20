@@ -78,8 +78,34 @@
                     android:textColor="#2D3748"
                     android:textStyle="bold" />
 
+                <Button
+                    android:id="@+id/btnAbrirBanco"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="#1A202C"
+                    android:text="Abrir banco de ejercicios"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF" />
+
                 <Spinner
                     android:id="@+id/spinnerGrupoMuscular"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:elevation="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Categoria"
+                    android:textColor="#2D3748"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerCategoria"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginBottom="20dp"
@@ -165,6 +191,14 @@
                             android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cbGuardarPlantilla"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Guardar tambien como plantilla"
+                    android:textColor="#2D3748" />
 
                 <!-- Botón de Envío Llamativo -->
                 <Button
