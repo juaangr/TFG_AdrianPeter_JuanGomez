@@ -12,4 +12,9 @@
     <color name="kinetic_card">#131313</color>
     <color name="kinetic_text_gray">#ADAAAA</color>
     <color name="kinetic_accent_blur">#33CAFD00</color>
+    <color name="kinetic_on_surface">#EAF0E5</color>
+    <color name="kinetic_card_alt">#1A1A1A</color>
+    <color name="kinetic_border">#4DCAFD00</color>
+    <color name="kinetic_border_soft">#26CAFD00</color>
+    <color name="kinetic_danger">#FF4D4D</color>
 </resources>

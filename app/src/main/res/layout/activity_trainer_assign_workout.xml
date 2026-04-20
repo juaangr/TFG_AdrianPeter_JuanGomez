@@ -3,97 +3,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A202C"
+    android:background="@drawable/bg_graffiti_neon"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Imagen Llamativa de Cabecera (Sustituye con tu foto de gimnasio) -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/kinetic_card"
+            app:title="Asignacion de rutina"
+            app:titleTextColor="@color/kinetic_on_surface" />
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivBanner"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:layout_marginTop="12dp"
+            android:alpha="0.9"
             android:scaleType="centerCrop"
-            android:alpha="0.8"
             android:src="@drawable/segundo_activity"
-            app:shapeAppearanceOverlay="@style/RoundedBottomCorners"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:shapeAppearanceOverlay="@style/RoundedBottomCorners" />
 
-        <!-- Overlay de Texto sobre la Imagen -->
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginStart="16dp"
-            android:text="SportsGO Trainer"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:shadowColor="#000000"
+            android:layout_marginTop="10dp"
+            android:shadowColor="@color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            android:shadowRadius="4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivBanner" />
+            android:shadowRadius="10"
+            android:text="SportsGO Trainer"
+            android:textColor="@color/kinetic_primary"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvNombreAlumno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
             android:text="Asignando rutina a: Alumno"
-            android:textColor="#E2E8F0"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvHeader"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="@color/kinetic_on_surface"
+            android:textSize="15sp" />
 
-        <!-- Tarjeta Principal del Formulario -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.SportsGO.KineticCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp"
-            app:layout_constraintTop_toBottomOf="@id/ivBanner">
+            android:layout_marginTop="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="20dp">
 
-                <!-- Selector de Grupo Muscular -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="Grupo Muscular"
-                    android:textColor="#2D3748"
+                    android:textColor="@color/kinetic_on_surface"
                     android:textStyle="bold" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAbrirBanco"
+                    style="@style/Widget.SportsGO.KineticButtonDark"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="12dp"
-                    android:backgroundTint="#1A202C"
                     android:text="Abrir banco de ejercicios"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
+                    app:icon="@android:drawable/ic_menu_agenda"
+                    app:iconTint="@color/kinetic_primary" />
 
                 <Spinner
                     android:id="@+id/spinnerGrupoMuscular"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@android:drawable/btn_dropdown"
+                    android:background="@drawable/border_image"
                     android:elevation="2dp" />
 
                 <TextView
@@ -101,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="Categoria"
-                    android:textColor="#2D3748"
+                    android:textColor="@color/kinetic_on_surface"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -109,42 +104,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@android:drawable/btn_dropdown"
+                    android:background="@drawable/border_image"
                     android:elevation="2dp" />
 
-                <!-- Nombre del Ejercicio -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.SportsGO.KineticInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ejercicio (Ej: Press Banca)"
                     app:startIconDrawable="@android:drawable/ic_menu_edit"
-                    app:boxStrokeColor="#FF8C00"
-                    app:hintTextColor="#FF8C00">
+                    app:startIconTint="@color/kinetic_primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etNombreEj"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/kinetic_on_surface"
+                        android:textColorHint="@color/kinetic_text_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Peso Asignado -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.SportsGO.KineticInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Peso objetivo (kg)"
-                    app:startIconDrawable="@android:drawable/ic_dialog_map">
+                    app:startIconDrawable="@android:drawable/ic_dialog_map"
+                    app:startIconTint="@color/kinetic_primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPesoEj"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/kinetic_on_surface"
+                        android:textColorHint="@color/kinetic_text_gray" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Series x Repeticiones -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -153,7 +149,7 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.SportsGO.KineticInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -164,7 +160,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:textColor="@color/kinetic_on_surface" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -172,12 +169,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="12dp"
                         android:text="x"
-                        android:textColor="#FF8C00"
+                        android:textColor="@color/kinetic_primary"
                         android:textSize="26sp"
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.SportsGO.KineticInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -188,7 +185,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:textColor="@color/kinetic_on_surface" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -197,25 +195,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:buttonTint="@color/kinetic_primary"
                     android:text="Guardar tambien como plantilla"
-                    android:textColor="#2D3748" />
+                    android:textColor="@color/kinetic_on_surface" />
 
-                <!-- Botón de Envío Llamativo -->
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAsignar"
+                    style="@style/Widget.SportsGO.KineticButtonPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginTop="32dp"
-                    android:backgroundTint="#FF8C00"
                     android:text="ENVIAR ALUMNO"
-                    android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:elevation="4dp"
                     app:cornerRadius="16dp" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

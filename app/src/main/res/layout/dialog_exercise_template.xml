@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/kinetic_surface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -9,63 +11,101 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <EditText
-            android:id="@+id/etNombrePlantilla"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.SportsGO.KineticInput"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Nombre del ejercicio" />
+            android:layout_height="wrap_content"
+            android:hint="Nombre del ejercicio">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombrePlantilla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/kinetic_on_surface" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
             android:id="@+id/spinnerCategoriaPlantilla"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:background="@android:drawable/btn_dropdown" />
+            android:background="@drawable/border_image" />
 
         <Spinner
             android:id="@+id/spinnerGrupoPlantilla"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:background="@android:drawable/btn_dropdown" />
+            android:background="@drawable/border_image" />
 
         <Spinner
             android:id="@+id/spinnerImagenPlantilla"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:background="@android:drawable/btn_dropdown" />
+            android:background="@drawable/border_image" />
 
-        <EditText
-            android:id="@+id/etSeriesPlantilla"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.SportsGO.KineticInput"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Series"
-            android:inputType="number" />
+            android:hint="Series">
 
-        <EditText
-            android:id="@+id/etRepsPlantilla"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSeriesPlantilla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/kinetic_on_surface" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.SportsGO.KineticInput"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Repeticiones"
-            android:inputType="number" />
+            android:hint="Repeticiones">
 
-        <EditText
-            android:id="@+id/etPesoPlantilla"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRepsPlantilla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/kinetic_on_surface" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.SportsGO.KineticInput"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Peso recomendado (ej: 40kg)" />
+            android:hint="Peso recomendado (ej: 40kg)">
 
-        <EditText
-            android:id="@+id/etVideoPlantilla"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPesoPlantilla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/kinetic_on_surface" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.SportsGO.KineticInput"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="URL tecnica (opcional)"
-            android:inputType="textUri" />
+            app:startIconDrawable="@android:drawable/ic_media_play"
+            app:startIconTint="@color/kinetic_primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etVideoPlantilla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"
+                android:textColor="@color/kinetic_on_surface" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </ScrollView>
-
