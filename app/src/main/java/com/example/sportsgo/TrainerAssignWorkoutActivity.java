@@ -19,6 +19,9 @@ import org.bson.types.ObjectId;
 import io.realm.Realm;
 
 public class TrainerAssignWorkoutActivity extends AppCompatActivity {
+    // Modo de pruebas para abrir esta pantalla aunque el resto del proyecto este inestable.
+    private static final boolean ISOLATED_MODE = true;
+
     private TextView tvNombreAlumno;
     private TextInputEditText etNombre, etSeries, etReps, etPeso;
     private Spinner spinnerMusculo, spinnerCategoria;
@@ -49,8 +52,14 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer_assign_workout);
 
-        //Inicializamos la instancia de Realm para la persistencia de datos
-        realm = Realm.getDefaultInstance();
+        // Inicializamos Realm solo si no estamos en modo aislado.
+        if (!ISOLATED_MODE) {
+            try {
+                realm = Realm.getDefaultInstance();
+            } catch (Throwable t) {
+                Toast.makeText(this, "Realm no disponible en este arranque", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         //Recuperamos el nombre del pupilo seleccionado en el dashboard previo
         nombreAlumno = getIntent().getStringExtra("nombre_pupilo");
@@ -77,6 +86,10 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         setupSpinners();
 
         btnAbrirBanco.setOnClickListener(v -> {
+            if (ISOLATED_MODE) {
+                Toast.makeText(this, "Banco desactivado en modo pruebas", Toast.LENGTH_SHORT).show();
+                return;
+            }
             android.content.Intent intent = new android.content.Intent(this, ExerciseBankActivity.class);
             launcherBanco.launch(intent);
         });
@@ -98,6 +111,10 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
     }
 
     private void cargarPlantillaEnFormulario(String templateId) {
+        if (realm == null) {
+            Toast.makeText(this, "Plantillas no disponibles en modo pruebas", Toast.LENGTH_SHORT).show();
+            return;
+        }
         try {
             Ejercicios plantilla = realm.where(Ejercicios.class)
                     .equalTo("id", new ObjectId(templateId))
@@ -147,9 +164,18 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
             return;
         }
 
+        if (ISOLATED_MODE) {
+            Toast.makeText(this, "Vista de prueba OK. Guardado real desactivado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         //Realizaremos una transaccion de escritura en Realm, el cambio se sincronizara con Atlas
         // y aparecera en movil en tiempo real
         try {
+            if (realm == null) {
+                Toast.makeText(this, "Realm no inicializado", Toast.LENGTH_SHORT).show();
+                return;
+            }
             String grupoMuscular = spinnerMusculo.getSelectedItem().toString();
             String categoria = spinnerCategoria.getSelectedItem().toString();
 
