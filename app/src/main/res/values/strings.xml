@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SportsGO</string>
+    <string name="prompt_grupo_muscular">Selecciona el grupo muscular</string>
+    <string name="prompt_categoria">Selecciona la categoria</string>
 </resources>

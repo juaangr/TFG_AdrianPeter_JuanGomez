@@ -98,9 +98,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/spinner_kinetic_bg"
                     android:elevation="2dp"
-                    android:prompt="Selecciona el grupo muscular"
-                    android:popupBackground="@color/kinetic_card"
-                    />
+                    android:prompt="@string/prompt_grupo_muscular"
+                    android:popupBackground="@color/kinetic_card" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,7 +116,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/spinner_kinetic_bg"
                     android:elevation="2dp"
-                    android:prompt="Selecciona la categoria"
+                    android:prompt="@string/prompt_categoria"
                     android:popupBackground="@color/kinetic_card"
                     />
 
