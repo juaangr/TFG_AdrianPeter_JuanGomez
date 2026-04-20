@@ -1,6 +1,8 @@
 package com.example.sportsgo;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,9 +21,6 @@ import org.bson.types.ObjectId;
 import io.realm.Realm;
 
 public class TrainerAssignWorkoutActivity extends AppCompatActivity {
-    // Modo de pruebas para abrir esta pantalla aunque el resto del proyecto este inestable.
-    private static final boolean ISOLATED_MODE = true;
-
     private TextView tvNombreAlumno;
     private TextInputEditText etNombre, etSeries, etReps, etPeso;
     private Spinner spinnerMusculo, spinnerCategoria;
@@ -52,17 +51,18 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer_assign_workout);
 
-        // Inicializamos Realm solo si no estamos en modo aislado.
-        if (!ISOLATED_MODE) {
-            try {
-                realm = Realm.getDefaultInstance();
-            } catch (Throwable t) {
-                Toast.makeText(this, "Realm no disponible en este arranque", Toast.LENGTH_SHORT).show();
-            }
+        try {
+            realm = Realm.getDefaultInstance();
+        } catch (Throwable t) {
+            Toast.makeText(this, "Realm no disponible en este arranque", Toast.LENGTH_SHORT).show();
         }
 
         //Recuperamos el nombre del pupilo seleccionado en el dashboard previo
         nombreAlumno = getIntent().getStringExtra("nombre_pupilo");
+        if (TextUtils.isEmpty(nombreAlumno)) {
+            // Permite pruebas directas de esta pantalla sin depender de otra Activity.
+            nombreAlumno = "Pupilo de prueba";
+        }
 
         //Vinculacion de objetos de java con los IDs del layout XML
         tvNombreAlumno = findViewById(R.id.tvNombreAlumno);
@@ -78,7 +78,7 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
 
         //Mostramos el nombre del alumno para confirmar a quien enviamos la rutina
-        if (nombreAlumno != null) {
+        if (!TextUtils.isEmpty(nombreAlumno)) {
             tvNombreAlumno.setText("Asignando la rutina a: " + nombreAlumno);
         }
 
@@ -86,10 +86,6 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         setupSpinners();
 
         btnAbrirBanco.setOnClickListener(v -> {
-            if (ISOLATED_MODE) {
-                Toast.makeText(this, "Banco desactivado en modo pruebas", Toast.LENGTH_SHORT).show();
-                return;
-            }
             android.content.Intent intent = new android.content.Intent(this, ExerciseBankActivity.class);
             launcherBanco.launch(intent);
         });
@@ -112,7 +108,7 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
     private void cargarPlantillaEnFormulario(String templateId) {
         if (realm == null) {
-            Toast.makeText(this, "Plantillas no disponibles en modo pruebas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Plantillas no disponibles", Toast.LENGTH_SHORT).show();
             return;
         }
         try {
@@ -154,18 +150,13 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
     private void guardarEjercicio() {
         //Validamos que los campos obligatorios tengan contenido
-        String nombre = etNombre.getText().toString();
-        String peso = etPeso.getText().toString();
-        String series = etSeries.getText().toString();
-        String reps = etReps.getText().toString();
+        String nombre = etNombre.getText() != null ? etNombre.getText().toString().trim() : "";
+        String peso = etPeso.getText() != null ? etPeso.getText().toString().trim() : "";
+        String series = etSeries.getText() != null ? etSeries.getText().toString().trim() : "";
+        String reps = etReps.getText() != null ? etReps.getText().toString().trim() : "";
 
         if (nombre.isEmpty() || peso.isEmpty() || series.isEmpty() || reps.isEmpty()) {
             Toast.makeText(this, "Porfavor. rellena todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (ISOLATED_MODE) {
-            Toast.makeText(this, "Vista de prueba OK. Guardado real desactivado", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -176,8 +167,15 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
                 Toast.makeText(this, "Realm no inicializado", Toast.LENGTH_SHORT).show();
                 return;
             }
-            String grupoMuscular = spinnerMusculo.getSelectedItem().toString();
-            String categoria = spinnerCategoria.getSelectedItem().toString();
+            Object grupoSeleccionado = spinnerMusculo.getSelectedItem();
+            Object categoriaSeleccionada = spinnerCategoria.getSelectedItem();
+            if (grupoSeleccionado == null || categoriaSeleccionada == null) {
+                Toast.makeText(this, "Selecciona grupo muscular y categoria", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String grupoMuscular = grupoSeleccionado.toString();
+            String categoria = categoriaSeleccionada.toString();
 
             realm.executeTransaction(r -> {
                 Ejercicios nuevoEj = r.createObject(Ejercicios.class, new ObjectId());
@@ -243,6 +241,9 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Las series y repeticiones deben ser numeros", Toast.LENGTH_SHORT).show();
+        } catch (Throwable t) {
+            Log.e("TrainerAssign", "Error al guardar ejercicio", t);
+            Toast.makeText(this, "No se pudo guardar el ejercicio. Reintenta.", Toast.LENGTH_LONG).show();
         }
     }
         @Override
