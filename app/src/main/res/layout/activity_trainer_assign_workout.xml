@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_graffiti_neon"
+    android:background="@drawable/bg_assign_workout_focus"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#B3121212"
+        android:background="#F2101010"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -58,9 +58,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/kinetic_card_alt"
+            app:cardBackgroundColor="@color/kinetic_card"
             app:strokeColor="@color/kinetic_border"
-            app:strokeWidth="2dp">
+            app:strokeWidth="2dp"
+            app:cardElevation="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,7 +86,10 @@
                     android:text="Abrir banco de ejercicios"
                     android:textAllCaps="false"
                     app:icon="@android:drawable/ic_menu_agenda"
-                    app:iconTint="@color/kinetic_primary" />
+                    app:iconTint="@color/kinetic_primary"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    />
 
                 <Spinner
                     android:id="@+id/spinnerGrupoMuscular"
@@ -95,7 +99,8 @@
                     android:background="@drawable/spinner_kinetic_bg"
                     android:elevation="2dp"
                     android:prompt="Selecciona el grupo muscular"
-                    android:popupBackground="@color/kinetic_card" />
+                    android:popupBackground="@color/kinetic_card"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -113,7 +118,8 @@
                     android:background="@drawable/spinner_kinetic_bg"
                     android:elevation="2dp"
                     android:prompt="Selecciona la categoria"
-                    android:popupBackground="@color/kinetic_card" />
+                    android:popupBackground="@color/kinetic_card"
+                    />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.SportsGO.KineticInput"
@@ -248,7 +254,9 @@
                     android:text="ENVIAR ALUMNO"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:cornerRadius="16dp" />
+                    app:cornerRadius="16dp"
+                    android:textColor="#FFFFFF"
+                    />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

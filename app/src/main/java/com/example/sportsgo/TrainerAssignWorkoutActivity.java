@@ -87,11 +87,13 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
     private void setupSpinners() {
         String[] grupos = {"Pecho", "Espalda", "Hombro", "Biceps", "Triceps", "Pierna", "Core"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, grupos);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spinner_selected, grupos);
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         spinnerMusculo.setAdapter(adapter);
 
         String[] categorias = {"Fuerza", "Cardio", "Flexibilidad"};
-        ArrayAdapter<String> adapterCategorias = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorias);
+        ArrayAdapter<String> adapterCategorias = new ArrayAdapter<>(this, R.layout.item_spinner_selected, categorias);
+        adapterCategorias.setDropDownViewResource(R.layout.item_spinner_dropdown);
         spinnerCategoria.setAdapter(adapterCategorias);
     }
 
