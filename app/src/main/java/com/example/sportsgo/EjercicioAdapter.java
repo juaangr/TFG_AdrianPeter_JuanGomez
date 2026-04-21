@@ -1,6 +1,8 @@
 package com.example.sportsgo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,8 +120,8 @@ public class EjercicioAdapter extends BaseAdapter {
                 holder.peso.setText("Peso asignado: " + ejercicio.getPeso());
                 
                 holder.meta.setVisibility(View.GONE); // No es tan necesario para el pupilo
-                holder.video.setVisibility(View.GONE); // Asumimos que no lo necesita o lo ocultamos si no lo pidieron
-                
+                bindVideoAction(holder.video, ejercicio);
+
                 holder.check.setVisibility(View.VISIBLE);
                 holder.check.setOnCheckedChangeListener(null);
                 holder.check.setChecked(ejercicio.isCompletado());
@@ -151,17 +153,36 @@ public class EjercicioAdapter extends BaseAdapter {
                 
                 // Mostrar datos extra de la plantilla
                 holder.detalles.setText(ejercicio.getSeries() + " series x " + ejercicio.getRepeticiones() + " reps | " + ejercicio.getPeso());
-                
-                String urlVideo = ejercicio.getUrlVideo();
-                boolean hasVideo = urlVideo != null && !urlVideo.trim().isEmpty();
-                holder.video.setVisibility(hasVideo ? View.VISIBLE : View.GONE);
-                holder.video.setOnClickListener(null);
-                if (hasVideo && videoClickListener != null) {
-                    holder.video.setOnClickListener(v -> videoClickListener.onVideoClick(ejercicio));
-                }
+
+                bindVideoAction(holder.video, ejercicio);
             }
         }
         return convertView;
+    }
+
+    private void bindVideoAction(Button videoButton, Ejercicios ejercicio) {
+        if (videoButton == null || ejercicio == null) {
+            return;
+        }
+
+        String urlVideo = ejercicio.getUrlVideo();
+        boolean hasVideo = urlVideo != null && !urlVideo.trim().isEmpty();
+        videoButton.setVisibility(hasVideo ? View.VISIBLE : View.GONE);
+        videoButton.setOnClickListener(null);
+
+        if (!hasVideo) {
+            return;
+        }
+
+        videoButton.setOnClickListener(v -> {
+            if (videoClickListener != null) {
+                videoClickListener.onVideoClick(ejercicio);
+                return;
+            }
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlVideo));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
     }
 
     private static class ViewHolder {
