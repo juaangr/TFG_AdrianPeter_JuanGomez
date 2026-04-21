@@ -95,6 +95,7 @@ public class EjercicioAdapter extends BaseAdapter {
             holder.peso = convertView.findViewById(R.id.txtPesoEj);
             holder.check = convertView.findViewById(R.id.cbCompletado);
             holder.video = convertView.findViewById(R.id.btnVerTecnica);
+            holder.timerShortcut = convertView.findViewById(R.id.layoutTimerShortcut);
 
             convertView.setTag(holder);
         } else {
@@ -141,6 +142,8 @@ public class EjercicioAdapter extends BaseAdapter {
                                 }
                             });
                 });
+
+                bindTimerAction(holder.timerShortcut);
             } else {
                 // Modo Plantilla O Entrenador activo
                 holder.peso.setVisibility(View.GONE);
@@ -155,9 +158,21 @@ public class EjercicioAdapter extends BaseAdapter {
                 holder.detalles.setText(ejercicio.getSeries() + " series x " + ejercicio.getRepeticiones() + " reps | " + ejercicio.getPeso());
 
                 bindVideoAction(holder.video, ejercicio);
+                bindTimerAction(holder.timerShortcut);
             }
         }
         return convertView;
+    }
+
+    private void bindTimerAction(View timerShortcut) {
+        if (timerShortcut == null) {
+            return;
+        }
+        timerShortcut.setOnClickListener(v -> {
+            Intent intent = new Intent(context, TabataActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
     }
 
     private void bindVideoAction(Button videoButton, Ejercicios ejercicio) {
@@ -193,5 +208,6 @@ public class EjercicioAdapter extends BaseAdapter {
         TextView peso;
         CheckBox check;
         Button video;
+        View timerShortcut;
     }
 }
