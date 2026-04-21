@@ -63,8 +63,8 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgEjercicio"
-                    android:layout_width="88dp"
-                    android:layout_height="58dp"
+                    android:layout_width="90dp"
+                    android:layout_height="72dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_launcher"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
@@ -128,9 +128,10 @@
                     android:textSize="13sp"
                     android:textColor="@color/kinetic_primary"
                     app:cornerRadius="10dp"
-                    app:icon="@android:drawable/ic_media_play"
+                    app:icon="@drawable/ic_play_video_24"
                     app:iconGravity="textStart"
                     app:iconPadding="6dp"
+                    app:iconSize="18dp"
                     app:iconTint="@color/kinetic_primary"
                     app:rippleColor="@color/kinetic_primary_glow"
                     app:strokeColor="@color/kinetic_primary"
