@@ -18,6 +18,10 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.bson.types.ObjectId;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import io.realm.Realm;
 
 public class TrainerAssignWorkoutActivity extends AppCompatActivity {
@@ -174,6 +178,8 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
                 return;
             }
 
+            String fechaHoy = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
             String grupoMuscular = grupoSeleccionado.toString();
             String categoria = categoriaSeleccionada.toString();
 
@@ -186,6 +192,7 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
                 nuevoEj.setCategoria(categoria);
                 nuevoEj.setGrupoMuscular(grupoMuscular);
                 nuevoEj.setPlantilla(false);
+                nuevoEj.setFechaAsignacion(fechaHoy);
 
                 // Mantenemos la descripcion para no romper compatibilidad con datos antiguos.
                 nuevoEj.setDescripcion(grupoMuscular);
@@ -209,6 +216,7 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
                     plantilla.setCompletado(false);
                     plantilla.setPlantilla(true);
                     plantilla.setImage(R.drawable.press);
+                    plantilla.setFechaAsignacion("");
                 }
             });
 
@@ -227,6 +235,7 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
             ejercicioNube.put("categoria", categoria);
             ejercicioNube.put("grupoMuscular", grupoMuscular);
             ejercicioNube.put("plantilla", false);
+            ejercicioNube.put("fechaAsignacion", fechaHoy);
 
             if (nombreAlumno != null) {
                 mDatabase.child(nombreAlumno).push().setValue(ejercicioNube)

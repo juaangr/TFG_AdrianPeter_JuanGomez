@@ -20,6 +20,7 @@ public class Ejercicios extends RealmObject {
     private String categoria;
     private String grupoMuscular;
     private boolean plantilla;
+    private String fechaAsignacion;
 
     public Ejercicios() {
     }
@@ -142,6 +143,14 @@ public class Ejercicios extends RealmObject {
 
     public void setPlantilla(boolean plantilla) {
         this.plantilla = plantilla;
+    }
+
+    public String getFechaAsignacion() {
+        return fechaAsignacion;
+    }
+
+    public void setFechaAsignacion(String fechaAsignacion) {
+        this.fechaAsignacion = fechaAsignacion;
     }
 }
 
