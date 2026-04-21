@@ -272,6 +272,7 @@ public class ExerciseBankActivity extends AppCompatActivity {
                             objetivo.setNombrePupilo("");
                             objetivo.setCompletado(false);
                             objetivo.setPlantilla(true);
+                            objetivo.setFechaAsignacion("");
                         });
 
                         refreshList();
