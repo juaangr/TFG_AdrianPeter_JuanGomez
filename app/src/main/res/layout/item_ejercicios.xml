@@ -148,12 +148,12 @@
         android:orientation="horizontal"
         android:paddingVertical="6dp">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgTimerShortcut"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@android:drawable/ic_lock_idle_alarm"
-            android:tint="@color/kinetic_on_surface"
+            app:srcCompat="@drawable/ic_timer"
+            app:tint="@color/kinetic_on_surface"
             android:contentDescription="Timer" />
 
         <TextView
