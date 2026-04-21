@@ -104,12 +104,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/black">
 
         <ListView
             android:id="@+id/lvPlantillasEjercicios"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/black"
             android:divider="@android:color/transparent"
             android:dividerHeight="8dp"
             android:padding="10dp" />
