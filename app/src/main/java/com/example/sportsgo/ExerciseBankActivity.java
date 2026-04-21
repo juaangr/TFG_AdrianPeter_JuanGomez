@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
@@ -54,8 +55,8 @@ public class ExerciseBankActivity extends AppCompatActivity {
     private Spinner spinnerCategoria;
     private Spinner spinnerGrupo;
     private EditText etBuscar;
-    private ListView lvPlantillas;
-    private ExerciseTemplateAdapter adapter;
+    private ListView listView;
+    private EjercicioAdapter adapter;
     private RealmResults<Ejercicios> plantillas;
 
     @Override
@@ -68,13 +69,14 @@ public class ExerciseBankActivity extends AppCompatActivity {
         spinnerCategoria = findViewById(R.id.spinnerFiltroCategoria);
         spinnerGrupo = findViewById(R.id.spinnerFiltroGrupo);
         etBuscar = findViewById(R.id.etBuscarPlantilla);
-        lvPlantillas = findViewById(R.id.lvPlantillasEjercicios);
+        listView = findViewById(R.id.lvPlantillasEjercicios);
         Button btnNuevaPlantilla = findViewById(R.id.btnNuevaPlantilla);
 
         setupFilters();
 
-        adapter = new ExerciseTemplateAdapter(this, this::abrirVideoTecnica);
-        lvPlantillas.setAdapter(adapter);
+        // Usa el nuevo parámetro (context, list, video callback)
+        adapter = new EjercicioAdapter(this, null, this::abrirVideoTecnica);
+        listView.setAdapter(adapter);
 
         plantillas = realm.where(Ejercicios.class)
                 .equalTo("plantilla", true)
@@ -84,7 +86,7 @@ public class ExerciseBankActivity extends AppCompatActivity {
 
         btnNuevaPlantilla.setOnClickListener(v -> mostrarDialogoPlantilla(null));
 
-        lvPlantillas.setOnItemClickListener((parent, view, position, id) -> {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
             Ejercicios ejercicio = (Ejercicios) adapter.getItem(position);
             if (ejercicio == null) {
                 return;
@@ -92,7 +94,7 @@ public class ExerciseBankActivity extends AppCompatActivity {
             mostrarAccionesPlantilla(ejercicio);
         });
 
-        lvPlantillas.setOnItemLongClickListener((parent, view, position, id) -> {
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
             Ejercicios ejercicio = (Ejercicios) adapter.getItem(position);
             if (ejercicio != null) {
                 confirmarEliminarPlantilla(ejercicio);

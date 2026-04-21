@@ -1,51 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btnEjercicio"
+    style="@style/Widget.SportsGO.KineticCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:background="@android:color/white"
-    android:elevation="2dp"
-    android:orientation="horizontal"
-    android:padding="12dp"
-    android:id="@+id/btnEjercicio">
-    <!-- Espacio para la foto del ejercicio -->
-    <ImageView
-        android:id="@+id/imgEjercicio"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+    android:layout_margin="4dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/txtNombreEj"
-            android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/imgEjercicio"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Nombre"
-            android:textColor="#212121"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/txtDetallesEj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4 series x 12 reps"
-            android:textColor="#616161" />
-        <TextView
-            android:id="@+id/txtPesoEj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peso inicial: 10kg"
-            android:textColor="#FF5722"
-            android:textStyle="bold" />
-        <CheckBox
-            android:id="@+id/cbCompletado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hecho"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtNombreEj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textColor="@color/kinetic_on_surface"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMetaEj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Fuerza | Pierna"
+                android:textColor="@color/kinetic_primary" />
+
+            <TextView
+                android:id="@+id/txtDetallesEj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="4 series x 12 reps"
+                android:textColor="@color/kinetic_text_gray" />
+
+            <TextView
+                android:id="@+id/txtPesoEj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Peso inicial: 10kg"
+                android:textColor="@color/kinetic_primary"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/cbCompletado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:buttonTint="@color/kinetic_primary"
+                android:textColor="@color/kinetic_text_gray"
+                android:text="Completado" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerTecnica"
+                style="@style/Widget.SportsGO.KineticButtonPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:minHeight="0dp"
+                android:text="Ver tecnica"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                app:icon="@android:drawable/ic_media_play"
+                app:iconGravity="textStart"
+                app:iconPadding="6dp"
+                app:iconTint="@color/black" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
