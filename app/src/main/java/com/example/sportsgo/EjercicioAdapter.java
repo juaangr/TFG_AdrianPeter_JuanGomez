@@ -182,10 +182,17 @@ public class EjercicioAdapter extends BaseAdapter {
 
         String urlVideo = ejercicio.getUrlVideo();
         boolean hasVideo = urlVideo != null && !urlVideo.trim().isEmpty();
-        videoButton.setVisibility(hasVideo ? View.VISIBLE : View.GONE);
+        videoButton.setVisibility(View.VISIBLE);
+        videoButton.setEnabled(true);
+        videoButton.setAlpha(hasVideo ? 1f : 0.55f);
         videoButton.setOnClickListener(null);
 
         if (!hasVideo) {
+            videoButton.setOnClickListener(v -> android.widget.Toast.makeText(
+                    context,
+                    "Este ejercicio todavia no tiene video",
+                    android.widget.Toast.LENGTH_SHORT
+            ).show());
             return;
         }
 
