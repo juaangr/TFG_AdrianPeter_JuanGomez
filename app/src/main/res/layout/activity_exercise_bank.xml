@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/kinetic_card"
-        app:title="Banco de ejercicios"
+        app:title="@string/exercise_bank_title"
         app:titleTextColor="@color/kinetic_on_surface" />
 
     <com.google.android.material.card.MaterialCardView
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Crea, filtra y asigna plantillas al instante"
+                android:text="@string/exercise_bank_subtitle"
                 android:textColor="@color/kinetic_text_gray" />
 
             <LinearLayout
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Buscar por nombre"
+                android:hint="@string/exercise_bank_search_hint"
                 app:startIconDrawable="@android:drawable/ic_menu_search"
                 app:startIconTint="@color/kinetic_primary">
 
@@ -83,7 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="Nueva plantilla"
+                    android:text="@string/exercise_bank_new_template"
                     android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
@@ -93,7 +93,7 @@
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="Cerrar"
+                    android:text="@string/common_close"
                     android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
