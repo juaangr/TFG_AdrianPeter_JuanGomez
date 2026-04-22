@@ -1,6 +1,7 @@
 package com.example.sportsgo;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,7 +55,6 @@ public class ExerciseBankActivity extends AppCompatActivity {
     private Spinner spinnerCategoria;
     private Spinner spinnerGrupo;
     private EditText etBuscar;
-    private ListView listView;
     private EjercicioAdapter adapter;
     private RealmResults<Ejercicios> plantillas;
 
@@ -68,7 +68,7 @@ public class ExerciseBankActivity extends AppCompatActivity {
         spinnerCategoria = findViewById(R.id.spinnerFiltroCategoria);
         spinnerGrupo = findViewById(R.id.spinnerFiltroGrupo);
         etBuscar = findViewById(R.id.etBuscarPlantilla);
-        listView = findViewById(R.id.lvPlantillasEjercicios);
+        ListView listView = findViewById(R.id.lvPlantillasEjercicios);
         Button btnNuevaPlantilla = findViewById(R.id.btnNuevaPlantilla);
 
         setupFilters();
@@ -253,7 +253,11 @@ public class ExerciseBankActivity extends AppCompatActivity {
                     String grupo = spGrupo.getSelectedItem() != null
                             ? spGrupo.getSelectedItem().toString()
                             : "Pecho";
-                    int imageRes = IMAGE_RESOURCES[spImagen.getSelectedItemPosition()];
+                    int selectedImageIndex = spImagen.getSelectedItemPosition();
+                    if (selectedImageIndex < 0 || selectedImageIndex >= IMAGE_RESOURCES.length) {
+                        selectedImageIndex = 0;
+                    }
+                    int imageRes = IMAGE_RESOURCES[selectedImageIndex];
 
                     realm.executeTransaction(r -> {
                         Ejercicios objetivo;
@@ -327,11 +331,9 @@ public class ExerciseBankActivity extends AppCompatActivity {
 
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "No hay aplicacion para abrir el video", Toast.LENGTH_SHORT).show();
-            }
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No hay aplicacion para abrir el video", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "No se pudo abrir el enlace de video", Toast.LENGTH_SHORT).show();
         }
