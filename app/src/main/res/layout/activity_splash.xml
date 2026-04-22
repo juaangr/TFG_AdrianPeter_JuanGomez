@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.05"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         android:src="@android:drawable/screen_background_dark" />
 
@@ -37,6 +39,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:rotation="-6"
+            android:contentDescription="@string/splash_logo_desc"
             android:src="@android:drawable/ic_lock_power_off"
             app:tint="@color/kinetic_primary" />
 
@@ -45,7 +48,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:textStyle="italic"
-            android:text="SPORTSGO"
+            android:text="@string/splash_brand"
             android:textColor="@color/kinetic_primary"
             android:textSize="56sp"
             android:letterSpacing="-0.05" />
@@ -56,9 +59,9 @@
             android:layout_marginTop="8dp"
             android:fontFamily="monospace"
             android:letterSpacing="0.3"
-            android:text="PEAK PERFORMANCE. PURE KINETIC."
+            android:text="@string/splash_tagline"
             android:textColor="@color/kinetic_text_gray"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textAllCaps="true"/>
     </LinearLayout>
 
@@ -83,9 +86,9 @@
             android:layout_marginTop="16dp"
             android:fontFamily="monospace"
             android:letterSpacing="0.4"
-            android:text="SYSTEM INITIALIZING"
+            android:text="@string/splash_initializing"
             android:textColor="@color/kinetic_primary"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textStyle="bold" />
 
         <TextView
@@ -94,9 +97,9 @@
             android:alpha="0.5"
             android:fontFamily="monospace"
             android:letterSpacing="0.2"
-            android:text="loading..."
+            android:text="@string/splash_loading"
             android:textColor="@color/kinetic_text_gray"
-            android:textSize="8sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
     <TextView
@@ -106,9 +109,9 @@
         android:layout_marginTop="48dp"
         android:rotation="90"
         android:fontFamily="monospace"
-        android:text="V 4.0.2 // KINETIC-OS"
+        android:text="@string/splash_version"
         android:textColor="@color/kinetic_text_gray"
-        android:textSize="8sp"
+        android:textSize="11sp"
         android:alpha="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
