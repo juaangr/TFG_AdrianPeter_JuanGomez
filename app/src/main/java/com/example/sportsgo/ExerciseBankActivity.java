@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
@@ -224,64 +223,76 @@ public class ExerciseBankActivity extends AppCompatActivity {
             seleccionarImagen(spImagen, ejercicioEditable.getImage());
         }
 
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(ejercicioEditable == null ? "Nueva plantilla" : "Editar plantilla")
                 .setView(dialogView)
                 .setNegativeButton("Cancelar", null)
-                .setPositiveButton("Guardar", (dialog, which) -> {
-                    String nombre = safeText(etNombre.getText() != null ? etNombre.getText().toString() : "");
-                    String seriesText = safeText(etSeries.getText() != null ? etSeries.getText().toString() : "");
-                    String repsText = safeText(etReps.getText() != null ? etReps.getText().toString() : "");
-                    String peso = safeText(etPeso.getText() != null ? etPeso.getText().toString() : "");
-                    String video = safeText(etVideo.getText() != null ? etVideo.getText().toString() : "");
+                .setPositiveButton("Guardar", null)
+                .create();
 
-                    if (nombre.isEmpty() || seriesText.isEmpty() || repsText.isEmpty() || peso.isEmpty()) {
-                        Toast.makeText(this, "Completa nombre, series, reps y peso", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+        dialog.setOnShowListener(d -> {
+            Button saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            saveButton.setOnClickListener(v -> {
+                String nombre = safeText(etNombre.getText() != null ? etNombre.getText().toString() : "");
+                String seriesText = safeText(etSeries.getText() != null ? etSeries.getText().toString() : "");
+                String repsText = safeText(etReps.getText() != null ? etReps.getText().toString() : "");
+                String peso = safeText(etPeso.getText() != null ? etPeso.getText().toString() : "");
+                String video = safeText(etVideo.getText() != null ? etVideo.getText().toString() : "");
 
-                    try {
-                        int series = Integer.parseInt(seriesText);
-                        int reps = Integer.parseInt(repsText);
-                        String categoria = spCategoria.getSelectedItem().toString();
-                        String grupo = spGrupo.getSelectedItem().toString();
-                        int imageRes = IMAGE_RESOURCES[spImagen.getSelectedItemPosition()];
+                if (nombre.isEmpty() || seriesText.isEmpty() || repsText.isEmpty() || peso.isEmpty()) {
+                    Toast.makeText(this, "Completa nombre, series, reps y peso", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                        realm.executeTransaction(r -> {
-                            Ejercicios objetivo;
-                            if (ejercicioEditable == null || ejercicioEditable.getId() == null) {
+                try {
+                    int series = Integer.parseInt(seriesText);
+                    int reps = Integer.parseInt(repsText);
+                    String categoria = spCategoria.getSelectedItem() != null
+                            ? spCategoria.getSelectedItem().toString()
+                            : "Fuerza";
+                    String grupo = spGrupo.getSelectedItem() != null
+                            ? spGrupo.getSelectedItem().toString()
+                            : "Pecho";
+                    int imageRes = IMAGE_RESOURCES[spImagen.getSelectedItemPosition()];
+
+                    realm.executeTransaction(r -> {
+                        Ejercicios objetivo;
+                        if (ejercicioEditable == null || ejercicioEditable.getId() == null) {
+                            objetivo = r.createObject(Ejercicios.class, new ObjectId());
+                        } else {
+                            objetivo = r.where(Ejercicios.class)
+                                    .equalTo("id", ejercicioEditable.getId())
+                                    .findFirst();
+                            if (objetivo == null) {
                                 objetivo = r.createObject(Ejercicios.class, new ObjectId());
-                            } else {
-                                objetivo = r.where(Ejercicios.class)
-                                        .equalTo("id", ejercicioEditable.getId())
-                                        .findFirst();
-                                if (objetivo == null) {
-                                    objetivo = r.createObject(Ejercicios.class, new ObjectId());
-                                }
                             }
+                        }
 
-                            objetivo.setNombre(nombre);
-                            objetivo.setSeries(series);
-                            objetivo.setRepeticiones(reps);
-                            objetivo.setPeso(peso);
-                            objetivo.setCategoria(categoria);
-                            objetivo.setGrupoMuscular(grupo);
-                            objetivo.setImage(imageRes);
-                            objetivo.setUrlVideo(video);
-                            objetivo.setDescripcion("Plantilla del entrenador");
-                            objetivo.setNombrePupilo("");
-                            objetivo.setCompletado(false);
-                            objetivo.setPlantilla(true);
-                            objetivo.setFechaAsignacion("");
-                        });
+                        objetivo.setNombre(nombre);
+                        objetivo.setSeries(series);
+                        objetivo.setRepeticiones(reps);
+                        objetivo.setPeso(peso);
+                        objetivo.setCategoria(categoria);
+                        objetivo.setGrupoMuscular(grupo);
+                        objetivo.setImage(imageRes);
+                        objetivo.setUrlVideo(video);
+                        objetivo.setDescripcion("Plantilla del entrenador");
+                        objetivo.setNombrePupilo("");
+                        objetivo.setCompletado(false);
+                        objetivo.setPlantilla(true);
+                        objetivo.setFechaAsignacion("");
+                    });
 
-                        refreshList();
-                        Toast.makeText(this, "Plantilla guardada", Toast.LENGTH_SHORT).show();
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(this, "Series y repeticiones deben ser numeros", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .show();
+                    refreshList();
+                    Toast.makeText(this, "Plantilla guardada", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, "Series y repeticiones deben ser numeros", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        dialog.show();
     }
 
     private void confirmarEliminarPlantilla(Ejercicios ejercicio) {
@@ -305,10 +316,25 @@ public class ExerciseBankActivity extends AppCompatActivity {
 
     private void abrirVideoTecnica(Ejercicios ejercicio) {
         if (ejercicio == null || ejercicio.getUrlVideo() == null || ejercicio.getUrlVideo().trim().isEmpty()) {
+            Toast.makeText(this, "Esta plantilla no tiene video", Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ejercicio.getUrlVideo()));
-        startActivity(intent);
+
+        String url = ejercicio.getUrlVideo().trim();
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "https://" + url;
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No hay aplicacion para abrir el video", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "No se pudo abrir el enlace de video", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void seleccionarSpinnerPorTexto(Spinner spinner, String value) {
@@ -346,4 +372,3 @@ public class ExerciseBankActivity extends AppCompatActivity {
         }
     }
 }
-
