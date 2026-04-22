@@ -2,4 +2,9 @@
     <string name="app_name">SportsGO</string>
     <string name="prompt_grupo_muscular">Selecciona el grupo muscular</string>
     <string name="prompt_categoria">Selecciona la categoria</string>
+    <string name="exercise_bank_title">Banco de ejercicios</string>
+    <string name="exercise_bank_subtitle">Crea, filtra y asigna plantillas al instante</string>
+    <string name="exercise_bank_search_hint">Buscar por nombre</string>
+    <string name="exercise_bank_new_template">Nueva plantilla</string>
+    <string name="common_close">Cerrar</string>
 </resources>
