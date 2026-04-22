@@ -7,4 +7,12 @@
     <string name="exercise_bank_search_hint">Buscar por nombre</string>
     <string name="exercise_bank_new_template">Nueva plantilla</string>
     <string name="common_close">Cerrar</string>
+
+    <!-- Splash Screen Strings -->
+    <string name="splash_logo_desc">Logotipo de SportsGO</string>
+    <string name="splash_brand">SPORTSGO</string>
+    <string name="splash_tagline">PEAK PERFORMANCE. PURE KINETIC.</string>
+    <string name="splash_initializing">SYSTEM INITIALIZING</string>
+    <string name="splash_loading">loading&#8230;</string>
+    <string name="splash_version">V 4.0.2 // KINETIC-OS</string>
 </resources>
