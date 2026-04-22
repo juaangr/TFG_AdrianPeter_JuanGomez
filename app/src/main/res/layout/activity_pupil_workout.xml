@@ -128,7 +128,7 @@
             android:text="CONSULTAR A SportsGO IA"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/kinetic_surface"
-            app:backgroundTint="@color/kinetic_primary"
+            android:backgroundTint="@color/kinetic_primary"
             app:cornerRadius="20dp"
             app:icon="@android:drawable/ic_menu_send"
             app:iconGravity="textStart"
@@ -142,7 +142,7 @@
             android:text="FINALIZAR SESIÓN"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/white"
-            app:backgroundTint="#2D2D2D"
+            android:backgroundTint="#2D2D2D"
             app:cornerRadius="20dp"
             app:strokeColor="@color/kinetic_secondary"
             app:strokeWidth="2dp"/>
