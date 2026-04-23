@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FONDO GRAFFITI URBANO — Diseño profesional
+    Paleta: Negro profundo + Lima urbano (#CAFD00) + Naranja sucio (#FF734A)
+    Concepto: Graffiti en las esquinas y bordes, zona central limpia para UI
+    Opacidades reducidas para no taponar botones ni texto
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ═══════════════════════════════════════════════
+         CAPA 1 — Base: Negro profundo con micro-textura
+    ═══════════════════════════════════════════════ -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0A0A0A"/>
+        </shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         CAPA 2 — Gradiente atmosférico lateral (izquierda)
+         Simula una mancha de pintura difusa de fondo
+    ═══════════════════════════════════════════════ -->
+    <item
+        android:top="-120dp"
+        android:left="-160dp"
+        android:bottom="200dp"
+        android:right="100dp">
+        <shape android:shape="oval">
+            <size android:width="420dp" android:height="420dp"/>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="210dp"
+                android:startColor="#12CAFD00"
+                android:endColor="#00000000"/>
+        </shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         CAPA 3 — Gradiente atmosférico (esquina inferior derecha)
+    ═══════════════════════════════════════════════ -->
+    <item
+        android:top="300dp"
+        android:left="80dp"
+        android:bottom="-140dp"
+        android:right="-140dp">
+        <shape android:shape="oval">
+            <size android:width="380dp" android:height="380dp"/>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="190dp"
+                android:startColor="#0EFF734A"
+                android:endColor="#00000000"/>
+        </shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         GRAFFITI ZONA SUPERIOR-IZQUIERDA
+         Letras abstractas / tag estilizado
+    ═══════════════════════════════════════════════ -->
+
+    <!-- Trazo principal del tag — línea gruesa diagonal -->
+    <item
+        android:top="18dp"
+        android:left="-30dp"
+        android:right="200dp"
+        android:bottom="680dp">
+        <rotate android:fromDegrees="32">
+            <shape android:shape="rectangle">
+                <size android:height="22dp"/>
+                <corners android:radius="11dp"/>
+                <solid android:color="#33CAFD00"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Trazo secundario paralelo — más fino -->
+    <item
+        android:top="28dp"
+        android:left="-10dp"
+        android:right="230dp"
+        android:bottom="690dp">
+        <rotate android:fromDegrees="32">
+            <shape android:shape="rectangle">
+                <size android:height="7dp"/>
+                <corners android:radius="3dp"/>
+                <solid android:color="#1ACAFD00"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Barra vertical del tag (letra abstracta tipo I/J) -->
+    <item
+        android:top="14dp"
+        android:left="20dp">
+        <shape android:shape="rectangle">
+            <size android:width="9dp" android:height="55dp"/>
+            <corners android:radius="4dp"/>
+            <solid android:color="#3DCAFD00"/>
+        </shape>
+    </item>
+
+    <!-- Serif inferior de la barra vertical -->
+    <item
+        android:top="62dp"
+        android:left="10dp">
+        <rotate android:fromDegrees="-8">
+            <shape android:shape="rectangle">
+                <size android:width="28dp" android:height="6dp"/>
+                <corners android:radius="3dp"/>
+                <solid android:color="#2ACAFD00"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Punto / drip encima del tag -->
+    <item android:top="8dp" android:left="22dp">
+        <shape android:shape="oval">
+            <size android:width="11dp" android:height="11dp"/>
+            <solid android:color="#4DCAFD00"/>
+        </shape>
+    </item>
+
+    <!-- Goteo (drip) que cae del tag -->
+    <item android:top="65dp" android:left="24dp">
+        <shape android:shape="rectangle">
+            <size android:width="5dp" android:height="22dp"/>
+            <corners android:radius="2dp"/>
+            <solid android:color="#1FCAFD00"/>
+        </shape>
+    </item>
+    <item android:top="84dp" android:left="25dp">
+        <shape android:shape="oval">
+            <size android:width="7dp" android:height="8dp"/>
+            <solid android:color="#1ACAFD00"/>
+        </shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         GRAFFITI ZONA SUPERIOR-DERECHA
+         Elemento wildstyle minimalista
+    ═══════════════════════════════════════════════ -->
+
+    <!-- Trazo largo diagonal wildstyle -->
+    <item
+        android:top="40dp"
+        android:left="200dp"
+        android:right="-60dp"
+        android:bottom="720dp">
+        <rotate android:fromDegrees="-25">
+            <shape android:shape="rectangle">
+                <size android:height="18dp"/>
+                <corners android:radius="9dp"/>
+                <solid android:color="#2BFF734A"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Trazo cruzado wildstyle -->
+    <item
+        android:top="50dp"
+        android:left="220dp"
+        android:right="-40dp"
+        android:bottom="730dp">
+        <rotate android:fromDegrees="10">
+            <shape android:shape="rectangle">
+                <size android:height="10dp"/>
+                <corners android:radius="5dp"/>
+                <solid android:color="#18FF734A"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Barra vertical derecha del wildstyle -->
+    <item android:top="30dp" android:left="300dp">
+        <shape android:shape="rectangle">
+            <size android:width="7dp" android:height="45dp"/>
+            <corners android:radius="3dp"/>
+            <solid android:color="#33FF734A"/>
+        </shape>
+    </item>
+
+    <!-- Acento / flecha decorativa wildstyle -->
+    <item android:top="22dp" android:left="285dp">
+        <rotate android:fromDegrees="-40">
+            <shape android:shape="rectangle">
+                <size android:width="20dp" android:height="5dp"/>
+                <corners android:radius="2dp"/>
+                <solid android:color="#22FF734A"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         GRAFFITI ZONA INFERIOR-IZQUIERDA
+         Tag estilo throw-up simple
+    ═══════════════════════════════════════════════ -->
+
+    <!-- Outline del throw-up (contorno exterior) -->
+    <item
+        android:bottom="30dp"
+        android:left="-20dp">
+        <shape android:shape="rectangle">
+            <size android:width="90dp" android:height="38dp"/>
+            <corners android:radius="19dp"/>
+            <stroke android:width="4dp" android:color="#2ACAFD00"/>
+            <solid android:color="#00000000"/>
+        </shape>
+    </item>
+
+    <!-- Relleno del throw-up -->
+    <item
+        android:bottom="34dp"
+        android:left="-16dp">
+        <shape android:shape="rectangle">
+            <size android:width="82dp" android:height="30dp"/>
+            <corners android:radius="15dp"/>
+            <solid android:color="#10CAFD00"/>
+        </shape>
+    </item>
+
+    <!-- Highlight interno del throw-up (brillo de pintura) -->
+    <item
+        android:bottom="48dp"
+        android:left="-8dp">
+        <shape android:shape="rectangle">
+            <size android:width="50dp" android:height="8dp"/>
+            <corners android:radius="4dp"/>
+            <solid android:color="#18FFFFFF"/>
+        </shape>
+    </item>
+
+    <!-- Drip cayendo del throw-up -->
+    <item android:bottom="8dp" android:left="30dp">
+        <shape android:shape="rectangle">
+            <size android:width="5dp" android:height="26dp"/>
+            <corners android:radius="2dp"/>
+            <solid android:color="#18CAFD00"/>
+        </shape>
+    </item>
+    <item android:bottom="2dp" android:left="31dp">
+        <shape android:shape="oval">
+            <size android:width="8dp" android:height="9dp"/>
+            <solid android:color="#15CAFD00"/>
+        </shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         GRAFFITI ZONA INFERIOR-DERECHA
+         Tag con drips y puntos de spray
+    ═══════════════════════════════════════════════ -->
+
+    <!-- Trazo principal diagonal -->
+    <item
+        android:bottom="60dp"
+        android:right="-40dp"
+        android:left="200dp"
+        android:top="500dp">
+        <rotate android:fromDegrees="20">
+            <shape android:shape="rectangle">
+                <size android:height="20dp"/>
+                <corners android:radius="10dp"/>
+                <solid android:color="#2ACAFD00"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Segundo trazo paralelo -->
+    <item
+        android:bottom="48dp"
+        android:right="-20dp"
+        android:left="210dp"
+        android:top="510dp">
+        <rotate android:fromDegrees="20">
+            <shape android:shape="rectangle">
+                <size android:height="8dp"/>
+                <corners android:radius="4dp"/>
+                <solid android:color="#15CAFD00"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Barra vertical del tag inferior-derecho -->
+    <item android:bottom="55dp" android:right="45dp">
+        <shape android:shape="rectangle">
+            <size android:width="8dp" android:height="50dp"/>
+            <corners android:radius="4dp"/>
+            <solid android:color="#30CAFD00"/>
+        </shape>
+    </item>
+
+    <!-- Serif superior de la barra -->
+    <item android:bottom="100dp" android:right="38dp">
+        <rotate android:fromDegrees="-10">
+            <shape android:shape="rectangle">
+                <size android:width="24dp" android:height="5dp"/>
+                <corners android:radius="2dp"/>
+                <solid android:color="#22CAFD00"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Drip del tag inferior-derecho -->
+    <item android:bottom="18dp" android:right="48dp">
+        <shape android:shape="rectangle">
+            <size android:width="5dp" android:height="38dp"/>
+            <corners android:radius="2dp"/>
+            <solid android:color="#18CAFD00"/>
+        </shape>
+    </item>
+    <item android:bottom="8dp" android:right="48dp">
+        <shape android:shape="oval">
+            <size android:width="9dp" android:height="11dp"/>
+            <solid android:color="#14CAFD00"/>
+        </shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         SALPICADURAS DE SPRAY (scatter de puntos)
+         Distribuidos por bordes, no en el centro
+    ═══════════════════════════════════════════════ -->
+
+    <!-- Zona superior-izquierda -->
+    <item android:top="6dp" android:left="55dp">
+        <shape android:shape="oval"><size android:width="5dp" android:height="5dp"/><solid android:color="#40CAFD00"/></shape>
+    </item>
+    <item android:top="14dp" android:left="72dp">
+        <shape android:shape="oval"><size android:width="3dp" android:height="3dp"/><solid android:color="#28CAFD00"/></shape>
+    </item>
+    <item android:top="4dp" android:left="90dp">
+        <shape android:shape="oval"><size android:width="7dp" android:height="7dp"/><solid android:color="#20CAFD00"/></shape>
+    </item>
+    <item android:top="18dp" android:left="105dp">
+        <shape android:shape="oval"><size android:width="4dp" android:height="4dp"/><solid android:color="#30CAFD00"/></shape>
+    </item>
+
+    <!-- Zona superior-derecha -->
+    <item android:top="8dp" android:right="80dp">
+        <shape android:shape="oval"><size android:width="6dp" android:height="6dp"/><solid android:color="#35FF734A"/></shape>
+    </item>
+    <item android:top="20dp" android:right="60dp">
+        <shape android:shape="oval"><size android:width="3dp" android:height="3dp"/><solid android:color="#22FF734A"/></shape>
+    </item>
+    <item android:top="5dp" android:right="100dp">
+        <shape android:shape="oval"><size android:width="4dp" android:height="4dp"/><solid android:color="#28FF734A"/></shape>
+    </item>
+
+    <!-- Zona inferior-izquierda (dispersas) -->
+    <item android:bottom="90dp" android:left="15dp">
+        <shape android:shape="oval"><size android:width="4dp" android:height="4dp"/><solid android:color="#30CAFD00"/></shape>
+    </item>
+    <item android:bottom="105dp" android:left="35dp">
+        <shape android:shape="oval"><size android:width="6dp" android:height="6dp"/><solid android:color="#1ACAFD00"/></shape>
+    </item>
+    <item android:bottom="78dp" android:left="50dp">
+        <shape android:shape="oval"><size android:width="3dp" android:height="3dp"/><solid android:color="#25CAFD00"/></shape>
+    </item>
+
+    <!-- Zona inferior-derecha -->
+    <item android:bottom="95dp" android:right="20dp">
+        <shape android:shape="oval"><size android:width="7dp" android:height="7dp"/><solid android:color="#28CAFD00"/></shape>
+    </item>
+    <item android:bottom="115dp" android:right="38dp">
+        <shape android:shape="oval"><size android:width="4dp" android:height="4dp"/><solid android:color="#1EFF734A"/></shape>
+    </item>
+    <item android:bottom="80dp" android:right="12dp">
+        <shape android:shape="oval"><size android:width="3dp" android:height="3dp"/><solid android:color="#2AFF734A"/></shape>
+    </item>
+
+    <!-- Bordes laterales (puntos medios de pantalla) -->
+    <item android:top="280dp" android:left="5dp">
+        <shape android:shape="oval"><size android:width="5dp" android:height="5dp"/><solid android:color="#20CAFD00"/></shape>
+    </item>
+    <item android:top="320dp" android:left="8dp">
+        <shape android:shape="oval"><size android:width="3dp" android:height="3dp"/><solid android:color="#15CAFD00"/></shape>
+    </item>
+    <item android:top="260dp" android:right="6dp">
+        <shape android:shape="oval"><size android:width="4dp" android:height="4dp"/><solid android:color="#1AFF734A"/></shape>
+    </item>
+    <item android:top="305dp" android:right="4dp">
+        <shape android:shape="oval"><size android:width="6dp" android:height="6dp"/><solid android:color="#15FF734A"/></shape>
+    </item>
+
+    <!-- ═══════════════════════════════════════════════
+         LÍNEA DE HORIZONTE SUTIL
+         Separador tenue estilo pared urbana
+    ═══════════════════════════════════════════════ -->
+    <item
+        android:top="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="90"
+                android:startColor="#00000000"
+                android:centerColor="#060606"
+                android:endColor="#00000000"
+                android:centerX="0.5"/>
+        </shape>
+    </item>
+
+</layer-list>

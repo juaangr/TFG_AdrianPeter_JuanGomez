@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/kinetic_surface"
+    android:background="#0e0e0e"
     android:padding="20dp">
 
+    <!-- Blur background approximation -->
     <View
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:background="@android:drawable/screen_background_dark"
-        android:backgroundTint="@color/kinetic_accent_blur"
+        android:background="#cafd00"
+        android:alpha="0.05"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,10 +20,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/kinetic_card"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="20dp"
-        app:strokeColor="#33FFFFFF"
+        app:cardBackgroundColor="#131313"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="24dp"
+        app:strokeColor="#33cafd00"
         app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,23 +35,25 @@
             android:orientation="vertical"
             android:padding="32dp">
 
+            <!-- Icon -->
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 app:cardBackgroundColor="#262626"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/kinetic_primary"
+                app:strokeColor="#26484847"
                 app:strokeWidth="1dp">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center"
-                    android:src="@android:drawable/ic_menu_report_image"
-                    app:tint="@color/kinetic_primary" />
+                    android:src="@android:drawable/ic_secure"
+                    app:tint="#cafd00" />
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Headline -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,11 +62,23 @@
                 android:gravity="center"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="-4dp"
-                android:text="TU PRIVACIDAD ES\nNUESTRA META"
                 android:textAllCaps="true"
+                android:textSize="28sp"
                 android:textColor="#FFFFFF"
-                android:textSize="28sp" />
+                android:text="TU PRIVACIDAD ES\n" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="-4dp"
+                android:textAllCaps="true"
+                android:textSize="28sp"
+                android:textColor="#cafd00"
+                android:text="NUESTRA META" />
 
+            <!-- Body -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,44 +86,48 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:lineHeight="22sp"
-                android:text="Para que tu experiencia en SportsGo sea de élite, necesitamos usar cookies para guardar tu perfil y estadísticas."
-                android:textColor="@color/kinetic_text_gray"
+                android:text="Para que tu experiencia en SportsGo sea de élite, necesitamos usar cookies para guardar tu perfil y estadísticas. Al continuar, aceptas nuestra política de privacidad."
+                android:textColor="#adaaaa"
                 android:textSize="15sp" />
 
+            <!-- Checkbox -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|center_horizontal"
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/cbAceptar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/kinetic_primary"
+                    app:buttonTint="#cafd00"
                     android:checked="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="monospace"
-                    android:letterSpacing="0.1"
-                    android:text="ACEPTO LOS TÉRMINOS"
-                    android:textColor="@color/kinetic_text_gray"
-                    android:textSize="10sp" />
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.05"
+                    android:text="ACEPTO LOS TÉRMINOS Y EL\nUSO DE COOKIES"
+                    android:textColor="#adaaaa"
+                    android:textSize="12sp" />
             </LinearLayout>
 
+            <!-- Buttons -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAceptar"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-black"
                 android:letterSpacing="0.1"
                 android:text="ACEPTAR Y CONTINUAR"
-                android:textColor="@color/kinetic_surface"
-                android:textSize="16sp"
-                app:backgroundTint="@color/kinetic_primary"
+                android:textColor="#0e0e0e"
+                android:textSize="14sp"
+                app:backgroundTint="#cafd00"
                 app:cornerRadius="12dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

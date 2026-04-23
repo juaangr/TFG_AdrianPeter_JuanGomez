@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -56,7 +57,13 @@ public class TrainerDashboardActivity extends AppCompatActivity {
         });
 
         lvPupilos = findViewById(R.id.lvPupilos);
+        Button btnBanco = findViewById(R.id.btnBancoEjercicios);
         cargarListaPupilos();
+
+        btnBanco.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ExerciseBankActivity.class);
+            startActivity(intent);
+        });
 
         lvPupilos.setOnItemClickListener((parent, view, position, id) -> {
             Usuario pupiloSeleccionado = (Usuario) parent.getItemAtPosition(position);

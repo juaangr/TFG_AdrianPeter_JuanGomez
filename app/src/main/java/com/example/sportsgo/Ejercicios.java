@@ -17,11 +17,15 @@ public class Ejercicios extends RealmObject {
     private String urlVideo;
     private String nombrePupilo;
     private boolean completado;
+    private String categoria;
+    private String grupoMuscular;
+    private boolean plantilla;
+    private String fechaAsignacion;
 
     public Ejercicios() {
     }
 
-    public Ejercicios(ObjectId id, String nombre, int image, int series, int repeticiones, String peso, String descripcion, String urlVideo, String nombrePupilo, boolean completado) {
+    public Ejercicios(ObjectId id, String nombre, int image, int series, int repeticiones, String peso, String descripcion, String urlVideo, String nombrePupilo, boolean completado, String categoria, String grupoMuscular, boolean plantilla) {
         this.id = id;
         this.nombre = nombre;
         this.image = image;
@@ -32,6 +36,9 @@ public class Ejercicios extends RealmObject {
         this.urlVideo = urlVideo;
         this.nombrePupilo = nombrePupilo;
         this.completado = completado;
+        this.categoria = categoria;
+        this.grupoMuscular = grupoMuscular;
+        this.plantilla = plantilla;
     }
 
     public ObjectId getId() {
@@ -112,6 +119,38 @@ public class Ejercicios extends RealmObject {
 
     public void setCompletado(boolean completado) {
         this.completado = completado;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getGrupoMuscular() {
+        return grupoMuscular;
+    }
+
+    public void setGrupoMuscular(String grupoMuscular) {
+        this.grupoMuscular = grupoMuscular;
+    }
+
+    public boolean isPlantilla() {
+        return plantilla;
+    }
+
+    public void setPlantilla(boolean plantilla) {
+        this.plantilla = plantilla;
+    }
+
+    public String getFechaAsignacion() {
+        return fechaAsignacion;
+    }
+
+    public void setFechaAsignacion(String fechaAsignacion) {
+        this.fechaAsignacion = fechaAsignacion;
     }
 }
 

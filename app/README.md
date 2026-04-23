@@ -1,6 +1,6 @@
 # 🏋️‍♂️ SportsGO: Plataforma de Gestión Deportiva
 
-> **Proyecto TFG** | Android Studio + Realm/Firestore
+> **Proyecto TFG** | Android Studio + FireStore
 
 **SportsGO** es una solución integral para la gestión de entrenamientos personalizados. Conecta a entrenadores con sus pupilos mediante una arquitectura **Offline-First**, garantizando que los datos de rendimiento estén siempre disponibles, con o sin conexión.
 
@@ -9,7 +9,7 @@
 ## 🚀 Tecnologías Clave
 * **Android Studio**: Entorno de desarrollo nativo.
 * **Realm SDK**: Base de datos local de alto rendimiento.
-* **Firestore**: Sincronización en la nube y persistencia global.
+* **FireStore**: Sincronización en la nube y persistencia global.
 
 ---
 
@@ -49,4 +49,3 @@ La arquitectura de datos se basa en los siguientes objetos principales:
 1. **Clonar el repositorio:**
    ```bash
    git clone (https://github.com/juaangr/TFG_AdrianPeter_JuanGomez.git)
-   ```

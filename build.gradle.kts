@@ -12,7 +12,7 @@ buildscript {
     dependencies {
         // Inyectamos el plugin de Realm/MongoDB Atlas.
         // Esto permite que nuestras clases Java se conviertan en objetos persistentes.
-        classpath("io.realm:realm-gradle-plugin:10.16.1")
+        classpath("io.realm:realm-gradle-plugin:10.19.0")
     }
 }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item que se muestra en el Spinner cuando YA hay una opcion seleccionada. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/kinetic_card"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:paddingStart="14dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="10dp"
+    android:textColor="@color/kinetic_on_surface"
+    android:textSize="16sp"
+    android:singleLine="true"
+    android:ellipsize="end"
+    tools:text="Pecho" />
+
