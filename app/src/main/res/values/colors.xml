@@ -7,7 +7,7 @@
     <!-- Marca SportsGO / Kinetic (TFG) -->
     <color name="kinetic_surface">#0E0E0E</color>
     <color name="kinetic_primary">#CAFD00</color>
-    <color name="kinetic_primary_glow">#4DCAFD00</color> <!-- El resplandor que pediste -->
+    <color name="kinetic_primary_glow">#4DCAFD00</color>
     <color name="kinetic_secondary">#FF734A</color>
     <color name="kinetic_card">#131313</color>
     <color name="kinetic_text_gray">#ADAAAA</color>
