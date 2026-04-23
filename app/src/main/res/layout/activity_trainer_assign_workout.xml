@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_assign_workout_focus"
-    android:fillViewport="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarAssignWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/kinetic_card"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        app:title="@string/trainer_assign_title"
+        app:titleCentered="true"
+        app:titleTextColor="@color/kinetic_on_surface" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_weight="1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,13 +30,6 @@
         android:background="#F2101010"
         android:orientation="vertical"
         android:padding="20dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/kinetic_card"
-            app:title="Asignacion de rutina"
-            app:titleTextColor="@color/kinetic_on_surface" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivBanner"
@@ -39,7 +50,7 @@
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="10"
-            android:text="SportsGO Trainer"
+            android:text="@string/trainer_assign_header"
             android:textColor="@color/kinetic_primary"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -49,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Asignando rutina a: Alumno"
+            android:text="@string/trainer_assign_student_label"
             android:textColor="@color/kinetic_on_surface"
             android:textSize="15sp" />
 
@@ -73,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Grupo Muscular"
+                    android:text="@string/trainer_assign_group_label"
                     android:textColor="@color/kinetic_on_surface"
                     android:textStyle="bold" />
 
@@ -83,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="12dp"
-                    android:text="Abrir banco de ejercicios"
+                    android:text="@string/trainer_assign_open_bank"
                     android:textAllCaps="false"
                     app:icon="@android:drawable/ic_menu_agenda"
                     app:iconTint="@color/kinetic_primary"
@@ -105,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Categoria"
+                    android:text="@string/trainer_assign_category_label"
                     android:textColor="@color/kinetic_on_surface"
                     android:textStyle="bold" />
 
@@ -124,8 +135,8 @@
                     style="@style/Widget.SportsGO.KineticInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ejercicio (Ej: Press Banca)"
-                    app:placeholderText="Ejemplo: Sentadilla con barra"
+                    android:hint="@string/trainer_assign_exercise_hint"
+                    app:placeholderText="@string/trainer_assign_exercise_placeholder"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="@color/kinetic_surface"
                     app:boxStrokeColor="@color/kinetic_primary"
@@ -149,8 +160,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Peso objetivo (kg)"
-                    app:placeholderText="Ejemplo: 40 kg"
+                    android:hint="@string/trainer_assign_weight_hint"
+                    app:placeholderText="@string/trainer_assign_weight_placeholder"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="@color/kinetic_surface"
                     app:boxStrokeColor="@color/kinetic_primary"
@@ -182,8 +193,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Series"
-                        app:placeholderText="Ej: 4"
+                        android:hint="@string/trainer_assign_series_hint"
+                        app:placeholderText="@string/trainer_assign_series_placeholder"
                         app:boxBackgroundMode="filled"
                         app:boxBackgroundColor="@color/kinetic_surface"
                         app:boxStrokeColor="@color/kinetic_primary"
@@ -205,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="12dp"
-                        android:text="x"
+                        android:text="@string/common_multiply"
                         android:textColor="@color/kinetic_primary"
                         android:textSize="26sp"
                         android:textStyle="bold" />
@@ -215,8 +226,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Reps"
-                        app:placeholderText="Ej: 12"
+                        android:hint="@string/trainer_assign_reps_hint"
+                        app:placeholderText="@string/trainer_assign_reps_placeholder"
                         app:boxBackgroundMode="filled"
                         app:boxBackgroundColor="@color/kinetic_surface"
                         app:boxStrokeColor="@color/kinetic_primary"
@@ -241,7 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:buttonTint="@color/kinetic_primary"
-                    android:text="Guardar tambien como plantilla"
+                    android:text="@string/trainer_assign_save_template"
                     android:textColor="@color/kinetic_on_surface" />
 
                 <com.google.android.material.button.MaterialButton
@@ -250,7 +261,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginTop="32dp"
-                    android:text="ENVIAR ALUMNO"
+                    android:text="@string/trainer_assign_send"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:cornerRadius="16dp"
@@ -261,4 +272,5 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>
