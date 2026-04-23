@@ -73,7 +73,7 @@ public class ExerciseBankActivity extends AppCompatActivity {
 
         setupFilters();
 
-        // Usa el nuevo parámetro (context, list, video callback)
+
         adapter = new EjercicioAdapter(this, null, this::abrirVideoTecnica);
         listView.setAdapter(adapter);
 
