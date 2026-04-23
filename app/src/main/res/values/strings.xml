@@ -5,6 +5,7 @@
     <string name="trainer_assign_title">Asignacion de rutina</string>
     <string name="trainer_assign_header">SportsGO Trainer</string>
     <string name="trainer_assign_student_label">Asignando rutina a: Alumno</string>
+    <string name="trainer_assign_student_label_dynamic">Asignando la rutina a: %1$s</string>
     <string name="trainer_assign_group_label">Grupo Muscular</string>
     <string name="trainer_assign_open_bank">Abrir banco de ejercicios</string>
     <string name="trainer_assign_category_label">Categoria</string>
