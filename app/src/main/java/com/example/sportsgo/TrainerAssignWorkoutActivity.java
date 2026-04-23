@@ -25,6 +25,9 @@ import java.util.Locale;
 import io.realm.Realm;
 
 public class TrainerAssignWorkoutActivity extends AppCompatActivity {
+    private static final String EXTRA_NOMBRE_PUPILO = "nombre_pupilo";
+    private static final String PUPILO_FALLBACK = "Pupilo de prueba";
+
     private TextView tvNombreAlumno;
     private TextInputEditText etNombre, etSeries, etReps, etPeso;
     private Spinner spinnerMusculo, spinnerCategoria;
@@ -55,36 +58,10 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer_assign_workout);
 
-        try {
-            realm = Realm.getDefaultInstance();
-        } catch (Throwable t) {
-            Toast.makeText(this, "Realm no disponible en este arranque", Toast.LENGTH_SHORT).show();
-        }
-
-        //Recuperamos el nombre del pupilo seleccionado en el dashboard previo
-        nombreAlumno = getIntent().getStringExtra("nombre_pupilo");
-        if (TextUtils.isEmpty(nombreAlumno)) {
-            // Permite pruebas directas de esta pantalla sin depender de otra Activity.
-            nombreAlumno = "Pupilo de prueba";
-        }
-
-        //Vinculacion de objetos de java con los IDs del layout XML
-        tvNombreAlumno = findViewById(R.id.tvNombreAlumno);
-        etNombre = findViewById(R.id.etNombreEj);
-        etSeries = findViewById(R.id.etSeries);
-        etReps = findViewById(R.id.etReps);
-        etPeso = findViewById(R.id.etPesoEj);
-        spinnerMusculo = findViewById(R.id.spinnerGrupoMuscular);
-        spinnerCategoria = findViewById(R.id.spinnerCategoria);
-        cbGuardarPlantilla = findViewById(R.id.cbGuardarPlantilla);
-        btnAbrirBanco = findViewById(R.id.btnAbrirBanco);
-        btnAsignar = findViewById(R.id.btnAsignar);
-
-
-        //Mostramos el nombre del alumno para confirmar a quien enviamos la rutina
-        if (!TextUtils.isEmpty(nombreAlumno)) {
-            tvNombreAlumno.setText("Asignando la rutina a: " + nombreAlumno);
-        }
+        initRealm();
+        initViews();
+        initAlumno();
+        updateStudentHeader();
 
         //Configuracion del Spinner (Desplegable) con grupos musculares
         setupSpinners();
@@ -96,6 +73,48 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
         //Listener del boton para ejecutar la logica de guardado
         btnAsignar.setOnClickListener(v -> guardarEjercicio());
+
+        if (realm == null) {
+            btnAbrirBanco.setEnabled(false);
+            btnAsignar.setEnabled(false);
+        }
+    }
+
+    private void initRealm() {
+        try {
+            realm = Realm.getDefaultInstance();
+        } catch (Throwable t) {
+            Toast.makeText(this, "Realm no disponible en este arranque", Toast.LENGTH_SHORT).show();
+            Log.e("TrainerAssign", "No se pudo iniciar Realm", t);
+        }
+    }
+
+    private void initViews() {
+        tvNombreAlumno = findViewById(R.id.tvNombreAlumno);
+        etNombre = findViewById(R.id.etNombreEj);
+        etSeries = findViewById(R.id.etSeries);
+        etReps = findViewById(R.id.etReps);
+        etPeso = findViewById(R.id.etPesoEj);
+        spinnerMusculo = findViewById(R.id.spinnerGrupoMuscular);
+        spinnerCategoria = findViewById(R.id.spinnerCategoria);
+        cbGuardarPlantilla = findViewById(R.id.cbGuardarPlantilla);
+        btnAbrirBanco = findViewById(R.id.btnAbrirBanco);
+        btnAsignar = findViewById(R.id.btnAsignar);
+    }
+
+    private void initAlumno() {
+        nombreAlumno = getIntent() != null ? getIntent().getStringExtra(EXTRA_NOMBRE_PUPILO) : null;
+        if (TextUtils.isEmpty(nombreAlumno)) {
+            // Permite pruebas directas de esta pantalla sin depender de otra Activity.
+            nombreAlumno = PUPILO_FALLBACK;
+        }
+    }
+
+    private void updateStudentHeader() {
+        if (tvNombreAlumno == null || TextUtils.isEmpty(nombreAlumno)) {
+            return;
+        }
+        tvNombreAlumno.setText(getString(R.string.trainer_assign_student_label_dynamic, nombreAlumno));
     }
 
     private void setupSpinners() {
@@ -154,10 +173,10 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
     private void guardarEjercicio() {
         //Validamos que los campos obligatorios tengan contenido
-        String nombre = etNombre.getText() != null ? etNombre.getText().toString().trim() : "";
-        String peso = etPeso.getText() != null ? etPeso.getText().toString().trim() : "";
-        String series = etSeries.getText() != null ? etSeries.getText().toString().trim() : "";
-        String reps = etReps.getText() != null ? etReps.getText().toString().trim() : "";
+        String nombre = getSafeText(etNombre);
+        String peso = getSafeText(etPeso);
+        String series = getSafeText(etSeries);
+        String reps = getSafeText(etReps);
 
         if (nombre.isEmpty() || peso.isEmpty() || series.isEmpty() || reps.isEmpty()) {
             Toast.makeText(this, "Porfavor. rellena todos los campos", Toast.LENGTH_SHORT).show();
@@ -182,13 +201,15 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
 
             String grupoMuscular = grupoSeleccionado.toString();
             String categoria = categoriaSeleccionada.toString();
+            int seriesInt = Integer.parseInt(series);
+            int repsInt = Integer.parseInt(reps);
 
             realm.executeTransaction(r -> {
                 Ejercicios nuevoEj = r.createObject(Ejercicios.class, new ObjectId());
                 nuevoEj.setNombre(nombre);
                 nuevoEj.setPeso(peso);
-                nuevoEj.setSeries(Integer.parseInt(series));
-                nuevoEj.setRepeticiones(Integer.parseInt(reps));
+                nuevoEj.setSeries(seriesInt);
+                nuevoEj.setRepeticiones(repsInt);
                 nuevoEj.setCategoria(categoria);
                 nuevoEj.setGrupoMuscular(grupoMuscular);
                 nuevoEj.setPlantilla(false);
@@ -207,8 +228,8 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
                     Ejercicios plantilla = r.createObject(Ejercicios.class, new ObjectId());
                     plantilla.setNombre(nombre);
                     plantilla.setPeso(peso);
-                    plantilla.setSeries(Integer.parseInt(series));
-                    plantilla.setRepeticiones(Integer.parseInt(reps));
+                    plantilla.setSeries(seriesInt);
+                    plantilla.setRepeticiones(repsInt);
                     plantilla.setCategoria(categoria);
                     plantilla.setGrupoMuscular(grupoMuscular);
                     plantilla.setDescripcion("Plantilla del entrenador");
@@ -227,8 +248,8 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
             java.util.Map<String, Object> ejercicioNube = new java.util.HashMap<>();
             ejercicioNube.put("nombre",nombre);
             ejercicioNube.put("peso", peso);
-            ejercicioNube.put("series", Integer.parseInt(series));
-            ejercicioNube.put("repeticiones", Integer.parseInt(reps));
+            ejercicioNube.put("series", seriesInt);
+            ejercicioNube.put("repeticiones", repsInt);
             ejercicioNube.put("nombrePupilo", nombreAlumno);
             ejercicioNube.put("completado", false);
             ejercicioNube.put("descripcion", grupoMuscular);
@@ -255,6 +276,11 @@ public class TrainerAssignWorkoutActivity extends AppCompatActivity {
             Toast.makeText(this, "No se pudo guardar el ejercicio. Reintenta.", Toast.LENGTH_LONG).show();
         }
     }
+
+    private String getSafeText(TextInputEditText input) {
+        return input != null && input.getText() != null ? input.getText().toString().trim() : "";
+    }
+
         @Override
         protected void onDestroy () {
             super.onDestroy();
