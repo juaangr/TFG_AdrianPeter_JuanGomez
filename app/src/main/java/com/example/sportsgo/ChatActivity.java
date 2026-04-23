@@ -110,7 +110,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void escucharMensajes(){
         //Escuchamos los nuevos mensajes en la sala compartida de Firebase
-        FirebaseDatabase.getInstance().getReference("chats").child(chatID).addChildEventListener(new ChildEventListener() {
+        FirebaseDataabase.getInstance().getReference("chats").child(chatID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Message m = snapshot.getValue(Message.class);
