@@ -1,7 +1,30 @@
 <resources>
     <string name="app_name">SportsGO</string>
+
+    <!-- Trainer Assignment Strings -->
+    <string name="trainer_assign_title">Asignacion de rutina</string>
+    <string name="trainer_assign_header">SportsGO Trainer</string>
+    <string name="trainer_assign_student_label">Asignando rutina a: Alumno</string>
+    <string name="trainer_assign_group_label">Grupo Muscular</string>
+    <string name="trainer_assign_open_bank">Abrir banco de ejercicios</string>
+    <string name="trainer_assign_category_label">Categoria</string>
+    <string name="trainer_assign_exercise_hint">Ejercicio (Ej: Press Banca)</string>
+    <string name="trainer_assign_exercise_placeholder">Ejemplo: Sentadilla con barra</string>
+    <string name="trainer_assign_weight_hint">Peso objetivo (kg)</string>
+    <string name="trainer_assign_weight_placeholder">Ejemplo: 40 kg</string>
+    <string name="trainer_assign_series_hint">Series</string>
+    <string name="trainer_assign_series_placeholder">Ej: 4</string>
+    <string name="common_multiply">x</string>
+    <string name="trainer_assign_reps_hint">Reps</string>
+    <string name="trainer_assign_reps_placeholder">Ej: 12</string>
+    <string name="trainer_assign_save_template">Guardar tambien como plantilla</string>
+    <string name="trainer_assign_send">ENVIAR ALUMNO</string>
+
+    <!-- Exercise Bank Strings -->
     <string name="prompt_grupo_muscular">Selecciona el grupo muscular</string>
     <string name="prompt_categoria">Selecciona la categoria</string>
+
+    <!-- Exercise Bank Strings -->
     <string name="exercise_bank_title">Banco de ejercicios</string>
     <string name="exercise_bank_subtitle">Crea, filtra y asigna plantillas al instante</string>
     <string name="exercise_bank_search_hint">Buscar por nombre</string>
