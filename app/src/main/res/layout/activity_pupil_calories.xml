@@ -77,12 +77,13 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.SportsGO.KineticInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Altura (cm)"
-                    android:textColorHint="@color/common_google_signin_btn_text_light"
-                    app:boxBackgroundColor="@color/kinetic_card_alt"
+                    android:textColorHint="#A6A6A6"
+                    app:hintTextColor="@color/kinetic_primary"
+                    app:boxBackgroundColor="#1E1E1E"
                     app:boxStrokeColor="@color/kinetic_primary"
                     app:boxStrokeWidth="1dp"
                     app:boxCornerRadiusBottomEnd="12dp"
@@ -90,23 +91,25 @@
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusTopStart="12dp"
                     app:startIconDrawable="@android:drawable/ic_menu_sort_by_size"
-                    app:startIconTint="@color/kinetic_text_gray">
+                    app:startIconTint="#A6A6A6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAltura"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:textColor="@color/kinetic_on_surface" />
+                        android:textColor="#FFFFFF" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.SportsGO.KineticInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Peso (kg)"
-                    app:boxBackgroundColor="@color/kinetic_card_alt"
+                    android:textColorHint="#A6A6A6"
+                    app:hintTextColor="@color/kinetic_primary"
+                    app:boxBackgroundColor="#1E1E1E"
                     app:boxStrokeColor="@color/kinetic_primary"
                     app:boxStrokeWidth="1dp"
                     app:boxCornerRadiusBottomEnd="12dp"
@@ -114,23 +117,25 @@
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusTopStart="12dp"
                     app:startIconDrawable="@android:drawable/ic_menu_set_as"
-                    app:startIconTint="@color/kinetic_text_gray">
+                    app:startIconTint="#A6A6A6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPeso"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:textColor="@color/kinetic_on_surface" />
+                        android:textColor="#FFFFFF" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.SportsGO.KineticInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Edad (años)"
-                    app:boxBackgroundColor="@color/kinetic_card_alt"
+                    android:textColorHint="#A6A6A6"
+                    app:hintTextColor="@color/kinetic_primary"
+                    app:boxBackgroundColor="#1E1E1E"
                     app:boxStrokeColor="@color/kinetic_primary"
                     app:boxStrokeWidth="1dp"
                     app:boxCornerRadiusBottomEnd="12dp"
@@ -138,23 +143,25 @@
                     app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusTopStart="12dp"
                     app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                    app:startIconTint="@color/kinetic_text_gray">
+                    app:startIconTint="#A6A6A6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEdad"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:textColor="@color/kinetic_on_surface" />
+                        android:textColor="#FFFFFF" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.SportsGO.KineticInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Objetivo Personal"
-                    app:boxBackgroundColor="@color/kinetic_card_alt"
+                    android:textColorHint="#A6A6A6"
+                    app:hintTextColor="@color/kinetic_primary"
+                    app:boxBackgroundColor="#1E1E1E"
                     app:boxStrokeColor="@color/kinetic_primary"
                     app:boxStrokeWidth="1dp"
                     app:boxCornerRadiusBottomEnd="12dp"
@@ -168,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="none"
                         android:padding="16dp"
-                        android:textColor="@color/kinetic_on_surface" />
+                        android:textColor="#FFFFFF" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -194,7 +201,7 @@
                         android:layout_weight="1"
                         android:buttonTint="@color/kinetic_primary"
                         android:text="Hombre"
-                        android:textColor="@color/kinetic_text_gray" />
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/rbMujer"
@@ -203,7 +210,7 @@
                         android:layout_weight="1"
                         android:buttonTint="@color/kinetic_primary"
                         android:text="Mujer"
-                        android:textColor="@color/kinetic_text_gray" />
+                        android:textColor="#FFFFFF" />
                 </RadioGroup>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -251,7 +258,7 @@
                         android:layout_marginBottom="8dp"
                         android:buttonTint="@color/kinetic_primary"
                         android:text="Sedentario (Oficina/Reposo)"
-                        android:textColor="@color/kinetic_text_gray" />
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/rbLigero"
@@ -260,7 +267,7 @@
                         android:layout_marginBottom="8dp"
                         android:buttonTint="@color/kinetic_primary"
                         android:text="Ligero (1-3 días/sem)"
-                        android:textColor="@color/kinetic_text_gray" />
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/rbModerado"
@@ -269,7 +276,7 @@
                         android:layout_marginBottom="8dp"
                         android:buttonTint="@color/kinetic_primary"
                         android:text="Moderado (3-5 días/sem)"
-                        android:textColor="@color/kinetic_text_gray" />
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/rbFuerte"
@@ -277,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/kinetic_primary"
                         android:text="Fuerte (6-7 días/sem)"
-                        android:textColor="@color/kinetic_text_gray" />
+                        android:textColor="#FFFFFF" />
                 </RadioGroup>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
