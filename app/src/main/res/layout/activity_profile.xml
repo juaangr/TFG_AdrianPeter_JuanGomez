@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Cambiar Foto"
             android:textColor="#FF8C00"
+            android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/ivPerfil"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -72,6 +73,7 @@
                 <!-- Switch de Privacidad -->
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchPrivacidad"
+                    android:background="@drawable/border_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -85,7 +87,7 @@
                     android:text="Si activas esto, tu entrenador podrá ver tu peso, altura y progreso calórico."
                     android:textColor="#A0AEC0"
                     android:textSize="12sp"
-                    android:layout_marginTop="4dp"/>
+                    android:layout_marginTop="8dp"/>
 
                 <Button
                     android:id="@+id/btnGuardarPerfil"
@@ -103,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="12dp"
+                    android:textSize="18sp"
                     android:text="CERRAR SESIÓN"
                     android:textColor="#FC8181"
                     app:strokeColor="#FC8181"
