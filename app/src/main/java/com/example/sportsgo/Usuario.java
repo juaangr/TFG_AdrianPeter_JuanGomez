@@ -29,7 +29,6 @@ public class Usuario extends RealmObject {
         }
     }
 
-
     //Constructor para crear los usuarios
     public Usuario(String nombre, String rol) {
         this.id = UUID.randomUUID().toString();
