@@ -8,6 +8,8 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sportsgo.logins.UserLoginActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler(Looper.getMainLooper());
