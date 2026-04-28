@@ -22,14 +22,18 @@
             tools:ignore="CustomSplashScreen" />
 
         <activity
-            android:name=".TrainerAssignWorkoutActivity"
-            android:exported="true"
-            android:hardwareAccelerated="false">
+            android:name=".main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".TrainerAssignWorkoutActivity"
+            android:exported="false"
+            android:hardwareAccelerated="false" />
 
 
         <!-- 2. AÑADIDO EXPORTED=FALSE POR SEGURIDAD -->
@@ -43,6 +47,10 @@
 
         <activity
             android:name=".TrainerDashboardActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".TrainerStatsActivity"
             android:exported="false" />
 
         <activity
