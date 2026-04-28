@@ -1,6 +1,7 @@
 package com.example.sportsgo.registers;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sportsgo.DashboardActivity;
+import com.example.sportsgo.TrainerDashboardActivity;
 import com.example.sportsgo.R;
 import com.example.sportsgo.firebase.FirebaseManager;
 
@@ -48,8 +49,14 @@ public class TrainerRegisterActivity extends AppCompatActivity {
                 nombre, email, password,
                 unused -> {
                     Toast.makeText(this, "Entrenador registrado con éxito", Toast.LENGTH_SHORT).show();
-                    // va al dashboard
-                    Intent intent = new Intent(TrainerRegisterActivity.this, DashboardActivity.class);
+                    SharedPreferences.Editor editor = getSharedPreferences("PrefeSportsGO", MODE_PRIVATE).edit();
+                    editor.putBoolean("logueado", true);
+                    editor.putString("user_rol", "Trainer");
+                    editor.putString("user_email", email);
+                    editor.putString("user_nombre", nombre);
+                    editor.apply();
+                    // va al dashboard de entrenador
+                    Intent intent = new Intent(TrainerRegisterActivity.this, TrainerDashboardActivity.class);
                     startActivity(intent);
                     finish();
                 },
