@@ -1,5 +1,6 @@
 package com.example.sportsgo;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,10 @@ public class TrainerDashboardActivity extends AppCompatActivity {
     private Realm realm;
     private ListView lvPupilos;
     private DatabaseReference mDatabase;
+    private Button btnBanco;
+    private Button btnAsignarRutina;
+    private Button btnEstadisticas;
+    private Button btnChatTrainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +62,29 @@ public class TrainerDashboardActivity extends AppCompatActivity {
         });
 
         lvPupilos = findViewById(R.id.lvPupilos);
-        Button btnBanco = findViewById(R.id.btnBancoEjercicios);
+        btnBanco = findViewById(R.id.btnBancoEjercicios);
+        btnAsignarRutina = findViewById(R.id.btnAsignarRutina);
+        btnEstadisticas = findViewById(R.id.btnEstadisticas);
+        btnChatTrainer = findViewById(R.id.btnChatTrainer);
         cargarListaPupilos();
 
         btnBanco.setOnClickListener(v -> {
             Intent intent = new Intent(this, ExerciseBankActivity.class);
             startActivity(intent);
+        });
+
+        btnAsignarRutina.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TrainerAssignWorkoutActivity.class);
+            startActivity(intent);
+        });
+
+        btnEstadisticas.setOnClickListener(v -> {
+            Intent intent = new Intent(this, com.example.sportsgo.TrainerStatsActivity.class);
+            startActivity(intent);
+        });
+
+        btnChatTrainer.setOnClickListener(v -> {
+            mostrarSelectorPupilos();
         });
 
         lvPupilos.setOnItemClickListener((parent, view, position, id) -> {
@@ -104,6 +126,41 @@ public class TrainerDashboardActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, nombres);
         lvPupilos.setAdapter(adapter);
+    }
+
+    private void mostrarSelectorPupilos() {
+        RealmResults<Usuario> pupilos = realm.where(Usuario.class)
+                .equalTo("rol", "Pupilo")
+                .findAll();
+
+        if (pupilos == null || pupilos.isEmpty()) {
+            Toast.makeText(this, "No hay pupilos para chatear", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<String> nombres = new ArrayList<>();
+        for (Usuario p : pupilos) {
+            if (p != null && p.getNombre() != null && !p.getNombre().isEmpty()) {
+                nombres.add(p.getNombre());
+            }
+        }
+
+        if (nombres.isEmpty()) {
+            Toast.makeText(this, "No hay pupilos con nombre", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] opciones = nombres.toArray(new String[0]);
+        new AlertDialog.Builder(this)
+                .setTitle("Selecciona un pupilo")
+                .setItems(opciones, (dialog, which) -> {
+                    String seleccionado = opciones[which];
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    intent.putExtra("nombre_otro", seleccionado);
+                    startActivity(intent);
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
     @Override
     protected void onDestroy() {
