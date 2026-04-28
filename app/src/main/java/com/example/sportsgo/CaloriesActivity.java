@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.example.sportsgo.firebase.FirebaseManager;
+import com.google.firebase.auth.FirebaseUser;
 
 import io.realm.Realm;
 
@@ -127,8 +129,21 @@ public class CaloriesActivity extends AppCompatActivity {
                 user.setAltura(Double.parseDouble(etAltura.getText().toString()));
             }
         });
-        Intent intent = new Intent(this, TrainerDashboardActivity.class);
+
+        FirebaseUser firebaseUser = FirebaseManager.getInstance().getUsuarioActual();
+        if (firebaseUser != null) {
+            FirebaseManager.getInstance().updateAtletaCalorias(
+                    firebaseUser.getUid(),
+                    caloriasFinales,
+                    permisoCompleto,
+                    unused -> { },
+                    e -> { }
+            );
+        }
+
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     //El metodo del calculo total de calorias del pupilo
