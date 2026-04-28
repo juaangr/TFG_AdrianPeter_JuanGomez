@@ -4,14 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_graffiti_neon"
+    android:background="@color/kinetic_surface"
     tools:context=".TrainerDashboardActivity">
+
+    <ImageView
+        android:id="@+id/ivTrainerBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.12"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gym_foto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarTrainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/kinetic_card"
+        android:background="@color/kinetic_surface"
+        app:backgroundTint="@color/kinetic_surface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,12 +32,12 @@
         app:titleTextColor="@color/kinetic_on_surface" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardHeader"
+        android:id="@+id/cardHero"
         style="@style/Widget.SportsGO.KineticCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,9 +50,10 @@
             android:padding="18dp">
 
             <TextView
+                android:id="@+id/tvHeroTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gestiona tus pupilos"
+                android:text="Modo entrenador"
                 android:textColor="@color/kinetic_primary"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -48,88 +62,217 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Accede rapido al banco y asigna rutinas en segundos"
+                android:text="Gestiona pupilos, asigna rutinas y revisa progreso en tiempo real"
                 android:textColor="@color/kinetic_text_gray"
                 android:textSize="14sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <LinearLayout
-        android:id="@+id/trainerActions"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/actionsGrid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
-        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardHeader">
+        app:layout_constraintTop_toBottomOf="@id/cardHero">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAsignar"
+            style="@style/Widget.SportsGO.KineticCard"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineActions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Asignar"
+                    android:textColor="@color/kinetic_text_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnAsignarRutina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Rutinas"
+                    android:textColor="@color/kinetic_on_surface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Crear plan semanal"
+                    android:textColor="@color/kinetic_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBanco"
+            style="@style/Widget.SportsGO.KineticCard"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineActions"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Biblioteca"
+                    android:textColor="@color/kinetic_text_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnBancoEjercicios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Banco"
+                    android:textColor="@color/kinetic_on_surface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Plantillas y ejercicios"
+                    android:textColor="@color/kinetic_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardEstadisticas"
+            style="@style/Widget.SportsGO.KineticCard"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineActions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardAsignar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Datos"
+                    android:textColor="@color/kinetic_text_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnEstadisticas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Estadisticas"
+                    android:textColor="@color/kinetic_on_surface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Progreso global"
+                    android:textColor="@color/kinetic_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChat"
+            style="@style/Widget.SportsGO.KineticCard"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineActions"
+            app:layout_constraintTop_toBottomOf="@id/cardBanco">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mensajes"
+                    android:textColor="@color/kinetic_text_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnChatTrainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Chat"
+                    android:textColor="@color/kinetic_on_surface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Atiende a pupilos"
+                    android:textColor="@color/kinetic_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineActions"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAsignarRutina"
-                style="@style/Widget.SportsGO.KineticButtonPrimary"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:text="Asignar rutinas"
-                android:textAllCaps="false" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBancoEjercicios"
-                style="@style/Widget.SportsGO.KineticButtonPrimary"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:text="Banco"
-                android:textAllCaps="false" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEstadisticas"
-                style="@style/Widget.SportsGO.KineticButtonPrimary"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:text="Estadisticas"
-                android:textAllCaps="false" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnChatTrainer"
-                style="@style/Widget.SportsGO.KineticButtonPrimary"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:text="Chat"
-                android:textAllCaps="false" />
-        </LinearLayout>
-    </LinearLayout>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvTituloLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Tus atletas"
         android:textColor="@color/kinetic_on_surface"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/trainerActions" />
+        app:layout_constraintTop_toBottomOf="@id/actionsGrid" />
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.SportsGO.KineticCard"
