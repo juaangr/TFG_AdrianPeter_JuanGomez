@@ -68,6 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:background="@drawable/border_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -143,7 +144,7 @@
                 android:letterSpacing="0.3"
                 android:text="TU PRÓXIMO NIVEL ESTÁ AQUÍ"
                 android:textColor="@color/kinetic_text_gray"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <!-- CONTENEDOR DE BOTONES PRINCIPALES -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -199,14 +200,14 @@
                                 android:text=" ENTRENAR "
                                 android:fontFamily="sans-serif-black"
                                 android:textColor="#000000"
-                                android:textSize="10sp" />
+                                android:textSize="15sp" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="Mis\nRutinas"
                                 android:textColor="#FFFFFF"
-                                android:textSize="24sp"
+                                android:textSize="26sp"
                                 android:fontFamily="sans-serif-black" />
                         </LinearLayout>
                     </FrameLayout>
@@ -239,8 +240,8 @@
                             android:gravity="center"
                             android:orientation="vertical">
                             <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
                                 android:src="@android:drawable/stat_notify_chat"
                                 app:tint="@color/kinetic_primary" />
                             <TextView
@@ -249,7 +250,7 @@
                                 android:layout_marginTop="6dp"
                                 android:text="CHAT"
                                 android:textColor="#FFFFFF"
-                                android:textSize="13sp"
+                                android:textSize="23sp"
                                 android:fontFamily="sans-serif-black" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -271,8 +272,8 @@
                             android:gravity="center"
                             android:orientation="vertical">
                             <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
                                 android:src="@android:drawable/ic_menu_myplaces"
                                 app:tint="@color/kinetic_secondary" />
                             <TextView
@@ -281,7 +282,7 @@
                                 android:layout_marginTop="6dp"
                                 android:text="PERFIL"
                                 android:textColor="#FFFFFF"
-                                android:textSize="13sp"
+                                android:textSize="23sp"
                                 android:fontFamily="sans-serif-black" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -307,6 +308,7 @@
                 app:strokeColor="@color/kinetic_secondary"
                 app:strokeWidth="2dp">
                 <RelativeLayout
+                    android:background="@drawable/border_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="25dp"
@@ -342,6 +344,7 @@
                 app:strokeColor="#00E5FF"
                 app:strokeWidth="2dp">
                 <RelativeLayout
+                    android:background="@drawable/border_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="25dp"
@@ -377,6 +380,7 @@
                 app:strokeColor="@color/kinetic_secondary"
                 app:strokeWidth="2dp">
                 <RelativeLayout
+                    android:background="@drawable/border_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="25dp"
