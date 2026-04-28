@@ -134,4 +134,24 @@ public class FirebaseManager {
                 })
                 .addOnFailureListener(onFailure);
     }
+
+    // ── CALORIAS DEL ATLETA ───────────────────────────────────
+    public void getAtletaCalorias(String uid, OnSuccessListener<Integer> onSuccess,
+                                  OnFailureListener onFailure) {
+        db.collection(COL_USERS).document(uid).get()
+                .addOnSuccessListener(doc -> {
+                    Long calorias = doc.getLong("calorias");
+                    onSuccess.onSuccess(calorias != null ? calorias.intValue() : 0);
+                })
+                .addOnFailureListener(onFailure);
+    }
+
+    public void updateAtletaCalorias(String uid, int calorias, boolean permisoCompleto,
+                                     OnSuccessListener<Void> onSuccess,
+                                     OnFailureListener onFailure) {
+        db.collection(COL_USERS).document(uid)
+                .update("calorias", calorias, "permisoCompleto", permisoCompleto)
+                .addOnSuccessListener(onSuccess)
+                .addOnFailureListener(onFailure);
+    }
 }
