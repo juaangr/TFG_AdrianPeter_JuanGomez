@@ -66,6 +66,9 @@ public class UserLoginActivity extends AppCompatActivity {
                     public void alAceptar() {
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("user_nombre", nombre);
+                        editor.putString("user_email", email);
+                        editor.putString("user_rol", "Pupilo");
+                        editor.putBoolean("logueado", true);
                         //REVISAR USER_EDAD -->
                         editor.putInt("user_edad", passwInt);
                         editor.apply();
