@@ -320,7 +320,7 @@
                         android:text="METABOLISMO"
                         android:textColor="@color/kinetic_secondary"
                         android:fontFamily="sans-serif-black"
-                        android:textSize="11sp"
+                        android:textSize="15sp"
                         android:letterSpacing="0.1"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -328,7 +328,7 @@
                         android:layout_below="@id/tagNut"
                         android:text="Calculadora de Calorías"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp"
+                        android:textSize="26sp"
                         android:fontFamily="sans-serif-black"/>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -356,14 +356,14 @@
                         android:text="ENTRENAMIENTO HIIT"
                         android:textColor="#00E5FF"
                         android:fontFamily="sans-serif-black"
-                        android:textSize="11sp"/>
+                        android:textSize="15sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tagTab"
                         android:text="Tabata Timer"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp"
+                        android:textSize="26sp"
                         android:fontFamily="sans-serif-black"/>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -392,14 +392,14 @@
                         android:text="COMPOSICIÓN"
                         android:textColor="@color/kinetic_secondary"
                         android:fontFamily="sans-serif-black"
-                        android:textSize="11sp"/>
+                        android:textSize="15sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tagIMC"
                         android:text="Calculadora IMC"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp"
+                        android:textSize="26sp"
                         android:fontFamily="sans-serif-black"/>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
