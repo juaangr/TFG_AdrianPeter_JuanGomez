@@ -54,6 +54,70 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <LinearLayout
+        android:id="@+id/trainerActions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAsignarRutina"
+                style="@style/Widget.SportsGO.KineticButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Asignar rutinas"
+                android:textAllCaps="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBancoEjercicios"
+                style="@style/Widget.SportsGO.KineticButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="Banco"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEstadisticas"
+                style="@style/Widget.SportsGO.KineticButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Estadisticas"
+                android:textAllCaps="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChatTrainer"
+                style="@style/Widget.SportsGO.KineticButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="Chat"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvTituloLista"
         android:layout_width="wrap_content"
@@ -65,18 +129,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardHeader" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnBancoEjercicios"
-        style="@style/Widget.SportsGO.KineticButtonPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:text="Banco"
-        android:textAllCaps="false"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvTituloLista"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/trainerActions" />
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.SportsGO.KineticCard"
